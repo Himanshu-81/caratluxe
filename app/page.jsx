@@ -3,6 +3,7 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import HeroSection from "./components/home/HeroSection";
 import ShopByCategory from "./components/home/ShopByCategory";
+import AllCategoriesSection from "./components/home/AllCategoriesSection";
 import BestSellers from "./components/home/BestSellers";
 import WhyLabDiamonds from "./components/home/WhyLabDiamonds";
 import CollectionsBanner from "./components/home/CollectionsBanner";
@@ -23,8 +24,9 @@ export default function Home() {
       <main>
         <HeroSection />
         <TrustFeatures />
-        <ShopByCategory />
+        {/* <ShopByCategory /> */}
         <BestSellers />
+        <AllCategoriesSection />
         <WhyLabDiamonds />
         <CollectionsBanner />
         <ShopByShape />
