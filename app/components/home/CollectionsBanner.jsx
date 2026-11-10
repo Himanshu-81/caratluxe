@@ -32,7 +32,7 @@ const collections = [
 
 export default function CollectionsBanner() {
   return (
-    <section className="py-24 bg-[#f4f7ff] relative overflow-hidden">
+    <section className="py-16 bg-[#f4f7ff] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Signature Lines"
@@ -41,7 +41,7 @@ export default function CollectionsBanner() {
           subtitle="Explore distinct design narratives reflecting uncompromising refinement."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mt-4">
           {collections.map((col) => (
             <div
               key={col.id}

@@ -95,8 +95,8 @@ export default function ProductCard({
                 onMouseEnter={() => setActiveImgIndex(idx)}
                 onClick={() => setActiveImgIndex(idx)}
                 className={`relative w-10 h-10 sm:w-11 sm:h-11 rounded-lg overflow-hidden border-2 transition-all cursor-pointer shrink-0 ${isSelected
-                    ? "border-[#c9a84c] ring-2 ring-[#c9a84c]/20 scale-105 shadow-xs"
-                    : "border-[#e2e8f4] hover:border-[#c9a84c]/60 opacity-70 hover:opacity-100"
+                  ? "border-[#c9a84c] ring-2 ring-[#c9a84c]/20 scale-105 shadow-xs"
+                  : "border-[#e2e8f4] hover:border-[#c9a84c]/60 opacity-70 hover:opacity-100"
                   }`}
                 aria-label={`Select angle ${idx + 1}`}
               >
@@ -125,15 +125,9 @@ export default function ProductCard({
               {name}
             </h3>
           </Link>
-
-          {(carats || metal) && (
-            <p className="text-[#4a5a7a] text-[11px] mt-0.5 font-medium">
-              {[carats, metal].filter(Boolean).join(" · ")}
-            </p>
-          )}
         </div>
 
-        <div className="flex items-center gap-2 mt-3 pt-2 border-t border-gray-100">
+        <div className="flex items-center gap-2 mt-1 pt-2 border-t border-gray-100">
           <span className="text-[#031d42] font-bold text-sm sm:text-base">{price}</span>
           {originalPrice && (
             <span className="text-[#8a9ab8] text-xs line-through">{originalPrice}</span>

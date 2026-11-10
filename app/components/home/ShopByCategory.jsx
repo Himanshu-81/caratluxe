@@ -14,7 +14,7 @@ export default function ShopByCategory() {
         />
 
         {/* Bento Grid: 1 large on left, 3 on right (1 wide on top, 2 side-by-side below) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch mt-4">
           {/* Large Left Card - Rings */}
           <Link
             href="/rings"

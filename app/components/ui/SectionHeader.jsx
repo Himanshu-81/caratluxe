@@ -21,7 +21,7 @@ export default function SectionHeader({
         {titleHighlight && <span className="gold-shimmer">{titleHighlight}</span>}
       </h2>
       {subtitle && (
-        <p className={`mt-3 text-sm md:text-base leading-relaxed max-w-xl ${centered ? "mx-auto" : ""} ${dark ? "text-white/65" : "text-[#4a5a7a]"}`}>
+        <p className={`mt-2 text-sm md:text-base leading-relaxed max-w-xl ${centered ? "mx-auto" : ""} ${dark ? "text-white/65" : "text-[#4a5a7a]"}`}>
           {subtitle}
         </p>
       )}

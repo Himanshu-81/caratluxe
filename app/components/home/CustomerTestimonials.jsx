@@ -70,7 +70,7 @@ export default function CustomerTestimonials() {
         />
 
         {/* Rating Banner */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12 p-6 max-w-lg mx-auto rounded-2xl bg-white border border-[#e2e8f4] shadow-sm text-center sm:text-left">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12 p-6 max-w-lg mx-auto rounded-2xl bg-white border border-[#e2e8f4] shadow-sm text-center sm:text-left mt-4">
           <div className="text-center">
             <p className="font-serif text-5xl font-extrabold text-[#0d1f3c]">4.9</p>
             <div className="mt-1 flex justify-center">

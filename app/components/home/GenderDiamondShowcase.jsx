@@ -28,7 +28,7 @@ const genders = [
 
 export default function GenderDiamondShowcase() {
   return (
-    <section className="py-24 bg-white relative">
+    <section className="py-16 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Crafted For All"
@@ -37,7 +37,7 @@ export default function GenderDiamondShowcase() {
           subtitle="Jewellery expressing individual elegance and modern statements for everyone."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mt-4">
           {genders.map((g) => (
             <div
               key={g.id}

@@ -43,7 +43,7 @@ const occasions = [
 
 export default function ShopByOccasion() {
   return (
-    <section className="py-24 bg-[#f4f7ff]">
+    <section className="py-16 bg-[#f4f7ff]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Milestones & Moments"
@@ -52,7 +52,7 @@ export default function ShopByOccasion() {
           subtitle="Discover curated diamond pieces designed for life's most memorable moments."
         />
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 mt-3">
           {occasions.map((occ) => (
             <Link
               key={occ.id}

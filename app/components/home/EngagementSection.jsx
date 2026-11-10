@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function EngagementSection() {
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden bg-[#031d42] text-white">
+    <section className="relative py-16 md:py-32 overflow-hidden bg-[#031d42] text-white">
       {/* Background Decor */}
       <div className="absolute inset-0 pointer-events-none">
         <div
