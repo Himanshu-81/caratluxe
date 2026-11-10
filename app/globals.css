@@ -1,26 +1,169 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f4f7ff;
+  --bg-card: #ffffff;
+  --bg-dark: #0d1f3c;
+  --navy: #0d1f3c;
+  --navy-mid: #1a2e5a;
+  --navy-light: #2a4080;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-dark: #9a7a2e;
+  --gold-pale: #fdf6e3;
+  --text-primary: #0d1535;
+  --text-secondary: #4a5a7a;
+  --text-muted: #8a9ab8;
+  --border-light: #e2e8f4;
+  --border-gold: #c9a84c;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-navy: var(--navy);
+  --color-navy-mid: var(--navy-mid);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --font-sans: var(--font-josefin), "Josefin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-josefin), "Josefin Sans", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #0d1535;
+  font-family: var(--font-josefin), "Josefin Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── Heading typography with Josefin Sans ── */
+h1, h2, h3, h4, h5, h6, .font-serif, .font-sans {
+  font-family: var(--font-josefin), "Josefin Sans", sans-serif !important;
+}
+
+/* ── Gold gradient text ── */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #c9a84c 0%, #e8c97a 50%, #c9a84c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Gold shimmer animation ── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+.gold-shimmer {
+  background: linear-gradient(90deg, #9a7a2e 0%, #c9a84c 25%, #e8c97a 50%, #c9a84c 75%, #9a7a2e 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f4f7ff; }
+::-webkit-scrollbar-thumb { background: #c9a84c; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9a7a2e; }
+
+/* ── Gold divider ── */
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #c9a84c 30%, #c9a84c 70%, transparent);
+}
+
+/* ── Card hover ── */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(13, 31, 60, 0.12), 0 0 0 1px rgba(201, 168, 76, 0.2);
+}
+
+/* ── Gold button ── */
+.btn-gold {
+  background: linear-gradient(135deg, #9a7a2e 0%, #c9a84c 50%, #9a7a2e 100%);
+  background-size: 200% auto;
+  transition: background-position 0.4s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+.btn-gold:hover {
+  background-position: right center;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(201, 168, 76, 0.45);
+}
+
+/* ── Navy button ── */
+.btn-navy {
+  background: linear-gradient(135deg, #0d1f3c 0%, #1a2e5a 100%);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+.btn-navy:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(13, 31, 60, 0.35);
+}
+
+/* ── Announcement ticker ── */
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-track { animation: ticker 28s linear infinite; }
+
+/* ── Fade in up ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeInUp { animation: fadeInUp 0.7s ease forwards; }
+
+/* ── Modal Animations ── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fadeIn { animation: fadeIn 0.25s ease-out forwards; }
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-scaleUp { animation: scaleUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* ── Section alternating BGs ── */
+.bg-section-white { background: #ffffff; }
+.bg-section-blue  { background: #f4f7ff; }
+.bg-section-dark  { background: #0d1f3c; }
+
+/* ── Swiper Pagination Customization ── */
+.hero-swiper .swiper-pagination-bullets {
+  bottom: 24px !important;
+}
+
+.hero-swiper .custom-bullet {
+  width: 32px !important;
+  height: 3px !important;
+  border-radius: 2px !important;
+  background: rgba(255, 255, 255, 0.4) !important;
+  opacity: 1 !important;
+  transition: all 0.3s ease !important;
+  display: inline-block !important;
+  margin: 0 5px !important;
+}
+
+.hero-swiper .swiper-pagination-bullet-active.custom-bullet {
+  background: #c9a84c !important;
+  width: 48px !important;
 }
