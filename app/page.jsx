@@ -24,7 +24,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <TrustFeatures />
-        {/* <ShopByCategory /> */}
+        <ShopByCategory />
         <BestSellers />
         <AllCategoriesSection />
         <WhyLabDiamonds />

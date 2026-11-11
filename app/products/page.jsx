@@ -5,9 +5,8 @@ import Link from "next/link";
 import AnnouncementBar from "../components/layout/AnnouncementBar";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import ProductCard from "../components/ui/ProductCard";
 import {
-  IoHeartOutline,
-  IoHeart,
   IoChevronDown,
   IoChevronUp,
   IoFilterOutline,
@@ -15,13 +14,8 @@ import {
   IoGridOutline,
   IoStar,
   IoCheckmarkCircle,
-  IoSparklesOutline,
-  IoShieldCheckmarkOutline,
-  IoAirplaneOutline,
-  IoArrowForward,
 } from "react-icons/io5";
 
-/* ─── Mock Product Data matching the reference image ─── */
 const productsData = [
   {
     id: "celestial-solitaire-ring",
@@ -32,11 +26,11 @@ const productsData = [
     metalKey: "yellow-gold",
     price: 59360,
     originalPrice: 74200,
-    discount: "20% OFF",
+    discount: "20% Off",
     carat: "1.20 CT",
     caratRange: "1.00-1.49",
     clarity: "VVS1 · E Color",
-    badge: "BESTSELLER",
+    badge: "Bestseller",
     badgeColor: "bg-[#c9a84c] text-[#0d1f3c]",
     readyToShip: true,
     rating: 4.9,
@@ -44,6 +38,8 @@ const productsData = [
     images: [
       "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
       "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
     ],
   },
   {
@@ -55,11 +51,11 @@ const productsData = [
     metalKey: "rose-gold",
     price: 68400,
     originalPrice: 85500,
-    discount: "20% OFF",
+    discount: "20% Off",
     carat: "1.50 CT",
     caratRange: "1.50-1.99",
     clarity: "VS1 · F Color",
-    badge: "READY TO SHIP",
+    badge: "Ready to Ship",
     badgeColor: "bg-[#0d1f3c] text-white",
     readyToShip: true,
     rating: 5.0,
@@ -67,6 +63,8 @@ const productsData = [
     images: [
       "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
       "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=800&auto=format&fit=crop&q=80",
     ],
   },
   {
@@ -78,11 +76,11 @@ const productsData = [
     metalKey: "white-gold",
     price: 85200,
     originalPrice: 106500,
-    discount: "20% OFF",
+    discount: "20% Off",
     carat: "1.75 CT",
     caratRange: "1.50-1.99",
     clarity: "VVS2 · D Color",
-    badge: "NEW ARRIVAL",
+    badge: "New Arrival",
     badgeColor: "bg-[#2a4080] text-white",
     readyToShip: false,
     rating: 4.8,
@@ -90,6 +88,8 @@ const productsData = [
     images: [
       "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
       "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
     ],
   },
   {
@@ -101,11 +101,11 @@ const productsData = [
     metalKey: "platinum",
     price: 92450,
     originalPrice: 115500,
-    discount: "20% OFF",
+    discount: "20% Off",
     carat: "2.10 CT Total",
     caratRange: "2.00+",
     clarity: "VVS1 · E Color",
-    badge: "PREMIUM",
+    badge: "Signature",
     badgeColor: "bg-[#c9a84c] text-[#0d1f3c]",
     readyToShip: true,
     rating: 4.9,
@@ -113,6 +113,8 @@ const productsData = [
     images: [
       "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
       "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80",
     ],
   },
   {
@@ -124,11 +126,11 @@ const productsData = [
     metalKey: "yellow-gold",
     price: 42500,
     originalPrice: 53100,
-    discount: "20% OFF",
+    discount: "20% Off",
     carat: "0.85 CT",
     caratRange: "0.50-0.99",
     clarity: "VS1 · F Color",
-    badge: "READY TO SHIP",
+    badge: "Ready to Ship",
     badgeColor: "bg-[#0d1f3c] text-white",
     readyToShip: true,
     rating: 4.7,
@@ -136,6 +138,8 @@ const productsData = [
     images: [
       "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=800&auto=format&fit=crop&q=80",
       "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
     ],
   },
   {
@@ -147,11 +151,11 @@ const productsData = [
     metalKey: "white-gold",
     price: 76800,
     originalPrice: 96000,
-    discount: "20% OFF",
+    discount: "20% Off",
     carat: "1.40 CT",
     caratRange: "1.00-1.49",
     clarity: "VVS2 · E Color",
-    badge: "BESTSELLER",
+    badge: "Bestseller",
     badgeColor: "bg-[#c9a84c] text-[#0d1f3c]",
     readyToShip: false,
     rating: 4.9,
@@ -159,6 +163,8 @@ const productsData = [
     images: [
       "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
       "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
     ],
   },
   {
@@ -170,11 +176,11 @@ const productsData = [
     metalKey: "platinum",
     price: 88900,
     originalPrice: 111000,
-    discount: "20% OFF",
+    discount: "20% Off",
     carat: "1.80 CT",
     caratRange: "1.50-1.99",
     clarity: "VVS1 · D Color",
-    badge: "HOT PICK",
+    badge: "Trending",
     badgeColor: "bg-[#9a2e2e] text-white",
     readyToShip: true,
     rating: 5.0,
@@ -182,6 +188,8 @@ const productsData = [
     images: [
       "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80",
       "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
     ],
   },
   {
@@ -193,11 +201,11 @@ const productsData = [
     metalKey: "rose-gold",
     price: 54200,
     originalPrice: 67750,
-    discount: "20% OFF",
+    discount: "20% Off",
     carat: "1.10 CT Total",
     caratRange: "1.00-1.49",
     clarity: "VS1 · F Color",
-    badge: "READY TO SHIP",
+    badge: "Ready to Ship",
     badgeColor: "bg-[#0d1f3c] text-white",
     readyToShip: true,
     rating: 4.9,
@@ -205,6 +213,8 @@ const productsData = [
     images: [
       "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=800&auto=format&fit=crop&q=80",
       "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
     ],
   },
   {
@@ -216,11 +226,11 @@ const productsData = [
     metalKey: "yellow-gold",
     price: 71500,
     originalPrice: 89375,
-    discount: "20% OFF",
+    discount: "20% Off",
     carat: "1.35 CT",
     caratRange: "1.00-1.49",
     clarity: "VVS2 · E Color",
-    badge: "NEW",
+    badge: "New",
     badgeColor: "bg-[#2a4080] text-white",
     readyToShip: false,
     rating: 4.8,
@@ -228,6 +238,8 @@ const productsData = [
     images: [
       "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
       "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
     ],
   },
   {
@@ -239,11 +251,11 @@ const productsData = [
     metalKey: "white-gold",
     price: 83600,
     originalPrice: 104500,
-    discount: "20% OFF",
+    discount: "20% Off",
     carat: "1.60 CT",
     caratRange: "1.50-1.99",
     clarity: "VVS1 · E Color",
-    badge: "SPECIAL EDITION",
+    badge: "Special Edition",
     badgeColor: "bg-[#c9a84c] text-[#0d1f3c]",
     readyToShip: true,
     rating: 5.0,
@@ -251,6 +263,8 @@ const productsData = [
     images: [
       "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
       "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
     ],
   },
   {
@@ -262,11 +276,11 @@ const productsData = [
     metalKey: "platinum",
     price: 66800,
     originalPrice: 83500,
-    discount: "20% OFF",
+    discount: "20% Off",
     carat: "0.60 CT",
     caratRange: "0.50-0.99",
     clarity: "VS1 · F Color",
-    badge: "READY TO SHIP",
+    badge: "Ready to Ship",
     badgeColor: "bg-[#0d1f3c] text-white",
     readyToShip: true,
     rating: 4.9,
@@ -274,6 +288,8 @@ const productsData = [
     images: [
       "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
       "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
     ],
   },
   {
@@ -285,11 +301,11 @@ const productsData = [
     metalKey: "yellow-gold",
     price: 94500,
     originalPrice: 118125,
-    discount: "20% OFF",
+    discount: "20% Off",
     carat: "2.05 CT",
     caratRange: "2.00+",
     clarity: "VVS1 · D Color",
-    badge: "BESTSELLER",
+    badge: "Bestseller",
     badgeColor: "bg-[#c9a84c] text-[#0d1f3c]",
     readyToShip: true,
     rating: 4.9,
@@ -297,6 +313,8 @@ const productsData = [
     images: [
       "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
       "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80",
     ],
   },
 ];
@@ -377,7 +395,6 @@ export default function ProductsPage() {
   const [readyToShipOnly, setReadyToShipOnly] = useState(false);
   const [sortBy, setSortBy] = useState("featured");
   const [gridCols, setGridCols] = useState(3); // 3 or 4 columns
-  const [wishlist, setWishlist] = useState({});
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
   /* Accordion states for filters */
@@ -411,10 +428,6 @@ export default function ProductsPage() {
     setSelectedCarats((prev) =>
       prev.includes(key) ? prev.filter((c) => c !== key) : [...prev, key]
     );
-  };
-
-  const toggleWishlist = (id) => {
-    setWishlist((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   const resetAllFilters = () => {
@@ -507,82 +520,6 @@ export default function ProductsPage() {
           </div>
         </div>
 
-        {/* ─── Collection Hero Banner (Matches Reference) ─── */}
-        <section className="bg-gradient-to-b from-[#f5f8ff] via-[#ffffff] to-[#ffffff] pt-9 pb-7 border-b border-[#e8edf7]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-              <div className="max-w-2xl">
-                {/* Eyebrow */}
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="h-px w-5 bg-[#c9a84c]" />
-                  <span className="text-[10px] font-extrabold tracking-[0.3em] text-[#c9a84c] uppercase">
-                    Signature Atelier Collection
-                  </span>
-                </div>
-
-                {/* Title */}
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#0d1f3c] tracking-tight flex items-baseline gap-3 flex-wrap">
-                  SOLITAIRE & DIAMOND RINGS
-                  <span className="text-sm sm:text-base font-normal font-sans text-[#8a9ab8]">
-                    ({productsData.length} designs)
-                  </span>
-                </h1>
-
-                {/* Subtitle */}
-                <p className="mt-3 text-[#526382] text-xs sm:text-sm leading-relaxed max-w-xl">
-                  Handcrafted in 18K solid gold & 950 platinum with GIA & IGI
-                  certified lab-grown diamonds. Ethically created with zero
-                  carbon footprint, designed for engagements, milestones, and
-                  everyday luxury.
-                </p>
-              </div>
-
-              {/* Trust highlights right under title */}
-              <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row gap-3 text-xs text-[#0d1f3c] bg-white/80 p-3.5 rounded-xl border border-[#e2e8f4] shadow-xs">
-                <div className="flex items-center gap-2">
-                  <IoSparklesOutline className="w-4 h-4 text-[#c9a84c]" />
-                  <span className="font-semibold text-[11px] tracking-wide">
-                    100% Certified Lab Diamonds
-                  </span>
-                </div>
-                <div className="hidden lg:block w-px h-4 bg-[#e2e8f4]" />
-                <div className="flex items-center gap-2">
-                  <IoShieldCheckmarkOutline className="w-4 h-4 text-[#c9a84c]" />
-                  <span className="font-semibold text-[11px] tracking-wide">
-                    Lifetime Exchange & Warranty
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* ─── Horizontal Quick Category Pills ─── */}
-            <div className="mt-8 flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-none">
-              {subCategories.map((sub) => {
-                const isActive = selectedCategory === sub.label;
-                return (
-                  <button
-                    key={sub.label}
-                    onClick={() => setSelectedCategory(sub.label)}
-                    className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer shrink-0 ${
-                      isActive
-                        ? "bg-[#0d1f3c] text-white shadow-sm ring-2 ring-[#c9a84c]/50"
-                        : "bg-white text-[#4a5a7a] border border-[#e2e8f4] hover:border-[#c9a84c] hover:text-[#0d1f3c]"
-                    }`}
-                  >
-                    {sub.label}
-                    <span
-                      className={`ml-1.5 text-[10px] ${
-                        isActive ? "text-[#e8c97a]" : "text-[#8a9ab8]"
-                      }`}
-                    >
-                      ({sub.count})
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </section>
 
         {/* ─── Control Bar / Filter Toolbar ─── */}
         <section className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#e8edf7] py-3.5 shadow-xs">
@@ -597,7 +534,7 @@ export default function ProductsPage() {
                 Filters {activeFilterCount > 0 && `(${activeFilterCount})`}
               </button>
 
-              <span className="text-xs font-semibold text-[#526382] uppercase tracking-wider">
+              <span className="text-xs font-semibold text-[#526382] tracking-wider">
                 Showing {filteredProducts.length} of {productsData.length} Designs
               </span>
 
@@ -616,22 +553,20 @@ export default function ProductsPage() {
             <div className="flex items-center gap-4 sm:gap-6 ml-auto">
               {/* Ready to ship toggle */}
               <label className="flex items-center gap-2 cursor-pointer select-none">
-                <span className="text-xs font-bold tracking-wider uppercase text-[#0d1f3c] hidden sm:inline">
+                <span className="text-xs font-bold tracking-wider text-[#0d1f3c] hidden sm:inline">
                   Ready To Ship Only
                 </span>
-                <span className="text-xs font-bold tracking-wider uppercase text-[#0d1f3c] sm:hidden">
+                <span className="text-xs font-bold tracking-wider text-[#0d1f3c] sm:hidden">
                   Ready To Ship
                 </span>
                 <div
                   onClick={() => setReadyToShipOnly(!readyToShipOnly)}
-                  className={`relative w-10 h-5 rounded-full transition-colors ${
-                    readyToShipOnly ? "bg-[#c9a84c]" : "bg-[#cbd5e1]"
-                  }`}
+                  className={`relative w-10 h-5 rounded-full transition-colors ${readyToShipOnly ? "bg-[#c9a84c]" : "bg-[#cbd5e1]"
+                    }`}
                 >
                   <div
-                    className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform ${
-                      readyToShipOnly ? "translate-x-5" : ""
-                    }`}
+                    className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform ${readyToShipOnly ? "translate-x-5" : ""
+                      }`}
                   />
                 </div>
               </label>
@@ -641,22 +576,20 @@ export default function ProductsPage() {
                 <button
                   onClick={() => setGridCols(3)}
                   aria-label="3 columns grid"
-                  className={`p-1 rounded ${
-                    gridCols === 3
-                      ? "bg-[#0d1f3c] text-white"
-                      : "text-[#6e7d9b] hover:text-[#0d1f3c]"
-                  }`}
+                  className={`p-1 rounded ${gridCols === 3
+                    ? "bg-[#0d1f3c] text-white"
+                    : "text-[#6e7d9b] hover:text-[#0d1f3c]"
+                    }`}
                 >
                   <IoGridOutline className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setGridCols(4)}
                   aria-label="4 columns grid"
-                  className={`p-1 rounded ${
-                    gridCols === 4
-                      ? "bg-[#0d1f3c] text-white"
-                      : "text-[#6e7d9b] hover:text-[#0d1f3c]"
-                  }`}
+                  className={`p-1 rounded ${gridCols === 4
+                    ? "bg-[#0d1f3c] text-white"
+                    : "text-[#6e7d9b] hover:text-[#0d1f3c]"
+                    }`}
                 >
                   <span className="font-bold text-xs tracking-tighter px-0.5">
                     ☷
@@ -666,7 +599,7 @@ export default function ProductsPage() {
 
               {/* Sort By Dropdown */}
               <div className="flex items-center gap-1.5 text-xs">
-                <span className="text-[#8a9ab8] font-bold tracking-wider hidden sm:inline uppercase">
+                <span className="text-[#8a9ab8] font-bold tracking-wider hidden sm:inline">
                   Sort:
                 </span>
                 <select
@@ -690,7 +623,7 @@ export default function ProductsPage() {
             {/* ─── DESKTOP LEFT SIDEBAR FILTERS ─── */}
             <aside className="hidden lg:block w-64 shrink-0 sticky top-20 bg-white rounded-2xl border border-[#e2e8f4] p-5 shadow-xs">
               <div className="flex items-center justify-between pb-3.5 border-b border-[#eef2f8] mb-4">
-                <span className="font-serif font-bold text-sm tracking-wider uppercase text-[#0d1f3c]">
+                <span className="font-serif font-bold text-sm tracking-wider text-[#0d1f3c]">
                   Filter By
                 </span>
                 {activeFilterCount > 0 && (
@@ -707,7 +640,7 @@ export default function ProductsPage() {
               <div className="py-3.5 border-b border-[#eef2f8]">
                 <button
                   onClick={() => toggleFilter("metal")}
-                  className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#0d1f3c]"
+                  className="w-full flex items-center justify-between text-xs font-bold tracking-wider text-[#0d1f3c]"
                 >
                   <span>Metal & Colour</span>
                   {openFilters.metal ? (
@@ -753,7 +686,7 @@ export default function ProductsPage() {
               <div className="py-3.5 border-b border-[#eef2f8]">
                 <button
                   onClick={() => toggleFilter("shape")}
-                  className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#0d1f3c]"
+                  className="w-full flex items-center justify-between text-xs font-bold tracking-wider text-[#0d1f3c]"
                 >
                   <span>Diamond Shape</span>
                   {openFilters.shape ? (
@@ -772,11 +705,10 @@ export default function ProductsPage() {
                           key={s.name}
                           type="button"
                           onClick={() => toggleShape(s.name)}
-                          className={`flex items-center gap-2 p-2 rounded-xl border text-xs font-medium transition-all cursor-pointer ${
-                            isSelected
-                              ? "border-[#c9a84c] bg-[#fcf8ed] text-[#0d1f3c] font-bold shadow-xs"
-                              : "border-[#e2e8f4] bg-white text-[#4a5a7a] hover:border-[#c9a84c]/60"
-                          }`}
+                          className={`flex items-center gap-2 p-2 rounded-xl border text-xs font-medium transition-all cursor-pointer ${isSelected
+                            ? "border-[#c9a84c] bg-[#fcf8ed] text-[#0d1f3c] font-bold shadow-xs"
+                            : "border-[#e2e8f4] bg-white text-[#4a5a7a] hover:border-[#c9a84c]/60"
+                            }`}
                         >
                           <span className="text-sm text-[#c9a84c]">{s.icon}</span>
                           <span className="text-[11px] truncate">{s.name}</span>
@@ -791,7 +723,7 @@ export default function ProductsPage() {
               <div className="py-3.5 border-b border-[#eef2f8]">
                 <button
                   onClick={() => toggleFilter("price")}
-                  className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#0d1f3c]"
+                  className="w-full flex items-center justify-between text-xs font-bold tracking-wider text-[#0d1f3c]"
                 >
                   <span>Price Range</span>
                   {openFilters.price ? (
@@ -831,7 +763,7 @@ export default function ProductsPage() {
               <div className="py-3.5">
                 <button
                   onClick={() => toggleFilter("carat")}
-                  className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#0d1f3c]"
+                  className="w-full flex items-center justify-between text-xs font-bold tracking-wider text-[#0d1f3c]"
                 >
                   <span>Carat Weight</span>
                   {openFilters.carat ? (
@@ -887,111 +819,13 @@ export default function ProductsPage() {
                 </div>
               ) : (
                 <div
-                  className={`grid gap-5 sm:gap-6 ${
-                    gridCols === 4
-                      ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
-                      : "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
-                  }`}
+                  className={`grid gap-5 sm:gap-6 ${gridCols === 4
+                    ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
+                    : "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
+                    }`}
                 >
-                  {/* Item 1 to 4 */}
-                  {filteredProducts.slice(0, 4).map((product) => (
-                    <ProductCardItem
-                      key={product.id}
-                      product={product}
-                      isWishlisted={!!wishlist[product.id]}
-                      onToggleWishlist={() => toggleWishlist(product.id)}
-                    />
-                  ))}
-
-                  {/* ─── IN-GRID EDITORIAL PROMO BLOCK 1 (Matches Reference Image) ─── */}
-                  <div className="sm:col-span-2 relative rounded-2xl overflow-hidden bg-[#0a1628] text-white p-7 sm:p-9 flex flex-col justify-between border border-[#c9a84c]/30 shadow-md">
-                    {/* Background glow & subtle watermark */}
-                    <div className="absolute inset-0 pointer-events-none">
-                      <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-[#c9a84c]/10 blur-2xl" />
-                      <div className="absolute -bottom-12 -left-12 w-64 h-64 rounded-full bg-[#1a2e5a]/60 blur-2xl" />
-                    </div>
-
-                    <div className="relative z-10">
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="text-[#c9a84c] text-[10px] font-extrabold tracking-[0.35em] uppercase">
-                          The CaratLuxe Atelier
-                        </span>
-                      </div>
-                      <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-2 leading-tight">
-                        Solid Gold & Lab-Grown{" "}
-                        <span className="text-gold-gradient">Diamond Collection</span>
-                      </h3>
-                      <p className="text-white/70 text-xs sm:text-sm leading-relaxed max-w-md mb-6">
-                        Sustainably grown in vacuum plasma reactors. Same optical
-                        refraction, 100% certified conflict-free, hand-sculpted in
-                        hallmarked 18K solid gold.
-                      </p>
-                    </div>
-
-                    <div className="relative z-10 flex flex-wrap items-center gap-4">
-                      <Link
-                        href="/education"
-                        className="btn-gold text-[#0d1f3c] text-xs font-extrabold tracking-widest uppercase px-6 py-3 rounded-full inline-flex items-center gap-2 shadow-md hover:scale-105 transition-all"
-                      >
-                        Discover Lab Diamonds
-                        <IoArrowForward className="w-3.5 h-3.5" />
-                      </Link>
-                      <span className="text-white/50 text-[11px] font-medium tracking-wider">
-                        ✦ GIA & IGI Verified
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Items 5 to 8 */}
-                  {filteredProducts.slice(4, 8).map((product) => (
-                    <ProductCardItem
-                      key={product.id}
-                      product={product}
-                      isWishlisted={!!wishlist[product.id]}
-                      onToggleWishlist={() => toggleWishlist(product.id)}
-                    />
-                  ))}
-
-                  {/* ─── IN-GRID EDITORIAL PROMO BLOCK 2 (Matches Reference Image) ─── */}
-                  <div className="sm:col-span-2 relative rounded-2xl overflow-hidden bg-white border border-[#e2e8f4] p-6 sm:p-8 flex flex-col justify-between shadow-xs">
-                    <div>
-                      <span className="text-[10px] font-extrabold tracking-[0.25em] text-[#c9a84c] uppercase">
-                        Hallmarked Purity & Precision
-                      </span>
-                      <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#0d1f3c] mt-1 mb-2">
-                        Certified Purity: GIA & IGI Lab Diamonds
-                      </h3>
-                      <p className="text-xs sm:text-sm text-[#526382] leading-relaxed max-w-lg mb-4">
-                        Every center stone above 0.50 CT features a microscopic
-                        laser inscription on the girdle, verified against its
-                        tamper-proof digital gemological dossier.
-                      </p>
-                    </div>
-
-                    <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-[#f0f3fa]">
-                      <Link
-                        href="/education/certification"
-                        className="text-xs font-bold text-[#0d1f3c] hover:text-[#c9a84c] tracking-wider uppercase inline-flex items-center gap-1.5 transition-colors"
-                      >
-                        Verify Certificate →
-                      </Link>
-                      <Link
-                        href="/contact"
-                        className="text-xs font-bold text-[#6e7d9b] hover:text-[#0d1f3c] tracking-wider uppercase transition-colors"
-                      >
-                        Book Atelier Appointment
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Remaining products */}
-                  {filteredProducts.slice(8).map((product) => (
-                    <ProductCardItem
-                      key={product.id}
-                      product={product}
-                      isWishlisted={!!wishlist[product.id]}
-                      onToggleWishlist={() => toggleWishlist(product.id)}
-                    />
+                  {filteredProducts.map((product) => (
+                    <ProductCard key={product.id} {...product} />
                   ))}
                 </div>
               )}
@@ -1031,225 +865,7 @@ export default function ProductsPage() {
           </div>
         </section>
 
-        {/* ─── Buying Guide Educational Section (Matches Reference Image) ─── */}
-        <section className="bg-[#f7f9fd] py-16 border-t border-[#e8edf7]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-12">
-              <span className="text-[10px] font-extrabold tracking-[0.35em] text-[#c9a84c] uppercase">
-                The CaratLuxe Journal
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0d1f3c] mt-2 mb-3">
-                THE SOLITAIRE & DIAMOND RING GUIDE
-              </h2>
-              <p className="text-xs sm:text-sm text-[#526382] leading-relaxed">
-                Handcrafted wisdom to help you choose a ring that will radiate fire
-                and meaning for lifetimes to come.
-              </p>
-            </div>
 
-            {/* 3 Value Pillars */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white rounded-2xl p-7 border border-[#e2e8f4] shadow-xs hover:border-[#c9a84c]/50 transition-all">
-                <div className="w-10 h-10 rounded-full bg-[#fdf8ec] text-[#c9a84c] flex items-center justify-center font-bold text-lg mb-4">
-                  ✦
-                </div>
-                <h3 className="font-serif text-lg font-bold text-[#0d1f3c] mb-2">
-                  ETHICAL LAB DIAMONDS
-                </h3>
-                <p className="text-xs text-[#526382] leading-relaxed mb-4">
-                  Grown in state-of-the-art plasma chambers using renewable energy.
-                  Identical optical, physical, and chemical properties with zero
-                  ecological degradation.
-                </p>
-                <Link
-                  href="/education"
-                  className="text-xs font-bold text-[#c9a84c] hover:underline inline-flex items-center gap-1"
-                >
-                  Learn About Lab Diamonds →
-                </Link>
-              </div>
-
-              <div className="bg-white rounded-2xl p-7 border border-[#e2e8f4] shadow-xs hover:border-[#c9a84c]/50 transition-all">
-                <div className="w-10 h-10 rounded-full bg-[#fdf8ec] text-[#c9a84c] flex items-center justify-center font-bold text-lg mb-4">
-                  ◈
-                </div>
-                <h3 className="font-serif text-lg font-bold text-[#0d1f3c] mb-2">
-                  HALLMARKED SOLID PURITY
-                </h3>
-                <p className="text-xs text-[#526382] leading-relaxed mb-4">
-                  Crafted exclusively with BIS hallmarked 18K/14K solid gold and 950
-                  platinum. Stamped with certified laser purity marks guaranteeing
-                  lifetime precious value.
-                </p>
-                <Link
-                  href="/education/gold-purity"
-                  className="text-xs font-bold text-[#c9a84c] hover:underline inline-flex items-center gap-1"
-                >
-                  Explore Gold Standards →
-                </Link>
-              </div>
-
-              <div className="bg-white rounded-2xl p-7 border border-[#e2e8f4] shadow-xs hover:border-[#c9a84c]/50 transition-all">
-                <div className="w-10 h-10 rounded-full bg-[#fdf8ec] text-[#c9a84c] flex items-center justify-center font-bold text-lg mb-4">
-                  ✧
-                </div>
-                <h3 className="font-serif text-lg font-bold text-[#0d1f3c] mb-2">
-                  PERFECT RING SIZING
-                </h3>
-                <p className="text-xs text-[#526382] leading-relaxed mb-4">
-                  Order with total peace of mind. We send a complimentary ring
-                  sizing kit before final casting, plus offer 30 days of free
-                  resizing upon delivery.
-                </p>
-                <Link
-                  href="/education/ring-size-guide"
-                  className="text-xs font-bold text-[#c9a84c] hover:underline inline-flex items-center gap-1"
-                >
-                  Request Ring Sizer →
-                </Link>
-              </div>
-            </div>
-
-            {/* ─── Frequently Asked Questions Accordion (Matches Reference) ─── */}
-            <div className="mt-14 max-w-3xl mx-auto bg-white rounded-2xl p-6 sm:p-8 border border-[#e2e8f4] shadow-xs">
-              <h3 className="font-serif text-xl font-bold text-[#0d1f3c] mb-5 pb-3 border-b border-[#eef2f8] text-center">
-                FREQUENTLY ASKED QUESTIONS
-              </h3>
-
-              <div className="divide-y divide-[#eef2f8]">
-                {faqList.map((item, idx) => {
-                  const isOpen = openFaq === idx;
-                  return (
-                    <div key={idx} className="py-3.5">
-                      <button
-                        onClick={() => setOpenFaq(isOpen ? null : idx)}
-                        className="w-full flex items-center justify-between text-left gap-4 text-xs sm:text-sm font-bold text-[#0d1f3c] hover:text-[#c9a84c] transition-colors"
-                      >
-                        <span>{item.q}</span>
-                        {isOpen ? (
-                          <IoChevronUp className="w-4 h-4 text-[#c9a84c] shrink-0" />
-                        ) : (
-                          <IoChevronDown className="w-4 h-4 text-[#8a9ab8] shrink-0" />
-                        )}
-                      </button>
-                      {isOpen && (
-                        <p className="mt-2 text-xs text-[#526382] leading-relaxed pr-6">
-                          {item.a}
-                        </p>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ─── Customer Testimonials Strip (Matches Reference) ─── */}
-        <section className="bg-white py-14 border-t border-[#e8edf7]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span className="text-[10px] font-extrabold tracking-[0.35em] text-[#c9a84c] uppercase">
-              Verified Purchases
-            </span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#0d1f3c] mt-1 mb-2">
-              REAL STORIES, UNMATCHED RADIANCE
-            </h2>
-            <div className="flex items-center justify-center gap-1 text-[#c9a84c] text-xs mb-8">
-              {[...Array(5)].map((_, i) => (
-                <IoStar key={i} className="w-4 h-4 fill-current" />
-              ))}
-              <span className="text-[#0d1f3c] font-bold ml-2 text-xs">
-                4.95 / 5 Rating from 1,420+ Clients
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-              <div className="bg-[#fcfdfd] p-6 rounded-2xl border border-[#e2e8f4]">
-                <div className="flex text-[#c9a84c] text-xs mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <IoStar key={i} className="w-3.5 h-3.5 fill-current" />
-                  ))}
-                </div>
-                <p className="text-xs text-[#4a5a7a] leading-relaxed mb-4 italic">
-                  "The fire and clarity of my 1.5 CT solitaire blew away anything I
-                  saw in traditional jewelry stores. CaratLuxe delivered luxury at a
-                  sensible price point."
-                </p>
-                <div className="flex items-center justify-between text-[11px] font-bold text-[#0d1f3c]">
-                  <span>Ananya & Vikram S.</span>
-                  <span className="text-[#c9a84c]">✦ Mumbai</span>
-                </div>
-              </div>
-
-              <div className="bg-[#fcfdfd] p-6 rounded-2xl border border-[#e2e8f4]">
-                <div className="flex text-[#c9a84c] text-xs mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <IoStar key={i} className="w-3.5 h-3.5 fill-current" />
-                  ))}
-                </div>
-                <p className="text-xs text-[#4a5a7a] leading-relaxed mb-4 italic">
-                  "The IGI certificate was verifiable immediately online and the
-                  setting in 18K yellow gold is flawless. She said yes with tears of
-                  joy!"
-                </p>
-                <div className="flex items-center justify-between text-[11px] font-bold text-[#0d1f3c]">
-                  <span>Rohan Mehra</span>
-                  <span className="text-[#c9a84c]">✦ Bengaluru</span>
-                </div>
-              </div>
-
-              <div className="bg-[#fcfdfd] p-6 rounded-2xl border border-[#e2e8f4]">
-                <div className="flex text-[#c9a84c] text-xs mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <IoStar key={i} className="w-3.5 h-3.5 fill-current" />
-                  ))}
-                </div>
-                <p className="text-xs text-[#4a5a7a] leading-relaxed mb-4 italic">
-                  "The ring sizer kit made getting the exact measurement stress-free.
-                  The packaging and unboxing experience was pure five-star atelier."
-                </p>
-                <div className="flex items-center justify-between text-[11px] font-bold text-[#0d1f3c]">
-                  <span>Priya Singhania</span>
-                  <span className="text-[#c9a84c]">✦ New Delhi</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ─── Trust Badges Footer Strip ─── */}
-        <section className="bg-[#0d1f3c] text-white py-8 border-t border-[#c9a84c]/20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div className="flex flex-col items-center">
-              <span className="text-[#c9a84c] text-xl font-bold mb-1">✦</span>
-              <span className="text-xs font-bold uppercase tracking-wider">
-                100% Certified Diamonds
-              </span>
-              <span className="text-[10px] text-white/60">GIA & IGI Dossier Included</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="text-[#c9a84c] text-xl font-bold mb-1">◈</span>
-              <span className="text-xs font-bold uppercase tracking-wider">
-                Free Insured Shipping
-              </span>
-              <span className="text-[10px] text-white/60">Doorstep Delivery Nationwide</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="text-[#c9a84c] text-xl font-bold mb-1">✧</span>
-              <span className="text-xs font-bold uppercase tracking-wider">
-                Lifetime Exchange
-              </span>
-              <span className="text-[10px] text-white/60">100% Value Buyback Credit</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="text-[#c9a84c] text-xl font-bold mb-1">◇</span>
-              <span className="text-xs font-bold uppercase tracking-wider">
-                30-Day Free Resizing
-              </span>
-              <span className="text-[10px] text-white/60">Hassle-Free Peace of Mind</span>
-            </div>
-          </div>
-        </section>
       </main>
 
       <Footer />
@@ -1277,7 +893,7 @@ export default function ProductsPage() {
 
               {/* Metal Filter */}
               <div className="py-3 border-b border-[#eef2f8]">
-                <p className="text-xs font-bold text-[#0d1f3c] uppercase mb-2">
+                <p className="text-xs font-bold text-[#0d1f3c] mb-2">
                   Metal & Colour
                 </p>
                 <div className="space-y-1.5">
@@ -1297,7 +913,7 @@ export default function ProductsPage() {
 
               {/* Shape Filter */}
               <div className="py-3 border-b border-[#eef2f8]">
-                <p className="text-xs font-bold text-[#0d1f3c] uppercase mb-2">
+                <p className="text-xs font-bold text-[#0d1f3c] mb-2">
                   Diamond Shape
                 </p>
                 <div className="grid grid-cols-2 gap-1.5">
@@ -1305,11 +921,10 @@ export default function ProductsPage() {
                     <button
                       key={s.name}
                       onClick={() => toggleShape(s.name)}
-                      className={`text-xs p-1.5 rounded-lg border text-left flex items-center gap-1.5 ${
-                        selectedShapes.includes(s.name)
-                          ? "border-[#c9a84c] bg-[#fdf8ec] font-bold"
-                          : "border-[#e2e8f4]"
-                      }`}
+                      className={`text-xs p-1.5 rounded-lg border text-left flex items-center gap-1.5 ${selectedShapes.includes(s.name)
+                        ? "border-[#c9a84c] bg-[#fdf8ec] font-bold"
+                        : "border-[#e2e8f4]"
+                        }`}
                     >
                       <span>{s.icon}</span>
                       <span>{s.name}</span>
@@ -1320,7 +935,7 @@ export default function ProductsPage() {
 
               {/* Price Filter */}
               <div className="py-3">
-                <p className="text-xs font-bold text-[#0d1f3c] uppercase mb-2">
+                <p className="text-xs font-bold text-[#0d1f3c] mb-2">
                   Price
                 </p>
                 <div className="space-y-1.5">
@@ -1358,133 +973,6 @@ export default function ProductsPage() {
         </div>
       )}
     </>
-  );
-}
-
-/* ─── Reusable Product Card matching reference image ─── */
-function ProductCardItem({ product, isWishlisted, onToggleWishlist }) {
-  const [activeImg, setActiveImg] = useState(0);
-
-  return (
-    <div className="group relative bg-white rounded-2xl overflow-hidden border border-[#e5ebf5] shadow-[0_4px_16px_rgba(13,31,60,0.03)] hover:shadow-[0_16px_36px_rgba(13,31,60,0.08)] hover:border-[#c9a84c]/60 transition-all flex flex-col justify-between">
-      {/* Top Image Box */}
-      <div className="relative aspect-square overflow-hidden bg-[#f4f7ff]">
-        {/* Status Badge */}
-        {product.badge && (
-          <span
-            className={`absolute top-3 left-3 z-20 text-[9px] font-extrabold tracking-widest uppercase px-2.5 py-0.5 rounded-full ${product.badgeColor} shadow-xs`}
-          >
-            {product.badge}
-          </span>
-        )}
-
-        {/* Wishlist Heart Button */}
-        <button
-          type="button"
-          onClick={onToggleWishlist}
-          aria-label="Save to Wishlist"
-          className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center transition-all shadow-xs cursor-pointer hover:scale-110"
-        >
-          {isWishlisted ? (
-            <IoHeart className="w-4 h-4 text-red-500" />
-          ) : (
-            <IoHeartOutline className="w-4 h-4 text-[#4a5a7a] hover:text-[#c9a84c]" />
-          )}
-        </button>
-
-        {/* Product Image */}
-        <Link href={`/products/${product.id}`} className="block w-full h-full">
-          <Image
-            src={product.images[activeImg] || product.images[0]}
-            alt={product.name}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover group-hover:scale-106 transition-transform duration-700 ease-out"
-          />
-        </Link>
-
-        {/* Subtle quick add on hover */}
-        <div className="absolute bottom-2.5 left-2.5 right-2.5 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-20">
-          <Link
-            href={`/products/${product.id}`}
-            className="w-full btn-navy text-white text-[11px] font-bold tracking-wider uppercase py-2.5 rounded-xl shadow-md flex items-center justify-center gap-1.5 hover:bg-[#c9a84c] hover:text-[#0d1f3c] transition-colors"
-          >
-            Customise & Buy →
-          </Link>
-        </div>
-      </div>
-
-      {/* Card Body */}
-      <div className="p-4 flex flex-col justify-between flex-1">
-        <div>
-          {/* Metal swatches / thumbnail dots */}
-          <div className="flex items-center justify-between mb-1.5">
-            <div className="flex items-center gap-1.5">
-              <span
-                onClick={() => setActiveImg(0)}
-                className={`w-3 h-3 rounded-full border cursor-pointer ${
-                  activeImg === 0
-                    ? "ring-2 ring-[#c9a84c] scale-110"
-                    : "border-black/20"
-                }`}
-                style={{ backgroundColor: "#e5c07b" }}
-                title="Yellow Gold"
-              />
-              <span
-                onClick={() => setActiveImg(1 % product.images.length)}
-                className={`w-3 h-3 rounded-full border cursor-pointer ${
-                  activeImg === 1
-                    ? "ring-2 ring-[#c9a84c] scale-110"
-                    : "border-black/20"
-                }`}
-                style={{ backgroundColor: "#e2e8f0" }}
-                title="White Gold"
-              />
-              <span
-                className="w-3 h-3 rounded-full border border-black/20"
-                style={{ backgroundColor: "#e8b4b8" }}
-                title="Rose Gold"
-              />
-            </div>
-
-            {/* Rating */}
-            <div className="flex items-center gap-1 text-[11px] text-[#0d1f3c] font-bold">
-              <IoStar className="w-3.5 h-3.5 text-[#c9a84c] fill-current" />
-              <span>{product.rating}</span>
-              <span className="text-[#8a9ab8] font-normal">({product.reviews})</span>
-            </div>
-          </div>
-
-          {/* Product Title */}
-          <Link href={`/products/${product.id}`}>
-            <h3 className="font-serif text-sm sm:text-base font-bold text-[#0d1535] group-hover:text-[#c9a84c] transition-colors line-clamp-1">
-              {product.name}
-            </h3>
-          </Link>
-
-          {/* Specs */}
-          <p className="text-[11px] text-[#6e7d9b] mt-0.5 line-clamp-1">
-            {product.carat} · {product.clarity} · {product.metal}
-          </p>
-        </div>
-
-        {/* Price Row */}
-        <div className="mt-3 pt-2.5 border-t border-[#f0f3fa] flex items-baseline justify-between">
-          <div className="flex items-baseline gap-2">
-            <span className="text-[#0d1f3c] font-bold text-base sm:text-lg">
-              ₹{product.price.toLocaleString("en-IN")}
-            </span>
-            <span className="text-[#8a9ab8] text-xs line-through">
-              ₹{product.originalPrice.toLocaleString("en-IN")}
-            </span>
-          </div>
-
-          <span className="text-[10px] font-extrabold text-[#9a2e2e] bg-[#fdf2f2] px-1.5 py-0.5 rounded">
-            {product.discount}
-          </span>
-        </div>
-      </div>
-    </div>
   );
 }
 

@@ -9,6 +9,7 @@ export default function ProductCard({
   name,
   price,
   originalPrice,
+  discount,
   badge,
   badgeColor = "bg-[#c9a84c] text-white",
   category,
@@ -78,7 +79,7 @@ export default function ProductCard({
             }}
           >
             <IoAdd className="w-4 h-4" />
-            Quick Add
+            <p>Quick Add</p>
           </button>
         </div>
       </Link>
@@ -127,10 +128,21 @@ export default function ProductCard({
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 mt-1 pt-2 border-t border-gray-100">
-          <span className="text-[#031d42] font-bold text-sm sm:text-base">{price}</span>
-          {originalPrice && (
-            <span className="text-[#8a9ab8] text-xs line-through">{originalPrice}</span>
+        <div className="flex items-center justify-between gap-2 mt-1 pt-2 border-t border-gray-100">
+          <div className="flex items-center gap-2">
+            <span className="text-[#031d42] font-bold text-sm sm:text-base">
+              {typeof price === "number" ? `₹${price.toLocaleString("en-IN")}` : price}
+            </span>
+            {originalPrice && (
+              <span className="text-[#8a9ab8] text-xs line-through">
+                {typeof originalPrice === "number" ? `₹${originalPrice.toLocaleString("en-IN")}` : originalPrice}
+              </span>
+            )}
+          </div>
+          {discount && (
+            <span className="text-[10px] font-bold text-[#9a2e2e] bg-[#fdf2f2] px-1.5 py-0.5 rounded">
+              {discount}
+            </span>
           )}
         </div>
       </div>
