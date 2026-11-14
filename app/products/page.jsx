@@ -1,323 +1,21 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import AnnouncementBar from "../components/layout/AnnouncementBar";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ProductCard from "../components/ui/ProductCard";
+import { allProducts, categoriesList } from "../data/productsData";
 import {
   IoChevronDown,
   IoChevronUp,
   IoFilterOutline,
   IoClose,
   IoGridOutline,
-  IoStar,
   IoCheckmarkCircle,
 } from "react-icons/io5";
-
-const productsData = [
-  {
-    id: "celestial-solitaire-ring",
-    name: "The Celestial Solitaire Diamond Ring",
-    category: "Solitaire Rings",
-    shape: "Round",
-    metal: "18K Yellow Gold",
-    metalKey: "yellow-gold",
-    price: 59360,
-    originalPrice: 74200,
-    discount: "20% Off",
-    carat: "1.20 CT",
-    caratRange: "1.00-1.49",
-    clarity: "VVS1 · E Color",
-    badge: "Bestseller",
-    badgeColor: "bg-[#c9a84c] text-[#0d1f3c]",
-    readyToShip: true,
-    rating: 4.9,
-    reviews: 42,
-    images: [
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
-    ],
-  },
-  {
-    id: "serenade-pave-halo-ring",
-    name: "Serenade Pavé Halo Diamond Ring",
-    category: "Halo Rings",
-    shape: "Oval",
-    metal: "18K Rose Gold",
-    metalKey: "rose-gold",
-    price: 68400,
-    originalPrice: 85500,
-    discount: "20% Off",
-    carat: "1.50 CT",
-    caratRange: "1.50-1.99",
-    clarity: "VS1 · F Color",
-    badge: "Ready to Ship",
-    badgeColor: "bg-[#0d1f3c] text-white",
-    readyToShip: true,
-    rating: 5.0,
-    reviews: 29,
-    images: [
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=800&auto=format&fit=crop&q=80",
-    ],
-  },
-  {
-    id: "aurora-emerald-cut-solitaire",
-    name: "Aurora Emerald-Cut Solitaire Ring",
-    category: "Solitaire Rings",
-    shape: "Emerald",
-    metal: "18K White Gold",
-    metalKey: "white-gold",
-    price: 85200,
-    originalPrice: 106500,
-    discount: "20% Off",
-    carat: "1.75 CT",
-    caratRange: "1.50-1.99",
-    clarity: "VVS2 · D Color",
-    badge: "New Arrival",
-    badgeColor: "bg-[#2a4080] text-white",
-    readyToShip: false,
-    rating: 4.8,
-    reviews: 18,
-    images: [
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-    ],
-  },
-  {
-    id: "royal-three-stone-ring",
-    name: "Royal Trilogy Three-Stone Ring",
-    category: "Three-Stone",
-    shape: "Round",
-    metal: "950 Platinum",
-    metalKey: "platinum",
-    price: 92450,
-    originalPrice: 115500,
-    discount: "20% Off",
-    carat: "2.10 CT Total",
-    caratRange: "2.00+",
-    clarity: "VVS1 · E Color",
-    badge: "Signature",
-    badgeColor: "bg-[#c9a84c] text-[#0d1f3c]",
-    readyToShip: true,
-    rating: 4.9,
-    reviews: 35,
-    images: [
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80",
-    ],
-  },
-  {
-    id: "lumina-vintage-band",
-    name: "Lumina Vintage Milgrain Diamond Band",
-    category: "Eternity Bands",
-    shape: "Round",
-    metal: "18K Yellow Gold",
-    metalKey: "yellow-gold",
-    price: 42500,
-    originalPrice: 53100,
-    discount: "20% Off",
-    carat: "0.85 CT",
-    caratRange: "0.50-0.99",
-    clarity: "VS1 · F Color",
-    badge: "Ready to Ship",
-    badgeColor: "bg-[#0d1f3c] text-white",
-    readyToShip: true,
-    rating: 4.7,
-    reviews: 21,
-    images: [
-      "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-    ],
-  },
-  {
-    id: "cascade-pear-solitaire",
-    name: "Cascade Pear-Cut Diamond Solitaire",
-    category: "Solitaire Rings",
-    shape: "Pear",
-    metal: "18K White Gold",
-    metalKey: "white-gold",
-    price: 76800,
-    originalPrice: 96000,
-    discount: "20% Off",
-    carat: "1.40 CT",
-    caratRange: "1.00-1.49",
-    clarity: "VVS2 · E Color",
-    badge: "Bestseller",
-    badgeColor: "bg-[#c9a84c] text-[#0d1f3c]",
-    readyToShip: false,
-    rating: 4.9,
-    reviews: 53,
-    images: [
-      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
-    ],
-  },
-  {
-    id: "monarch-cushion-halo-ring",
-    name: "The Monarch Cushion Halo Diamond Ring",
-    category: "Halo Rings",
-    shape: "Cushion",
-    metal: "950 Platinum",
-    metalKey: "platinum",
-    price: 88900,
-    originalPrice: 111000,
-    discount: "20% Off",
-    carat: "1.80 CT",
-    caratRange: "1.50-1.99",
-    clarity: "VVS1 · D Color",
-    badge: "Trending",
-    badgeColor: "bg-[#9a2e2e] text-white",
-    readyToShip: true,
-    rating: 5.0,
-    reviews: 14,
-    images: [
-      "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-    ],
-  },
-  {
-    id: "infinity-eternity-band",
-    name: "Infinite Radiance Full Eternity Band",
-    category: "Eternity Bands",
-    shape: "Round",
-    metal: "18K Rose Gold",
-    metalKey: "rose-gold",
-    price: 54200,
-    originalPrice: 67750,
-    discount: "20% Off",
-    carat: "1.10 CT Total",
-    caratRange: "1.00-1.49",
-    clarity: "VS1 · F Color",
-    badge: "Ready to Ship",
-    badgeColor: "bg-[#0d1f3c] text-white",
-    readyToShip: true,
-    rating: 4.9,
-    reviews: 31,
-    images: [
-      "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-    ],
-  },
-  {
-    id: "sovereign-princess-cut-ring",
-    name: "Sovereign Princess-Cut Solitaire Ring",
-    category: "Solitaire Rings",
-    shape: "Princess",
-    metal: "18K Yellow Gold",
-    metalKey: "yellow-gold",
-    price: 71500,
-    originalPrice: 89375,
-    discount: "20% Off",
-    carat: "1.35 CT",
-    caratRange: "1.00-1.49",
-    clarity: "VVS2 · E Color",
-    badge: "New",
-    badgeColor: "bg-[#2a4080] text-white",
-    readyToShip: false,
-    rating: 4.8,
-    reviews: 19,
-    images: [
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
-    ],
-  },
-  {
-    id: "elysian-marquise-vintage-ring",
-    name: "Elysian Marquise Diamond Halo Ring",
-    category: "Vintage & Cocktail",
-    shape: "Marquise",
-    metal: "18K White Gold",
-    metalKey: "white-gold",
-    price: 83600,
-    originalPrice: 104500,
-    discount: "20% Off",
-    carat: "1.60 CT",
-    caratRange: "1.50-1.99",
-    clarity: "VVS1 · E Color",
-    badge: "Special Edition",
-    badgeColor: "bg-[#c9a84c] text-[#0d1f3c]",
-    readyToShip: true,
-    rating: 5.0,
-    reviews: 26,
-    images: [
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
-    ],
-  },
-  {
-    id: "mens-bold-solitaire-band",
-    name: "Apex Men's Solitaire Diamond Band",
-    category: "Men's Bands",
-    shape: "Round",
-    metal: "950 Platinum",
-    metalKey: "platinum",
-    price: 66800,
-    originalPrice: 83500,
-    discount: "20% Off",
-    carat: "0.60 CT",
-    caratRange: "0.50-0.99",
-    clarity: "VS1 · F Color",
-    badge: "Ready to Ship",
-    badgeColor: "bg-[#0d1f3c] text-white",
-    readyToShip: true,
-    rating: 4.9,
-    reviews: 17,
-    images: [
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-    ],
-  },
-  {
-    id: "twilight-oval-hidden-halo",
-    name: "Twilight Oval Cut Hidden Halo Ring",
-    category: "Halo Rings",
-    shape: "Oval",
-    metal: "18K Yellow Gold",
-    metalKey: "yellow-gold",
-    price: 94500,
-    originalPrice: 118125,
-    discount: "20% Off",
-    carat: "2.05 CT",
-    caratRange: "2.00+",
-    clarity: "VVS1 · D Color",
-    badge: "Bestseller",
-    badgeColor: "bg-[#c9a84c] text-[#0d1f3c]",
-    readyToShip: true,
-    rating: 4.9,
-    reviews: 64,
-    images: [
-      "https://images.unsplash.com/photo-1598560917505-59a3ad559071?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80",
-    ],
-  },
-];
 
 /* ─── Diamond Shapes list with minimal SVG paths ─── */
 const diamondShapes = [
@@ -332,10 +30,10 @@ const diamondShapes = [
 
 /* ─── Metals list ─── */
 const metalOptions = [
-  { label: "18K Yellow Gold", key: "yellow-gold", color: "#e5c07b", count: 42 },
-  { label: "18K White Gold", key: "white-gold", color: "#e2e8f0", count: 56 },
-  { label: "18K Rose Gold", key: "rose-gold", color: "#e8b4b8", count: 28 },
-  { label: "950 Platinum", key: "platinum", color: "#cbd5e1", count: 16 },
+  { label: "18K Yellow Gold", key: "yellow-gold", color: "#e5c07b", count: 28 },
+  { label: "18K White Gold", key: "white-gold", color: "#e2e8f0", count: 34 },
+  { label: "18K Rose Gold", key: "rose-gold", color: "#e8b4b8", count: 18 },
+  { label: "950 Platinum", key: "platinum", color: "#cbd5e1", count: 14 },
 ];
 
 /* ─── Price ranges ─── */
@@ -355,47 +53,87 @@ const caratOptions = [
   { label: "2.00 CT & Above", key: "2.00+" },
 ];
 
-/* ─── Sub-category Pills ─── */
-const subCategories = [
-  { label: "All Rings", count: 142 },
-  { label: "Solitaire Rings", count: 58 },
-  { label: "Halo Rings", count: 32 },
-  { label: "Three-Stone", count: 24 },
-  { label: "Eternity Bands", count: 18 },
-  { label: "Vintage & Cocktail", count: 10 },
-];
+/* ─── Category Metadata Dictionary ─── */
+const categoryMeta = {
+  "All Jewellery": {
+    eyebrow: "The Complete CaratLuxe Atelier",
+    title: "All Certified Diamond Jewellery",
+    subtitle: "Explore certified lab-grown diamond solitaires, earrings, necklaces, bracelets and bridal suites handcrafted in 18K solid gold and 950 platinum.",
+  },
+  "Rings": {
+    eyebrow: "Signature Atelier Collection",
+    title: "Solitaire & Diamond Rings",
+    subtitle: "Handcrafted in 18K solid gold & 950 platinum with GIA & IGI certified lab-grown diamonds. Ethically created with zero carbon footprint.",
+  },
+  "Earrings": {
+    eyebrow: "Everyday & High Luxe",
+    title: "Diamond Studs, Hoops & Chandeliers",
+    subtitle: "Solitaire studs, inside-out pavé hoops, celestial pear drops, and dramatic chandeliers sculpted with unmatched optical fire.",
+  },
+  "Necklaces": {
+    eyebrow: "Timeless Atelier Lines",
+    title: "Diamond Tennis Necklaces & Pendants",
+    subtitle: "Collar chokers, continuous tennis strands, and solitaire pendants designed for life's unforgettable milestones.",
+  },
+  "Bracelets & Bangles": {
+    eyebrow: "Wrist Luxe & Stacking Strands",
+    title: "Diamond Tennis Bracelets & Bangles",
+    subtitle: "Continuous row tennis strands and flexible diamond bangles sculpted for everyday elegance and black-tie brilliance.",
+  },
+  "Pendants": {
+    eyebrow: "Solitaire & Accent Drops",
+    title: "Diamond Solitaire Pendants",
+    subtitle: "Minimalist daily accents and intricate cluster silhouettes forged in hallmarked 18K gold and platinum.",
+  },
+  "Mangalsutra": {
+    eyebrow: "Modern & Sacred Bridal",
+    title: "Diamond Mangalsutra Collection",
+    subtitle: "Modern interpretations of sacred elegance featuring certified lab diamonds and black beads in hallmarked 18K gold.",
+  },
+};
 
-/* ─── FAQ list ─── */
-const faqList = [
-  {
-    q: "Do CaratLuxe lab diamonds test positive on diamond testers?",
-    a: "Yes, 100%. CaratLuxe lab-grown diamonds possess the exact same chemical, optical, and physical composition as mined diamonds. They are pure crystallized carbon (C) and will test as real diamonds on standard thermal and electrical conductivity testers, because scientifically they are identical.",
-  },
-  {
-    q: "What certifications accompany CaratLuxe rings?",
-    a: "Every CaratLuxe solitaire diamond above 0.50 carat is individually certified by internationally recognized gemological laboratories including IGI (International Gemological Institute) or GIA. Each certified diamond has its unique grading dossier number laser-inscribed on its girdle.",
-  },
-  {
-    q: "Can I customize the metal color, ring size, or diamond shape?",
-    a: "Absolutely. All our settings can be customized in 14K Gold, 18K Yellow/White/Rose Gold, or 950 Platinum. We offer complimentary ring sizing and bespoke adjustments through our CaratLuxe Atelier Concierge.",
-  },
-  {
-    q: "What is your return, resizing, and warranty policy?",
-    a: "We offer a 30-Day Hassle-Free Return Policy, 30 days of complimentary resizing on all solitaire rings, plus a Lifetime Diamond Upgrade Program and Lifetime Manufacturing Warranty on all fine jewellery.",
-  },
-];
+function ProductsContent({ initialCategory }) {
+  const searchParams = useSearchParams();
+  const urlCategoryParam = searchParams.get("category");
+  const urlShapeParam = searchParams.get("shape");
+  const urlPriceParam = searchParams.get("price");
 
-export default function ProductsPage() {
+  // Determine starting category
+  const getInitialCat = () => {
+    if (initialCategory) return initialCategory;
+    if (urlCategoryParam) {
+      const match = categoriesList.find(
+        (c) => c.slug.toLowerCase() === urlCategoryParam.toLowerCase() ||
+          c.label.toLowerCase() === urlCategoryParam.toLowerCase()
+      );
+      if (match) return match.label;
+    }
+    return "All Jewellery";
+  };
+
   /* State */
-  const [selectedCategory, setSelectedCategory] = useState("All Rings");
+  const [selectedCategory, setSelectedCategory] = useState(getInitialCat());
   const [selectedMetals, setSelectedMetals] = useState([]);
-  const [selectedShapes, setSelectedShapes] = useState([]);
+  const [selectedShapes, setSelectedShapes] = useState(
+    urlShapeParam ? [urlShapeParam.charAt(0).toUpperCase() + urlShapeParam.slice(1)] : []
+  );
   const [selectedPriceRange, setSelectedPriceRange] = useState(priceRanges[0]);
   const [selectedCarats, setSelectedCarats] = useState([]);
   const [readyToShipOnly, setReadyToShipOnly] = useState(false);
   const [sortBy, setSortBy] = useState("featured");
   const [gridCols, setGridCols] = useState(3); // 3 or 4 columns
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+
+  // Sync category if query param changes
+  useEffect(() => {
+    if (urlCategoryParam) {
+      const match = categoriesList.find(
+        (c) => c.slug.toLowerCase() === urlCategoryParam.toLowerCase() ||
+          c.label.toLowerCase() === urlCategoryParam.toLowerCase()
+      );
+      if (match) setSelectedCategory(match.label);
+    }
+  }, [urlCategoryParam]);
 
   /* Accordion states for filters */
   const [openFilters, setOpenFilters] = useState({
@@ -404,9 +142,6 @@ export default function ProductsPage() {
     price: true,
     carat: true,
   });
-
-  /* FAQ Accordion state */
-  const [openFaq, setOpenFaq] = useState(0);
 
   const toggleFilter = (key) => {
     setOpenFilters((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -431,7 +166,7 @@ export default function ProductsPage() {
   };
 
   const resetAllFilters = () => {
-    setSelectedCategory("All Rings");
+    setSelectedCategory("All Jewellery");
     setSelectedMetals([]);
     setSelectedShapes([]);
     setSelectedPriceRange(priceRanges[0]);
@@ -440,7 +175,7 @@ export default function ProductsPage() {
   };
 
   const activeFilterCount =
-    (selectedCategory !== "All Rings" ? 1 : 0) +
+    (selectedCategory !== "All Jewellery" ? 1 : 0) +
     selectedMetals.length +
     selectedShapes.length +
     (selectedPriceRange.min > 0 || selectedPriceRange.max < Infinity ? 1 : 0) +
@@ -449,10 +184,14 @@ export default function ProductsPage() {
 
   /* Filter & Sort Logic */
   const filteredProducts = useMemo(() => {
-    return productsData
+    return allProducts
       .filter((p) => {
-        if (selectedCategory !== "All Rings" && p.category !== selectedCategory) {
-          return false;
+        if (selectedCategory !== "All Jewellery") {
+          const matchCat =
+            p.category.toLowerCase() === selectedCategory.toLowerCase() ||
+            p.category.toLowerCase().includes(selectedCategory.toLowerCase()) ||
+            selectedCategory.toLowerCase().includes(p.category.toLowerCase());
+          if (!matchCat) return false;
         }
         if (selectedMetals.length > 0 && !selectedMetals.includes(p.metalKey)) {
           return false;
@@ -493,6 +232,8 @@ export default function ProductsPage() {
     sortBy,
   ]);
 
+  const activeMeta = categoryMeta[selectedCategory] || categoryMeta["All Jewellery"];
+
   return (
     <>
       <AnnouncementBar />
@@ -501,25 +242,94 @@ export default function ProductsPage() {
       <main className="bg-[#fcfdfd] text-[#0d1535] min-h-screen">
         {/* ─── Breadcrumb Navigation ─── */}
         <div className="border-b border-[#e9eef6] bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 text-xs text-[#6e7d9b] flex items-center gap-2">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 text-xs text-[#6e7d9b] flex items-center gap-2 overflow-x-auto whitespace-nowrap">
             <Link href="/" className="hover:text-[#c9a84c] transition-colors">
               Home
             </Link>
             <span>/</span>
-            <Link href="/jewellery" className="hover:text-[#c9a84c] transition-colors">
+            <Link href="/products" className="hover:text-[#c9a84c] transition-colors">
               Jewellery
             </Link>
             <span>/</span>
-            <Link href="/rings" className="hover:text-[#c9a84c] transition-colors">
-              Rings
-            </Link>
-            <span>/</span>
             <span className="text-[#0d1f3c] font-semibold">
-              Solitaire & Diamond Rings
+              {selectedCategory}
             </span>
           </div>
         </div>
 
+        {/* ─── Collection Hero Banner ─── */}
+        <section className="bg-gradient-to-b from-[#f5f8ff] via-[#ffffff] to-[#ffffff] pt-9 pb-7 border-b border-[#e8edf7]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div className="max-w-2xl">
+                {/* Eyebrow */}
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="h-px w-5 bg-[#c9a84c]" />
+                  <span className="text-[10px] font-extrabold tracking-[0.3em] text-[#c9a84c] uppercase">
+                    {activeMeta.eyebrow}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#0d1f3c] tracking-tight flex items-baseline gap-3 flex-wrap">
+                  {activeMeta.title}
+                  <span className="text-sm sm:text-base font-normal font-sans text-[#8a9ab8]">
+                    ({filteredProducts.length} designs)
+                  </span>
+                </h1>
+
+                {/* Subtitle */}
+                <p className="mt-3 text-[#526382] text-xs sm:text-sm leading-relaxed max-w-xl">
+                  {activeMeta.subtitle}
+                </p>
+              </div>
+
+              {/* Trust highlights */}
+              <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row gap-3 text-xs text-[#0d1f3c] bg-white/80 p-3.5 rounded-xl border border-[#e2e8f4] shadow-xs">
+                <div className="flex items-center gap-2">
+                  <span className="text-[#c9a84c] font-bold">✦</span>
+                  <span className="font-semibold text-[11px] tracking-wide">
+                    100% Certified Lab Diamonds
+                  </span>
+                </div>
+                <div className="hidden lg:block w-px h-4 bg-[#e2e8f4]" />
+                <div className="flex items-center gap-2">
+                  <span className="text-[#c9a84c] font-bold">◈</span>
+                  <span className="font-semibold text-[11px] tracking-wide">
+                    Lifetime Exchange & Buyback
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* ─── Horizontal Quick Category Pills ─── */}
+            <div className="mt-8 flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-none">
+              {categoriesList.map((sub) => {
+                const isActive =
+                  selectedCategory.toLowerCase() === sub.label.toLowerCase() ||
+                  (sub.id === "all" && selectedCategory === "All Jewellery");
+                return (
+                  <button
+                    key={sub.id}
+                    onClick={() => setSelectedCategory(sub.id === "all" ? "All Jewellery" : sub.label)}
+                    className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer shrink-0 ${isActive
+                        ? "bg-[#0d1f3c] text-white shadow-sm ring-2 ring-[#c9a84c]/50"
+                        : "bg-white text-[#4a5a7a] border border-[#e2e8f4] hover:border-[#c9a84c] hover:text-[#0d1f3c]"
+                      }`}
+                  >
+                    {sub.label}
+                    <span
+                      className={`ml-1.5 text-[10px] ${isActive ? "text-[#e8c97a]" : "text-[#8a9ab8]"
+                        }`}
+                    >
+                      ({sub.count})
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </section>
 
         {/* ─── Control Bar / Filter Toolbar ─── */}
         <section className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#e8edf7] py-3.5 shadow-xs">
@@ -534,8 +344,8 @@ export default function ProductsPage() {
                 Filters {activeFilterCount > 0 && `(${activeFilterCount})`}
               </button>
 
-              <span className="text-xs font-semibold text-[#526382] tracking-wider">
-                Showing {filteredProducts.length} of {productsData.length} Designs
+              <span className="text-xs font-semibold text-[#526382] uppercase tracking-wider">
+                Showing {filteredProducts.length} of {allProducts.length} Designs
               </span>
 
               {/* Active Filter Chips */}
@@ -553,10 +363,10 @@ export default function ProductsPage() {
             <div className="flex items-center gap-4 sm:gap-6 ml-auto">
               {/* Ready to ship toggle */}
               <label className="flex items-center gap-2 cursor-pointer select-none">
-                <span className="text-xs font-bold tracking-wider text-[#0d1f3c] hidden sm:inline">
+                <span className="text-xs font-bold tracking-wider uppercase text-[#0d1f3c] hidden sm:inline">
                   Ready To Ship Only
                 </span>
-                <span className="text-xs font-bold tracking-wider text-[#0d1f3c] sm:hidden">
+                <span className="text-xs font-bold tracking-wider uppercase text-[#0d1f3c] sm:hidden">
                   Ready To Ship
                 </span>
                 <div
@@ -577,8 +387,8 @@ export default function ProductsPage() {
                   onClick={() => setGridCols(3)}
                   aria-label="3 columns grid"
                   className={`p-1 rounded ${gridCols === 3
-                    ? "bg-[#0d1f3c] text-white"
-                    : "text-[#6e7d9b] hover:text-[#0d1f3c]"
+                      ? "bg-[#0d1f3c] text-white"
+                      : "text-[#6e7d9b] hover:text-[#0d1f3c]"
                     }`}
                 >
                   <IoGridOutline className="w-4 h-4" />
@@ -587,8 +397,8 @@ export default function ProductsPage() {
                   onClick={() => setGridCols(4)}
                   aria-label="4 columns grid"
                   className={`p-1 rounded ${gridCols === 4
-                    ? "bg-[#0d1f3c] text-white"
-                    : "text-[#6e7d9b] hover:text-[#0d1f3c]"
+                      ? "bg-[#0d1f3c] text-white"
+                      : "text-[#6e7d9b] hover:text-[#0d1f3c]"
                     }`}
                 >
                   <span className="font-bold text-xs tracking-tighter px-0.5">
@@ -599,7 +409,7 @@ export default function ProductsPage() {
 
               {/* Sort By Dropdown */}
               <div className="flex items-center gap-1.5 text-xs">
-                <span className="text-[#8a9ab8] font-bold tracking-wider hidden sm:inline">
+                <span className="text-[#8a9ab8] font-bold tracking-wider hidden sm:inline uppercase">
                   Sort:
                 </span>
                 <select
@@ -623,7 +433,7 @@ export default function ProductsPage() {
             {/* ─── DESKTOP LEFT SIDEBAR FILTERS ─── */}
             <aside className="hidden lg:block w-64 shrink-0 sticky top-20 bg-white rounded-2xl border border-[#e2e8f4] p-5 shadow-xs">
               <div className="flex items-center justify-between pb-3.5 border-b border-[#eef2f8] mb-4">
-                <span className="font-serif font-bold text-sm tracking-wider text-[#0d1f3c]">
+                <span className="font-serif font-bold text-sm tracking-wider uppercase text-[#0d1f3c]">
                   Filter By
                 </span>
                 {activeFilterCount > 0 && (
@@ -640,7 +450,7 @@ export default function ProductsPage() {
               <div className="py-3.5 border-b border-[#eef2f8]">
                 <button
                   onClick={() => toggleFilter("metal")}
-                  className="w-full flex items-center justify-between text-xs font-bold tracking-wider text-[#0d1f3c]"
+                  className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#0d1f3c]"
                 >
                   <span>Metal & Colour</span>
                   {openFilters.metal ? (
@@ -682,11 +492,11 @@ export default function ProductsPage() {
                 )}
               </div>
 
-              {/* Group 2: Diamond Shape (Visual Badges) */}
+              {/* Group 2: Diamond Shape */}
               <div className="py-3.5 border-b border-[#eef2f8]">
                 <button
                   onClick={() => toggleFilter("shape")}
-                  className="w-full flex items-center justify-between text-xs font-bold tracking-wider text-[#0d1f3c]"
+                  className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#0d1f3c]"
                 >
                   <span>Diamond Shape</span>
                   {openFilters.shape ? (
@@ -706,8 +516,8 @@ export default function ProductsPage() {
                           type="button"
                           onClick={() => toggleShape(s.name)}
                           className={`flex items-center gap-2 p-2 rounded-xl border text-xs font-medium transition-all cursor-pointer ${isSelected
-                            ? "border-[#c9a84c] bg-[#fcf8ed] text-[#0d1f3c] font-bold shadow-xs"
-                            : "border-[#e2e8f4] bg-white text-[#4a5a7a] hover:border-[#c9a84c]/60"
+                              ? "border-[#c9a84c] bg-[#fcf8ed] text-[#0d1f3c] font-bold shadow-xs"
+                              : "border-[#e2e8f4] bg-white text-[#4a5a7a] hover:border-[#c9a84c]/60"
                             }`}
                         >
                           <span className="text-sm text-[#c9a84c]">{s.icon}</span>
@@ -723,7 +533,7 @@ export default function ProductsPage() {
               <div className="py-3.5 border-b border-[#eef2f8]">
                 <button
                   onClick={() => toggleFilter("price")}
-                  className="w-full flex items-center justify-between text-xs font-bold tracking-wider text-[#0d1f3c]"
+                  className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#0d1f3c]"
                 >
                   <span>Price Range</span>
                   {openFilters.price ? (
@@ -763,7 +573,7 @@ export default function ProductsPage() {
               <div className="py-3.5">
                 <button
                   onClick={() => toggleFilter("carat")}
-                  className="w-full flex items-center justify-between text-xs font-bold tracking-wider text-[#0d1f3c]"
+                  className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#0d1f3c]"
                 >
                   <span>Carat Weight</span>
                   {openFilters.carat ? (
@@ -799,7 +609,7 @@ export default function ProductsPage() {
               </div>
             </aside>
 
-            {/* ─── RIGHT PRODUCT GRID (WITH IN-GRID EDITORIAL BANNERS) ─── */}
+            {/* ─── RIGHT PRODUCT GRID ─── */}
             <div className="flex-1">
               {filteredProducts.length === 0 ? (
                 <div className="bg-white rounded-2xl border border-[#e2e8f4] p-12 text-center">
@@ -808,7 +618,7 @@ export default function ProductsPage() {
                   </p>
                   <p className="text-xs text-[#6e7d9b] max-w-sm mx-auto mb-6">
                     Try adjusting your metal, diamond shape, or price selections
-                    to discover our handcrafted rings.
+                    to discover our handcrafted jewellery.
                   </p>
                   <button
                     onClick={resetAllFilters}
@@ -820,20 +630,34 @@ export default function ProductsPage() {
               ) : (
                 <div
                   className={`grid gap-5 sm:gap-6 ${gridCols === 4
-                    ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
-                    : "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
+                      ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
+                      : "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
                     }`}
                 >
+                  {/* All products strictly without interstitial banners */}
                   {filteredProducts.map((product) => (
-                    <ProductCard key={product.id} {...product} />
+                    <ProductCard
+                      key={product.id}
+                      id={product.id}
+                      name={product.name}
+                      price={`₹${product.price.toLocaleString("en-IN")}`}
+                      originalPrice={`₹${product.originalPrice.toLocaleString("en-IN")}`}
+                      badge={product.badge}
+                      badgeColor={product.badgeColor}
+                      category={product.category}
+                      carats={product.carat}
+                      metal={product.metal}
+                      image={product.images[0]}
+                      images={product.images}
+                    />
                   ))}
                 </div>
               )}
 
               {/* ─── Pagination Bar ─── */}
-              <div className="mt-12 pt-6 border-t border-[#e8edf7] flex flex-col sm:flex-row items-center justify-between gap-4">
+              {/* <div className="mt-12 pt-6 border-t border-[#e8edf7] flex flex-col sm:flex-row items-center justify-between gap-4">
                 <span className="text-xs text-[#6e7d9b]">
-                  Showing 1–{filteredProducts.length} of {productsData.length} designs
+                  Showing 1–{filteredProducts.length} of {allProducts.length} designs
                 </span>
 
                 <div className="flex items-center gap-2">
@@ -860,12 +684,10 @@ export default function ProductsPage() {
                     →
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
-
-
       </main>
 
       <Footer />
@@ -893,7 +715,7 @@ export default function ProductsPage() {
 
               {/* Metal Filter */}
               <div className="py-3 border-b border-[#eef2f8]">
-                <p className="text-xs font-bold text-[#0d1f3c] mb-2">
+                <p className="text-xs font-bold text-[#0d1f3c] uppercase mb-2">
                   Metal & Colour
                 </p>
                 <div className="space-y-1.5">
@@ -913,7 +735,7 @@ export default function ProductsPage() {
 
               {/* Shape Filter */}
               <div className="py-3 border-b border-[#eef2f8]">
-                <p className="text-xs font-bold text-[#0d1f3c] mb-2">
+                <p className="text-xs font-bold text-[#0d1f3c] uppercase mb-2">
                   Diamond Shape
                 </p>
                 <div className="grid grid-cols-2 gap-1.5">
@@ -922,8 +744,8 @@ export default function ProductsPage() {
                       key={s.name}
                       onClick={() => toggleShape(s.name)}
                       className={`text-xs p-1.5 rounded-lg border text-left flex items-center gap-1.5 ${selectedShapes.includes(s.name)
-                        ? "border-[#c9a84c] bg-[#fdf8ec] font-bold"
-                        : "border-[#e2e8f4]"
+                          ? "border-[#c9a84c] bg-[#fdf8ec] font-bold"
+                          : "border-[#e2e8f4]"
                         }`}
                     >
                       <span>{s.icon}</span>
@@ -935,7 +757,7 @@ export default function ProductsPage() {
 
               {/* Price Filter */}
               <div className="py-3">
-                <p className="text-xs font-bold text-[#0d1f3c] mb-2">
+                <p className="text-xs font-bold text-[#0d1f3c] uppercase mb-2">
                   Price
                 </p>
                 <div className="space-y-1.5">
@@ -976,3 +798,10 @@ export default function ProductsPage() {
   );
 }
 
+export default function ProductsPage({ initialCategory }) {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+      <ProductsContent initialCategory={initialCategory} />
+    </Suspense>
+  );
+}

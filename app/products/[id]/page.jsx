@@ -138,10 +138,44 @@ const productCatalogue = {
   },
 };
 
+import { allProducts } from "../../data/productsData";
+
 export default function ProductDetailPage({ params }) {
   const unwrappedParams = params && typeof params.then === "function" ? use(params) : (params || { id: "default" });
   const productId = unwrappedParams.id || "default";
-  const product = productCatalogue[productId] || productCatalogue.default;
+  
+  const foundProduct = allProducts.find((p) => p.id === productId);
+  const product = productCatalogue[productId] || (foundProduct ? {
+    id: foundProduct.id,
+    name: foundProduct.name,
+    category: foundProduct.category,
+    collection: `${foundProduct.category} Atelier Collection`,
+    sku: `CL-${foundProduct.id.slice(0, 3).toUpperCase()}-0824`,
+    basePrice: foundProduct.price,
+    mrpPrice: foundProduct.originalPrice,
+    discount: foundProduct.discount,
+    rating: foundProduct.rating || 4.95,
+    reviewsCount: foundProduct.reviews || 42,
+    images: foundProduct.images.map((url, i) => ({
+      url,
+      label: ["Crown View", "Side Angle", "On Model", "Atelier Macro"][i] || `Angle ${i + 1}`,
+    })),
+    metals: [
+      { id: "yellow-gold", name: "Yellow Gold", color: "#e5c07b" },
+      { id: "rose-gold", name: "Rose Gold", color: "#e8b4b8" },
+      { id: "white-gold", name: "White Gold", color: "#e2e8f0" },
+    ],
+    purities: [
+      { id: "14k", name: "14Kt Gold", fineness: "585 Hallmark", desc: "Durable Everyday", priceMultiplier: 0.90 },
+      { id: "18k", name: "18Kt Gold", fineness: "750 Hallmark", desc: "Standard Luxury", priceMultiplier: 1.0, isPopular: true },
+    ],
+    carats: [
+      { weight: foundProduct.carat || "1.00 Carat", price: foundProduct.price, mrp: foundProduct.originalPrice, clarity: foundProduct.clarity || "VVS1 · E Color" },
+      { weight: "1.50 Carat", price: Math.round(foundProduct.price * 1.35), mrp: Math.round(foundProduct.originalPrice * 1.35), clarity: "VVS1 · D Color" },
+      { weight: "2.00 Carat", price: Math.round(foundProduct.price * 1.75), mrp: Math.round(foundProduct.originalPrice * 1.75), clarity: "VVS1 · D Color" },
+    ],
+    ringSizes: [10, 12, 14, 16, 18, 20],
+  } : productCatalogue.default);
 
   /* State Customizers */
   const [selectedImage, setSelectedImage] = useState(0);

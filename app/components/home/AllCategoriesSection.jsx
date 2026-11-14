@@ -146,7 +146,7 @@ export default function AllCategoriesSection() {
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      <div className="text-center mt-14 px-4">
+      {/* <div className="text-center mt-14 lg:mb-14 2xl:mb-0 px-4">
         <div className="flex items-center justify-center gap-4 mb-5">
           <div className="h-px w-16" style={{ background: "linear-gradient(to right, transparent, #c9a84c)" }} />
           <span className="text-[9px] tracking-[0.45em] font-bold" style={{ color: "#c9a84c" }}>
@@ -161,7 +161,7 @@ export default function AllCategoriesSection() {
         <p className="text-white/50 text-sm md:text-base max-w-md mx-auto leading-relaxed">
           Lab-grown diamonds, ethically crafted — timeless jewellery for every occasion.
         </p>
-      </div>
+      </div> */}
       {/* ── Atmospheric BG ── */}
       <div className="pointer-events-none absolute inset-0 z-0">
         <div
