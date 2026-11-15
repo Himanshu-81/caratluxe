@@ -9,7 +9,7 @@ const footerLinks = {
   Legal: ["Privacy Policy", "Terms of Service", "Insured Shipping", "Buyback Policy"],
 };
 
-const certifications = ["IGI Certified", "GIA Certified", "BIS Hallmarked", "ISO 9001:2015"];
+const certifications = ["IGI Certified", "SGL Certified", "BIS Hallmarked", "ISO 9001:2015"];
 
 export default function Footer() {
   return (
@@ -25,24 +25,14 @@ export default function Footer() {
 
           {/* Brand block with prominent Logo */}
           <div className="lg:col-span-2">
-            <Link href="/" className="inline-flex items-center gap-3.5 mb-6 group">
-              <div className="relative w-12 h-12 rounded-xl overflow-hidden ring-1 ring-[#c9a84c]/50 shadow-md bg-[#031d42]">
-                <Image
-                  src="/images/logo.jpg"
-                  alt="CaratLuxe"
-                  fill
-                  sizes="48px"
-                  className="object-cover group-hover:scale-105 transition-transform"
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-serif text-2xl font-bold tracking-[0.2em] text-white">
-                  CARATLUXE
-                </span>
-                <span className="text-[10px] tracking-[0.32em]  font-semibold text-[#c9a84c] -mt-0.5">
-                  Conscious Luxury
-                </span>
-              </div>
+            <Link href="/" className="inline-block mb-6 group">
+              <Image
+                src="/images/logo.jpg"
+                alt="CaratLuxe Lab Diamonds"
+                width={140}
+                height={70}
+                className="h-16 w-auto object-contain group-hover:scale-[1.03] transition-transform duration-500"
+              />
             </Link>
 
             <p className="text-white/70 text-sm leading-relaxed mb-6 max-w-sm">
@@ -113,7 +103,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
           <p>© 2026 CaratLuxe Diamonds Pvt Ltd. All rights reserved.</p>
           <div className="flex items-center gap-3">
-            {["100% Insured Delivery", "IGI / GIA Certified", "Lifetime Upgrade"].map((t) => (
+            {["100% Insured Delivery", "IGI / SGL Certified", "Lifetime Upgrade"].map((t) => (
               <span key={t} className="text-white/60 text-[11px] font-medium">
                 {t}
               </span>

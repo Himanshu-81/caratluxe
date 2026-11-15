@@ -107,7 +107,7 @@ export default function ConsultationPage() {
                   rel="noopener noreferrer"
                   className="mt-3 inline-block bg-[#25d366] text-white text-xs font-bold px-5 py-2.5 rounded-full hover:bg-[#20ba59] transition-colors"
                 >
-                  Chat with Gemologist Now
+                  Contact us Now Now
                 </a>
               </div>
             </div>

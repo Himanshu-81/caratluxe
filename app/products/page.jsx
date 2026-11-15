@@ -7,6 +7,7 @@ import AnnouncementBar from "../components/layout/AnnouncementBar";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ProductCard from "../components/ui/ProductCard";
+import SectionHeader from "../components/ui/SectionHeader";
 import { allProducts, categoriesList } from "../data/productsData";
 import {
   IoChevronDown,
@@ -52,45 +53,6 @@ const caratOptions = [
   { label: "1.50 – 1.99 CT", key: "1.50-1.99" },
   { label: "2.00 CT & Above", key: "2.00+" },
 ];
-
-/* ─── Category Metadata Dictionary ─── */
-const categoryMeta = {
-  "All Jewellery": {
-    eyebrow: "The Complete CaratLuxe Atelier",
-    title: "All Certified Diamond Jewellery",
-    subtitle: "Explore certified lab-grown diamond solitaires, earrings, necklaces, bracelets and bridal suites handcrafted in 18K solid gold and 950 platinum.",
-  },
-  "Rings": {
-    eyebrow: "Signature Atelier Collection",
-    title: "Solitaire & Diamond Rings",
-    subtitle: "Handcrafted in 18K solid gold & 950 platinum with GIA & IGI certified lab-grown diamonds. Ethically created with zero carbon footprint.",
-  },
-  "Earrings": {
-    eyebrow: "Everyday & High Luxe",
-    title: "Diamond Studs, Hoops & Chandeliers",
-    subtitle: "Solitaire studs, inside-out pavé hoops, celestial pear drops, and dramatic chandeliers sculpted with unmatched optical fire.",
-  },
-  "Necklaces": {
-    eyebrow: "Timeless Atelier Lines",
-    title: "Diamond Tennis Necklaces & Pendants",
-    subtitle: "Collar chokers, continuous tennis strands, and solitaire pendants designed for life's unforgettable milestones.",
-  },
-  "Bracelets & Bangles": {
-    eyebrow: "Wrist Luxe & Stacking Strands",
-    title: "Diamond Tennis Bracelets & Bangles",
-    subtitle: "Continuous row tennis strands and flexible diamond bangles sculpted for everyday elegance and black-tie brilliance.",
-  },
-  "Pendants": {
-    eyebrow: "Solitaire & Accent Drops",
-    title: "Diamond Solitaire Pendants",
-    subtitle: "Minimalist daily accents and intricate cluster silhouettes forged in hallmarked 18K gold and platinum.",
-  },
-  "Mangalsutra": {
-    eyebrow: "Modern & Sacred Bridal",
-    title: "Diamond Mangalsutra Collection",
-    subtitle: "Modern interpretations of sacred elegance featuring certified lab diamonds and black beads in hallmarked 18K gold.",
-  },
-};
 
 function ProductsContent({ initialCategory }) {
   const searchParams = useSearchParams();
@@ -232,8 +194,6 @@ function ProductsContent({ initialCategory }) {
     sortBy,
   ]);
 
-  const activeMeta = categoryMeta[selectedCategory] || categoryMeta["All Jewellery"];
-
   return (
     <>
       <AnnouncementBar />
@@ -257,77 +217,15 @@ function ProductsContent({ initialCategory }) {
           </div>
         </div>
 
-        {/* ─── Collection Hero Banner ─── */}
-        <section className="bg-gradient-to-b from-[#f5f8ff] via-[#ffffff] to-[#ffffff] pt-9 pb-7 border-b border-[#e8edf7]">
+        {/* ─── Page Heading (Same as Homepage) ─── */}
+        <section className="bg-gradient-to-b from-[#f5f8ff] via-[#ffffff] to-[#ffffff] pt-8 pb-6 border-b border-[#e8edf7]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-              <div className="max-w-2xl">
-                {/* Eyebrow */}
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="h-px w-5 bg-[#c9a84c]" />
-                  <span className="text-[10px] font-extrabold tracking-[0.3em] text-[#c9a84c] uppercase">
-                    {activeMeta.eyebrow}
-                  </span>
-                </div>
-
-                {/* Title */}
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#0d1f3c] tracking-tight flex items-baseline gap-3 flex-wrap">
-                  {activeMeta.title}
-                  <span className="text-sm sm:text-base font-normal font-sans text-[#8a9ab8]">
-                    ({filteredProducts.length} designs)
-                  </span>
-                </h1>
-
-                {/* Subtitle */}
-                <p className="mt-3 text-[#526382] text-xs sm:text-sm leading-relaxed max-w-xl">
-                  {activeMeta.subtitle}
-                </p>
-              </div>
-
-              {/* Trust highlights */}
-              <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row gap-3 text-xs text-[#0d1f3c] bg-white/80 p-3.5 rounded-xl border border-[#e2e8f4] shadow-xs">
-                <div className="flex items-center gap-2">
-                  <span className="text-[#c9a84c] font-bold">✦</span>
-                  <span className="font-semibold text-[11px] tracking-wide">
-                    100% Certified Lab Diamonds
-                  </span>
-                </div>
-                <div className="hidden lg:block w-px h-4 bg-[#e2e8f4]" />
-                <div className="flex items-center gap-2">
-                  <span className="text-[#c9a84c] font-bold">◈</span>
-                  <span className="font-semibold text-[11px] tracking-wide">
-                    Lifetime Exchange & Buyback
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* ─── Horizontal Quick Category Pills ─── */}
-            <div className="mt-8 flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-none">
-              {categoriesList.map((sub) => {
-                const isActive =
-                  selectedCategory.toLowerCase() === sub.label.toLowerCase() ||
-                  (sub.id === "all" && selectedCategory === "All Jewellery");
-                return (
-                  <button
-                    key={sub.id}
-                    onClick={() => setSelectedCategory(sub.id === "all" ? "All Jewellery" : sub.label)}
-                    className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer shrink-0 ${isActive
-                        ? "bg-[#0d1f3c] text-white shadow-sm ring-2 ring-[#c9a84c]/50"
-                        : "bg-white text-[#4a5a7a] border border-[#e2e8f4] hover:border-[#c9a84c] hover:text-[#0d1f3c]"
-                      }`}
-                  >
-                    {sub.label}
-                    <span
-                      className={`ml-1.5 text-[10px] ${isActive ? "text-[#e8c97a]" : "text-[#8a9ab8]"
-                        }`}
-                    >
-                      ({sub.count})
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
+            <SectionHeader
+              eyebrow="Signature Atelier"
+              title={selectedCategory === "All Jewellery" ? "Certified Diamond" : selectedCategory}
+              titleHighlight={selectedCategory === "All Jewellery" ? "Jewellery" : "Collection"}
+              subtitle={`Explore certified lab-grown diamond ${selectedCategory.toLowerCase()} handcrafted in 18K solid gold & 950 platinum with GIA & IGI certifications.`}
+            />
           </div>
         </section>
 
@@ -344,7 +242,7 @@ function ProductsContent({ initialCategory }) {
                 Filters {activeFilterCount > 0 && `(${activeFilterCount})`}
               </button>
 
-              <span className="text-xs font-semibold text-[#526382] uppercase tracking-wider">
+              <span className="text-xs font-semibold text-[#526382] tracking-wider">
                 Showing {filteredProducts.length} of {allProducts.length} Designs
               </span>
 
@@ -387,8 +285,8 @@ function ProductsContent({ initialCategory }) {
                   onClick={() => setGridCols(3)}
                   aria-label="3 columns grid"
                   className={`p-1 rounded ${gridCols === 3
-                      ? "bg-[#0d1f3c] text-white"
-                      : "text-[#6e7d9b] hover:text-[#0d1f3c]"
+                    ? "bg-[#0d1f3c] text-white"
+                    : "text-[#6e7d9b] hover:text-[#0d1f3c]"
                     }`}
                 >
                   <IoGridOutline className="w-4 h-4" />
@@ -397,8 +295,8 @@ function ProductsContent({ initialCategory }) {
                   onClick={() => setGridCols(4)}
                   aria-label="4 columns grid"
                   className={`p-1 rounded ${gridCols === 4
-                      ? "bg-[#0d1f3c] text-white"
-                      : "text-[#6e7d9b] hover:text-[#0d1f3c]"
+                    ? "bg-[#0d1f3c] text-white"
+                    : "text-[#6e7d9b] hover:text-[#0d1f3c]"
                     }`}
                 >
                   <span className="font-bold text-xs tracking-tighter px-0.5">
@@ -516,8 +414,8 @@ function ProductsContent({ initialCategory }) {
                           type="button"
                           onClick={() => toggleShape(s.name)}
                           className={`flex items-center gap-2 p-2 rounded-xl border text-xs font-medium transition-all cursor-pointer ${isSelected
-                              ? "border-[#c9a84c] bg-[#fcf8ed] text-[#0d1f3c] font-bold shadow-xs"
-                              : "border-[#e2e8f4] bg-white text-[#4a5a7a] hover:border-[#c9a84c]/60"
+                            ? "border-[#c9a84c] bg-[#fcf8ed] text-[#0d1f3c] font-bold shadow-xs"
+                            : "border-[#e2e8f4] bg-white text-[#4a5a7a] hover:border-[#c9a84c]/60"
                             }`}
                         >
                           <span className="text-sm text-[#c9a84c]">{s.icon}</span>
@@ -630,8 +528,8 @@ function ProductsContent({ initialCategory }) {
               ) : (
                 <div
                   className={`grid gap-5 sm:gap-6 ${gridCols === 4
-                      ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
-                      : "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
+                    ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
+                    : "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
                     }`}
                 >
                   {/* All products strictly without interstitial banners */}
@@ -744,8 +642,8 @@ function ProductsContent({ initialCategory }) {
                       key={s.name}
                       onClick={() => toggleShape(s.name)}
                       className={`text-xs p-1.5 rounded-lg border text-left flex items-center gap-1.5 ${selectedShapes.includes(s.name)
-                          ? "border-[#c9a84c] bg-[#fdf8ec] font-bold"
-                          : "border-[#e2e8f4]"
+                        ? "border-[#c9a84c] bg-[#fdf8ec] font-bold"
+                        : "border-[#e2e8f4]"
                         }`}
                     >
                       <span>{s.icon}</span>

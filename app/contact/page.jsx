@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import SectionHeader from "../components/ui/SectionHeader";
 import AnnouncementBar from "../components/layout/AnnouncementBar";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
@@ -47,23 +48,13 @@ export default function ContactPage() {
 
         {/* ─── Header ─── */}
         <section className="bg-gradient-to-b from-[#f5f8ff] via-[#ffffff] to-[#ffffff] py-14 border-b border-[#e8edf7]">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <div className="h-px w-6 bg-[#c9a84c]" />
-              <span className="text-[10px] font-extrabold tracking-[0.35em] text-[#c9a84c] uppercase">
-                Atelier Concierge
-              </span>
-              <div className="h-px w-6 bg-[#c9a84c]" />
-            </div>
-
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[#0d1f3c] leading-tight tracking-tight">
-              We Are Here to <span className="gold-shimmer">Assist You</span>
-            </h1>
-            <p className="mt-4 text-[#526382] text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
-              Whether you wish to schedule an in-person viewing, book a virtual
-              gemologist consultation, or custom-design your bespoke piece, our
-              atelier is at your service.
-            </p>
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <SectionHeader
+              eyebrow="Atelier Concierge"
+              title="We Are Here to"
+              titleHighlight="Assist You"
+              subtitle="Whether you wish to schedule an in-person viewing, book a virtual gemologist consultation, or custom-design your bespoke piece, our atelier is at your service."
+            />
           </div>
         </section>
 

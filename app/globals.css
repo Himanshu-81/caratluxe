@@ -167,3 +167,33 @@ h1, h2, h3, h4, h5, h6, .font-serif, .font-sans {
   background: #c9a84c !important;
   width: 48px !important;
 }
+
+/* ── Floating WhatsApp pulse & float ── */
+@keyframes whatsappPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6), 0 4px 20px rgba(37, 211, 102, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(37, 211, 102, 0), 0 4px 20px rgba(37, 211, 102, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0), 0 4px 20px rgba(37, 211, 102, 0.4);
+  }
+}
+
+@keyframes whatsappFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-whatsapp-pulse {
+  animation: whatsappPulse 2.2s infinite;
+}
+
+.animate-whatsapp-float {
+  animation: whatsappFloat 3.2s ease-in-out infinite;
+}

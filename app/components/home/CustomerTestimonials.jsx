@@ -28,7 +28,7 @@ const testimonials = [
     name: "Ananya Deshmukh",
     location: "Pune",
     rating: 5,
-    text: "The tennis bracelet has magnificent brilliance. The clarity and cut exceed natural mined diamonds that cost 3 times more. Conscious luxury at its finest!",
+    text: "The tennis bracelet has magnificent brilliance. The clarity and cut exceed natural mined diamonds that cost 3 times more. Lab Grown Diamond Jewellery at its finest!",
     purchase: "Royal Diamond Tennis Bracelet",
     verified: true,
     avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80",

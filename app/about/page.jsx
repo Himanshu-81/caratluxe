@@ -39,7 +39,7 @@ export default function AboutPage() {
             <div className="flex items-center justify-center gap-2 mb-4">
               <div className="h-px w-8 bg-[#c9a84c]" />
               <span className="text-[10px] font-extrabold tracking-[0.35em] text-[#e8c97a] uppercase">
-                Conscious Luxury · Est. MMXXIV
+                Lab Grown Diamond Jewellery · Est. MMXXIV
               </span>
               <div className="h-px w-8 bg-[#c9a84c]" />
             </div>
@@ -120,7 +120,7 @@ export default function AboutPage() {
               <div className="bg-white p-7 rounded-2xl border border-[#e2e8f4] shadow-xs">
                 <span className="text-[#c9a84c] text-3xl font-bold mb-3 block">◈</span>
                 <h4 className="font-serif text-base font-bold text-[#0d1f3c] mb-2">
-                  IGI & GIA Certified
+                  IGI & SGL Certified
                 </h4>
                 <p className="text-xs text-[#6e7d9b] leading-relaxed">
                   Every solitaire above 0.50 CT features a microscopic laser girdle inscription matching its dossier.

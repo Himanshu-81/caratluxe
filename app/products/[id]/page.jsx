@@ -15,6 +15,8 @@ import {
   IoInformationCircleOutline,
   IoClose,
   IoBagCheckOutline,
+  IoAdd,
+  IoRemove,
 } from "react-icons/io5";
 
 /* ─── Related Products ("You May Also Like") ─── */
@@ -143,7 +145,7 @@ import { allProducts } from "../../data/productsData";
 export default function ProductDetailPage({ params }) {
   const unwrappedParams = params && typeof params.then === "function" ? use(params) : (params || { id: "default" });
   const productId = unwrappedParams.id || "default";
-  
+
   const foundProduct = allProducts.find((p) => p.id === productId);
   const product = productCatalogue[productId] || (foundProduct ? {
     id: foundProduct.id,
@@ -191,6 +193,7 @@ export default function ProductDetailPage({ params }) {
   const [pincodeStatus, setPincodeStatus] = useState(null);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [sizeModalOpen, setSizeModalOpen] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   const [addedToCartToast, setAddedToCartToast] = useState(false);
 
   /* Bundle checkboxes */
@@ -211,8 +214,32 @@ export default function ProductDetailPage({ params }) {
   };
 
   const handleAddToCart = () => {
+    try {
+      const existing = JSON.parse(localStorage.getItem("caratluxe_cart") || "[]");
+      const itemKey = `${product.id}-${selectedMetal.id}-${selectedPurity.id}-${selectedCarat.weight}-${selectedSize}`;
+      const existingIdx = existing.findIndex((item) => item.id === itemKey);
+      if (existingIdx > -1) {
+        existing[existingIdx].quantity += quantity;
+      } else {
+        existing.push({
+          id: itemKey,
+          name: product.name,
+          variant: `${selectedCarat.weight} · ${selectedPurity.name} (${selectedMetal.name}) · Size ${selectedSize}${engravingText ? ` · Engraved: "${engravingText}"` : ""}`,
+          price: dynamicPrice,
+          originalPrice: dynamicMrp,
+          quantity: quantity,
+          image: product.images[0]?.url || "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&auto=format&fit=crop&q=80",
+        });
+      }
+      localStorage.setItem("caratluxe_cart", JSON.stringify(existing));
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event("cart-updated"));
+      }
+    } catch (e) {
+      console.error("Cart storage error", e);
+    }
     setAddedToCartToast(true);
-    setTimeout(() => setAddedToCartToast(false), 3500);
+    setTimeout(() => setAddedToCartToast(false), 4000);
   };
 
   return (
@@ -246,432 +273,6 @@ export default function ProductDetailPage({ params }) {
           </div>
         </div>
 
-        {/* ─── Main Product Showcase & Customizer Area ─── */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            {/* ─── LEFT COLUMN: Media Gallery (Sticky till Add to Cart) ─── */}
-            <div className="lg:col-span-6 flex flex-col gap-4 lg:sticky lg:top-24 self-start">
-              {/* Main Photo Container */}
-              <div className="relative aspect-[4/4] sm:aspect-[5/4] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#f4f7ff] border border-[#e2e8f4] shadow-xs group">
-                {/* Badges */}
-                <div className="absolute top-4 left-4 z-20 flex flex-col gap-1.5">
-                  <span className="text-[10px] font-bold tracking-wide bg-[#0d1f3c] text-white px-3 py-1 rounded-full shadow-xs">
-                    ✦ 100% Certified Lab Diamond
-                  </span>
-                  <span className="text-[10px] font-bold tracking-wide bg-[#c9a84c] text-[#0d1f3c] px-3 py-1 rounded-full shadow-xs">
-                    Ready to Ship
-                  </span>
-                </div>
-
-                {/* Wishlist & Share Buttons */}
-                <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
-                  <button
-                    onClick={() => setIsWishlisted(!isWishlisted)}
-                    aria-label="Wishlist"
-                    className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center shadow-xs hover:scale-105 transition-all text-[#4a5a7a] cursor-pointer"
-                  >
-                    {isWishlisted ? (
-                      <IoHeart className="w-5 h-5 text-red-500" />
-                    ) : (
-                      <IoHeartOutline className="w-5 h-5 hover:text-[#c9a84c]" />
-                    )}
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (navigator.share) {
-                        navigator.share({ title: product.name, url: window.location.href });
-                      } else {
-                        navigator.clipboard.writeText(window.location.href);
-                        alert("Link copied to clipboard!");
-                      }
-                    }}
-                    aria-label="Share"
-                    className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center shadow-xs hover:scale-105 transition-all text-[#4a5a7a] hover:text-[#c9a84c] cursor-pointer"
-                  >
-                    <IoShareSocialOutline className="w-5 h-5" />
-                  </button>
-                </div>
-
-                {/* Main Product Image */}
-                <Image
-                  src={product.images[selectedImage].url}
-                  alt={`${product.name} angle ${selectedImage + 1}`}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 58vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-              </div>
-
-              {/* Thumbnails Row */}
-              <div className="grid grid-cols-5 gap-3">
-                {product.images.map((img, idx) => {
-                  const isSelected = selectedImage === idx;
-                  return (
-                    <button
-                      key={idx}
-                      onClick={() => setSelectedImage(idx)}
-                      onMouseEnter={() => setSelectedImage(idx)}
-                      className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${isSelected
-                        ? "border-[#c9a84c] ring-2 ring-[#c9a84c]/20 scale-102 shadow-xs"
-                        : "border-[#e2e8f4] opacity-75 hover:opacity-100 hover:border-[#c9a84c]/50"
-                        }`}
-                    >
-                      <Image
-                        src={img.url}
-                        alt={img.label}
-                        fill
-                        sizes="120px"
-                        className="object-cover"
-                      />
-                      <span className="absolute bottom-1 left-1 right-1 text-[9px] font-medium text-center text-white bg-black/60 rounded py-0.5 truncate px-1">
-                        {img.label}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* ─── RIGHT COLUMN: Customizer & Details ─── */}
-            <div className="lg:col-span-6 flex flex-col">
-              {/* Collection Eyebrow & SKU */}
-              <div className="flex items-center justify-between text-xs text-[#8a9ab8] pb-1">
-                <span className="text-xs font-semibold tracking-wider text-[#c9a84c]">
-                  {product.collection}
-                </span>
-                <span className="text-[11px] tracking-wider font-mono">
-                  {product.sku}
-                </span>
-              </div>
-
-              {/* Product Title */}
-              <h1 className="font-serif text-2xl sm:text-3xl lg:text-3xl font-bold text-[#0d1f3c] mt-1 mb-2 leading-tight">
-                {product.name}
-              </h1>
-
-              {/* Status Row */}
-              <div className="flex items-center justify-between pb-4 border-b border-[#eef2f8] text-xs">
-                <span className="text-[#c9a84c] font-semibold flex items-center gap-1.5">
-                  <IoCheckmarkCircle className="w-4 h-4 text-emerald-600" />
-                  In Stock · Ready to Dispatch Nationwide
-                </span>
-              </div>
-
-              {/* Price Row */}
-              <div className="py-4 border-b border-[#eef2f8]">
-                <div className="flex items-baseline gap-3">
-                  <span className="text-2xl sm:text-3xl font-bold text-[#0d1f3c]">
-                    ₹{dynamicPrice.toLocaleString("en-IN")}
-                  </span>
-                  <span className="text-sm sm:text-base text-[#8a9ab8] line-through">
-                    ₹{dynamicMrp.toLocaleString("en-IN")}
-                  </span>
-                  <span className="text-xs font-extrabold text-[#9a2e2e] bg-[#fdf2f2] px-2 py-0.5 rounded-full">
-                    {product.discount}
-                  </span>
-                </div>
-                <p className="text-[11px] text-[#6e7d9b] mt-1">
-                  Inclusive of all taxes · Free insured express shipping across India
-                </p>
-              </div>
-
-              {/* ─── CUSTOMIZER 1: Metal Colour & Tone ─── */}
-              <div className="py-4 border-b border-[#eef2f8]">
-                <div className="flex items-center justify-between text-xs mb-2.5">
-                  <span className="font-semibold text-xs text-[#0d1f3c]">
-                    Metal Colour:
-                  </span>
-                  <span className="font-semibold text-[#c9a84c]">
-                    {selectedMetal.name}
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-3 gap-2">
-                  {product.metals.map((metal) => {
-                    const isSelected = selectedMetal.id === metal.id;
-                    return (
-                      <button
-                        key={metal.id}
-                        type="button"
-                        onClick={() => setSelectedMetal(metal)}
-                        className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all cursor-pointer ${isSelected
-                          ? "border-[#c9a84c] bg-[#fdf8ed] ring-2 ring-[#c9a84c]/20 shadow-xs"
-                          : "border-[#e2e8f4] bg-white hover:border-[#c9a84c]/50"
-                          }`}
-                      >
-                        <span
-                          className="w-3.5 h-3.5 rounded-full border border-black/20 shrink-0"
-                          style={{ backgroundColor: metal.color }}
-                        />
-                        <span className="text-[11px] font-semibold text-[#0d1f3c] truncate">
-                          {metal.name}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* ─── CUSTOMIZER 2: Gold & Metal Purity ─── */}
-              <div className="py-4 border-b border-[#eef2f8]">
-                <div className="flex items-center justify-between text-xs mb-2.5">
-                  <span className="font-semibold text-xs text-[#0d1f3c]">
-                    Gold & Metal Purity:
-                  </span>
-                  <span className="font-semibold text-[#c9a84c]">
-                    {selectedPurity.name} · {selectedPurity.fineness}
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-3 gap-2">
-                  {product.purities.map((purity) => {
-                    const isSelected = selectedPurity.id === purity.id;
-                    return (
-                      <button
-                        key={purity.id}
-                        type="button"
-                        onClick={() => setSelectedPurity(purity)}
-                        className={`p-2.5 rounded-xl border text-center relative transition-all cursor-pointer ${isSelected
-                          ? "border-[#c9a84c] bg-[#0d1f3c] text-white shadow-sm ring-2 ring-[#c9a84c]/30"
-                          : "border-[#e2e8f4] bg-white text-[#0d1f3c] hover:border-[#c9a84c]/60"
-                          }`}
-                      >
-                        {purity.isPopular && !isSelected && (
-                          <span className="absolute -top-2 right-2 text-[8px] font-bold bg-[#c9a84c] text-[#0d1f3c] px-1.5 py-0.2 rounded-full shadow-xs">
-                            Popular
-                          </span>
-                        )}
-                        <span className="block text-xs font-bold">
-                          {purity.name}
-                        </span>
-                        <span
-                          className={`block text-[10px] mt-0.5 ${isSelected ? "text-[#e8c97a]" : "text-[#8a9ab8]"}`}
-                        >
-                          {purity.fineness}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* ─── CUSTOMIZER 3: Solitaire Carat Selection ─── */}
-              <div className="py-4 border-b border-[#eef2f8]">
-                <div className="flex items-center justify-between text-xs mb-2.5">
-                  <span className="font-semibold text-xs text-[#0d1f3c]">
-                    Diamond Carat Weight:
-                  </span>
-                  <span className="text-[11px] text-[#6e7d9b]">
-                    Graded {selectedCarat.clarity}
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-3 gap-2.5">
-                  {product.carats.map((c) => {
-                    const isSelected = selectedCarat.weight === c.weight;
-                    const calculatedCaratPrice = Math.round(c.price * selectedPurity.priceMultiplier);
-                    return (
-                      <button
-                        key={c.weight}
-                        onClick={() => setSelectedCarat(c)}
-                        className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${isSelected
-                          ? "border-[#c9a84c] bg-[#0d1f3c] text-white shadow-sm ring-2 ring-[#c9a84c]/40"
-                          : "border-[#e2e8f4] bg-white text-[#0d1f3c] hover:border-[#c9a84c]/60"
-                          }`}
-                      >
-                        <span className="block text-xs font-bold">
-                          {c.weight}
-                        </span>
-                        <span
-                          className={`block text-[11px] mt-0.5 font-semibold ${isSelected ? "text-[#e8c97a]" : "text-[#4a5a7a]"
-                            }`}
-                        >
-                          ₹{calculatedCaratPrice.toLocaleString("en-IN")}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* ─── CUSTOMIZER 4: Ring Size ─── */}
-              <div className="py-4 border-b border-[#eef2f8]">
-                <div className="flex items-center justify-between text-xs mb-2.5">
-                  <span className="font-semibold text-xs text-[#0d1f3c]">
-                    Select Ring Size:
-                  </span>
-                  <button
-                    onClick={() => setSizeModalOpen(true)}
-                    className="text-[11px] font-bold text-[#c9a84c] hover:underline cursor-pointer inline-flex items-center gap-1"
-                  >
-                    <IoInformationCircleOutline className="w-3.5 h-3.5" />
-                    Size Guide
-                  </button>
-                </div>
-
-                <div className="flex items-center gap-2 overflow-x-auto pb-1">
-                  {product.ringSizes.map((size) => {
-                    const isSelected = selectedSize === size;
-                    return (
-                      <button
-                        key={size}
-                        onClick={() => setSelectedSize(size)}
-                        className={`w-10 h-10 rounded-xl border text-xs font-bold transition-all cursor-pointer shrink-0 ${isSelected
-                          ? "border-[#0d1f3c] bg-[#0d1f3c] text-white shadow-xs"
-                          : "border-[#e2e8f4] bg-white text-[#4a5a7a] hover:border-[#c9a84c]"
-                          }`}
-                      >
-                        {size}
-                      </button>
-                    );
-                  })}
-                </div>
-
-                <p className="text-[11px] text-[#6e7d9b] mt-2 flex items-center gap-1">
-                  <span className="text-[#c9a84c]">✦</span>
-                  Unsure of size? We send a complimentary physical ring sizer before casting.
-                </p>
-              </div>
-
-              {/* ─── CUSTOMIZER 4: Free Laser Engraving ─── */}
-              <div className="py-4 border-b border-[#eef2f8]">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-xs text-[#0d1f3c]">
-                    Complimentary Laser Engraving
-                  </span>
-                  <button
-                    onClick={() => setShowEngravingInput(!showEngravingInput)}
-                    className="text-[11px] font-bold text-[#c9a84c] hover:underline cursor-pointer"
-                  >
-                    {showEngravingInput ? "Remove" : "+ Add Message"}
-                  </button>
-                </div>
-
-                {showEngravingInput && (
-                  <div className="mt-2.5">
-                    <input
-                      type="text"
-                      maxLength={20}
-                      placeholder="e.g. Forever Yours · 18.11.26"
-                      value={engravingText}
-                      onChange={(e) => setEngravingText(e.target.value)}
-                      className="w-full text-xs px-3.5 py-2.5 rounded-xl border border-[#e2e8f4] focus:outline-none focus:border-[#c9a84c]"
-                    />
-                    <span className="text-[10px] text-[#8a9ab8] mt-1 block">
-                      Max 20 characters · Engraved inside the comfort shank
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              {/* ─── Pincode Delivery Availability Checker ─── */}
-              <div className="py-4 border-b border-[#eef2f8]">
-                <span className="font-semibold text-xs text-[#0d1f3c] block mb-2">
-                  Delivery & Store Availability
-                </span>
-                <form onSubmit={checkPincode} className="flex gap-2">
-                  <input
-                    type="text"
-                    maxLength={6}
-                    placeholder="Enter 6-digit Pincode"
-                    value={pincode}
-                    onChange={(e) => {
-                      setPincode(e.target.value);
-                      setPincodeStatus(null);
-                    }}
-                    className="flex-1 text-xs px-3.5 py-2 rounded-xl border border-[#e2e8f4] focus:outline-none focus:border-[#c9a84c]"
-                  />
-                  <button
-                    type="submit"
-                    className="btn-navy text-white text-xs font-bold px-5 py-2 rounded-xl hover:bg-[#c9a84c] hover:text-[#0d1f3c] transition-colors cursor-pointer"
-                  >
-                    Check
-                  </button>
-                </form>
-
-                {pincodeStatus === "valid" && (
-                  <p className="text-[11px] text-emerald-700 font-semibold mt-2 flex items-center gap-1.5">
-                    <IoCheckmarkCircle className="w-4 h-4 text-emerald-600" />
-                    Delivery available by Wednesday, Nov 18 · Express Air Insured
-                  </p>
-                )}
-                {pincodeStatus === "invalid" && (
-                  <p className="text-[11px] text-red-600 font-semibold mt-2">
-                    Please enter a valid 6-digit Indian pincode.
-                  </p>
-                )}
-              </div>
-
-              {/* ─── Action Buttons (Add to Bag / Buy Now) ─── */}
-              <div className="pt-6 flex flex-col gap-3">
-                <button
-                  type="button"
-                  onClick={handleAddToCart}
-                  className="w-full btn-navy text-white text-sm font-semibold py-4 rounded-xl shadow-md hover:bg-[#031d42] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <IoBagCheckOutline className="w-4 h-4 text-[#c9a84c]" />
-                  Add to Cart
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => alert("Proceeding to Express Checkout...")}
-                  className="w-full btn-gold text-[#0d1f3c] text-sm font-bold py-4 rounded-xl shadow-lg hover:scale-[1.01] transition-all flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  Instant Buy Now
-                </button>
-
-                {/* Toast Notification */}
-                {addedToCartToast && (
-                  <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold rounded-xl text-center animate-fadeIn">
-                    ✓ Ring added to your luxury cart with selected options!
-                  </div>
-                )}
-              </div>
-
-              {/* ─── Trust Guarantees Grid ─── */}
-              {/* <div className="mt-8 grid grid-cols-2 gap-3 text-left">
-                <div className="p-3 bg-[#f8fafd] rounded-xl border border-[#e8edf7]">
-                  <span className="text-[#c9a84c] text-base font-bold block mb-1">✦</span>
-                  <h5 className="text-xs font-bold text-[#0d1f3c]">
-                    IGI Certified Diamond
-                  </h5>
-                  <p className="text-[10px] text-[#6e7d9b]">
-                    Laser girdle inscription matching certificate
-                  </p>
-                </div>
-                <div className="p-3 bg-[#f8fafd] rounded-xl border border-[#e8edf7]">
-                  <span className="text-[#c9a84c] text-base font-bold block mb-1">◈</span>
-                  <h5 className="text-xs font-bold text-[#0d1f3c]">
-                    Lifetime Exchange
-                  </h5>
-                  <p className="text-[10px] text-[#6e7d9b]">
-                    100% diamond value upgrade credit
-                  </p>
-                </div>
-                <div className="p-3 bg-[#f8fafd] rounded-xl border border-[#e8edf7]">
-                  <span className="text-[#c9a84c] text-base font-bold block mb-1">✧</span>
-                  <h5 className="text-xs font-bold text-[#0d1f3c]">
-                    30-Day Free Resizing
-                  </h5>
-                  <p className="text-[10px] text-[#6e7d9b]">
-                    Hassle-free size adjustment guarantee
-                  </p>
-                </div>
-                <div className="p-3 bg-[#f8fafd] rounded-xl border border-[#e8edf7]">
-                  <span className="text-[#c9a84c] text-base font-bold block mb-1">◇</span>
-                  <h5 className="text-xs font-bold text-[#0d1f3c]">
-                    BIS Hallmarked Purity
-                  </h5>
-                  <p className="text-[10px] text-[#6e7d9b]">
-                    Guaranteed 750/950 fineness stamped
-                  </p>
-                </div>
-              </div> */}
-            </div>
-          </div>
-        </section>
 
         {/* ─── PRODUCT DESCRIPTION & DETAILED SPECIFICATIONS (MATCHING REFERENCE) ─── */}
         <section className="bg-white py-12 sm:py-16 border-t border-[#e8edf7]">
@@ -693,7 +294,7 @@ export default function ProductDetailPage({ params }) {
                       Handcrafted in solid {selectedMetal.name}, the basket crown sits securely on a comfort-fit shank engineered for luxurious everyday wear. The accent pavé diamonds gracefully trace the contours to amplify the brilliance of the center stone.
                     </p>
                     <p>
-                      Created with 100% renewable plasma CVD technology, this diamond is ethically made, conflict-free, and atomically identical to mined diamonds — bringing conscious luxury to your milestone celebrations.
+                      Created with 100% renewable plasma CVD technology, this diamond is ethically made, conflict-free, and atomically identical to mined diamonds — bringing Lab Grown Diamond Jewellery to your milestone celebrations.
                     </p>
                   </div>
                 </div>

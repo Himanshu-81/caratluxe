@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import AnnouncementBar from "../components/layout/AnnouncementBar";
@@ -11,38 +11,83 @@ import {
   IoSparklesOutline,
   IoCheckmarkCircle,
   IoArrowForward,
+  IoAdd,
+  IoRemove,
 } from "react-icons/io5";
 
-export default function CartPage() {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: "celestial-solitaire-ring",
-      name: "The Celestial Solitaire Diamond Ring",
-      variant: "1.20 CT VVS1 E · 18K Yellow Gold · Size 14",
-      price: 59360,
-      originalPrice: 74200,
-      quantity: 1,
-      image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&auto=format&fit=crop&q=80",
-    },
-    {
-      id: "celestial-drop-earrings",
-      name: "Celestial Chandelier Diamond Earrings",
-      variant: "1.80 CT Total · 18K Yellow Gold",
-      price: 64800,
-      originalPrice: 81000,
-      quantity: 1,
-      image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=500&auto=format&fit=crop&q=80",
-    },
-  ]);
+const defaultCartItems = [
+  {
+    id: "celestial-solitaire-ring",
+    name: "The Celestial Solitaire Diamond Ring",
+    variant: "1.20 CT VVS1 E · 18K Yellow Gold · Size 14",
+    price: 59360,
+    originalPrice: 74200,
+    quantity: 1,
+    image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&auto=format&fit=crop&q=80",
+  },
+  {
+    id: "celestial-drop-earrings",
+    name: "Celestial Chandelier Diamond Earrings",
+    variant: "1.80 CT Total · 18K Yellow Gold",
+    price: 64800,
+    originalPrice: 81000,
+    quantity: 1,
+    image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=500&auto=format&fit=crop&q=80",
+  },
+];
 
+export default function CartPage() {
+  const [cartItems, setCartItems] = useState(defaultCartItems);
   const [couponCode, setCouponCode] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
   const [giftBox, setGiftBox] = useState(true);
 
-  const removeItem = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
+  // Sync from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("caratluxe_cart");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setCartItems(parsed);
+          return;
+        }
+      }
+      localStorage.setItem("caratluxe_cart", JSON.stringify(defaultCartItems));
+    } catch (e) {
+      console.error("Cart storage reading error", e);
+    }
+  }, []);
+
+  const saveCart = (items) => {
+    setCartItems(items);
+    try {
+      localStorage.setItem("caratluxe_cart", JSON.stringify(items));
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event("cart-updated"));
+      }
+    } catch (e) {
+      console.error("Cart storage saving error", e);
+    }
   };
 
+  const updateQuantity = (id, delta) => {
+    const updated = cartItems.map((item) => {
+      if (item.id === id) {
+        const newQty = Math.max(1, Math.min(10, item.quantity + delta));
+        return { ...item, quantity: newQty };
+      }
+      return item;
+    });
+    saveCart(updated);
+  };
+
+  const removeItem = (id) => {
+    const updated = cartItems.filter((item) => item.id !== id);
+    saveCart(updated);
+  };
+
+  const totalPieces = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const discountAmount = couponApplied ? Math.round(subtotal * 0.1) : 0;
   const grandTotal = subtotal - discountAmount;
@@ -69,7 +114,9 @@ export default function CartPage() {
               Home
             </Link>
             <span>/</span>
-            <span className="text-[#0d1f3c] font-semibold">Shopping Tote ({cartItems.length})</span>
+            <span className="text-[#0d1f3c] font-semibold">
+              Shopping Tote ({totalPieces} {totalPieces === 1 ? "item" : "items"})
+            </span>
           </div>
         </div>
 
@@ -93,7 +140,7 @@ export default function CartPage() {
               </p>
               <Link
                 href="/products"
-                className="btn-gold text-[#0d1f3c] text-xs font-bold tracking-wider uppercase px-8 py-3.5 rounded-full inline-block shadow-md"
+                className="btn-gold text-[#0d1f3c] text-xs font-bold tracking-wider px-8 py-3.5 rounded-full inline-block shadow-md"
               >
                 Explore Jewellery →
               </Link>
@@ -126,22 +173,58 @@ export default function CartPage() {
                       <p className="text-[11px] text-[#c9a84c] font-semibold mt-1">
                         ✦ IGI Laser Inscribed · BIS Hallmarked
                       </p>
-                      <button
-                        onClick={() => removeItem(item.id)}
-                        className="text-xs text-red-600 hover:underline inline-flex items-center gap-1 mt-3 cursor-pointer"
-                      >
-                        <IoTrashOutline className="w-3.5 h-3.5" />
-                        Remove
-                      </button>
+
+                      {/* Quantity Controls & Remove */}
+                      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 mt-3.5">
+                        <div className="inline-flex items-center border border-[#d8e2ef] rounded-xl bg-[#f8fafd] p-1 shadow-xs">
+                          <button
+                            type="button"
+                            onClick={() => updateQuantity(item.id, -1)}
+                            disabled={item.quantity <= 1}
+                            aria-label="Decrease quantity"
+                            className="w-7 h-7 rounded-lg flex items-center justify-center text-[#0d1f3c] hover:bg-white hover:shadow-xs disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+                          >
+                            <IoRemove className="w-3.5 h-3.5" />
+                          </button>
+                          <span className="w-8 text-center text-xs font-bold text-[#0d1f3c] select-none">
+                            {item.quantity}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => updateQuantity(item.id, 1)}
+                            disabled={item.quantity >= 10}
+                            aria-label="Increase quantity"
+                            className="w-7 h-7 rounded-lg flex items-center justify-center text-[#0d1f3c] hover:bg-white hover:shadow-xs disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+                          >
+                            <IoAdd className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+
+                        <span className="text-[#d8e2ef] hidden sm:inline">|</span>
+
+                        <button
+                          type="button"
+                          onClick={() => removeItem(item.id)}
+                          className="text-xs text-red-600 hover:text-red-700 hover:underline inline-flex items-center gap-1 cursor-pointer transition-colors"
+                        >
+                          <IoTrashOutline className="w-3.5 h-3.5" />
+                          Remove
+                        </button>
+                      </div>
                     </div>
 
-                    <div className="text-center sm:text-right">
+                    <div className="text-center sm:text-right shrink-0">
                       <p className="font-bold text-base sm:text-lg text-[#0d1f3c]">
-                        ₹{item.price.toLocaleString("en-IN")}
+                        ₹{(item.price * item.quantity).toLocaleString("en-IN")}
                       </p>
                       <p className="text-xs text-[#8a9ab8] line-through">
-                        ₹{item.originalPrice.toLocaleString("en-IN")}
+                        ₹{(item.originalPrice * item.quantity).toLocaleString("en-IN")}
                       </p>
+                      {item.quantity > 1 && (
+                        <p className="text-[10px] text-[#6e7d9b] mt-0.5 font-medium">
+                          ₹{item.price.toLocaleString("en-IN")} each
+                        </p>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -184,7 +267,7 @@ export default function CartPage() {
                     placeholder="Enter Coupon (e.g. LUXE10)"
                     value={couponCode}
                     onChange={(e) => setCouponCode(e.target.value)}
-                    className="flex-1 px-3.5 py-2.5 rounded-xl border border-[#e2e8f4] focus:outline-none focus:border-[#c9a84c] uppercase font-bold"
+                    className="flex-1 px-3.5 py-2.5 rounded-xl border border-[#e2e8f4] focus:outline-none focus:border-[#c9a84c] font-bold"
                   />
                   <button
                     type="submit"
@@ -203,7 +286,7 @@ export default function CartPage() {
                 {/* Pricing Breakdown */}
                 <dl className="space-y-3 text-xs text-[#526382] border-b border-[#eef2f8] pb-4">
                   <div className="flex justify-between">
-                    <dt>Subtotal ({cartItems.length} items)</dt>
+                    <dt>Subtotal ({totalPieces} {totalPieces === 1 ? "item" : "items"})</dt>
                     <dd className="font-bold text-[#0d1f3c]">₹{subtotal.toLocaleString("en-IN")}</dd>
                   </div>
                   {couponApplied && (
@@ -238,7 +321,7 @@ export default function CartPage() {
                 <button
                   type="button"
                   onClick={() => alert("Proceeding to Secure Encrypted Checkout...")}
-                  className="w-full btn-gold text-[#0d1f3c] text-xs font-extrabold tracking-widest uppercase py-4 rounded-xl shadow-md hover:scale-[1.01] transition-all cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full btn-gold text-[#0d1f3c] text-xs font-extrabold tracking-widest py-4 rounded-xl shadow-md hover:scale-[1.01] transition-all cursor-pointer flex items-center justify-center gap-2"
                 >
                   Proceed to Secure Checkout
                   <IoArrowForward className="w-4 h-4" />

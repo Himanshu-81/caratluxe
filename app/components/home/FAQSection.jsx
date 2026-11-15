@@ -102,7 +102,7 @@ export default function FAQSection() {
             href="/consultation"
             className="btn-navy text-white text-xs font-bold tracking-widest  px-6 py-3.5 rounded-full inline-block shadow-sm shrink-0"
           >
-            Chat with Gemologist →
+            Contact us Now →
           </a>
         </div>
       </div>

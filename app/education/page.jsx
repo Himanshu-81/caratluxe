@@ -43,40 +43,37 @@ export default function EducationPage() {
             </h1>
             <p className="mt-4 text-[#526382] text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
               Everything you need to know about certified lab-grown diamonds, the
-              universal 4Cs, optical fire, and conscious luxury.
+              universal 4Cs, optical fire, and Lab Grown Diamond Jewellery.
             </p>
 
             {/* Nav Switcher */}
             <div className="mt-8 flex items-center justify-center gap-3 flex-wrap">
               <button
                 onClick={() => setActiveTab("4cs")}
-                className={`px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
-                  activeTab === "4cs"
-                    ? "bg-[#0d1f3c] text-white shadow-sm ring-2 ring-[#c9a84c]/50"
-                    : "bg-white text-[#4a5a7a] border border-[#e2e8f4] hover:border-[#c9a84c]"
-                }`}
+                className={`px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${activeTab === "4cs"
+                  ? "bg-[#0d1f3c] text-white shadow-sm ring-2 ring-[#c9a84c]/50"
+                  : "bg-white text-[#4a5a7a] border border-[#e2e8f4] hover:border-[#c9a84c]"
+                  }`}
               >
                 The 4Cs Guide
               </button>
               <button
                 onClick={() => setActiveTab("comparison")}
-                className={`px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
-                  activeTab === "comparison"
-                    ? "bg-[#0d1f3c] text-white shadow-sm ring-2 ring-[#c9a84c]/50"
-                    : "bg-white text-[#4a5a7a] border border-[#e2e8f4] hover:border-[#c9a84c]"
-                }`}
+                className={`px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${activeTab === "comparison"
+                  ? "bg-[#0d1f3c] text-white shadow-sm ring-2 ring-[#c9a84c]/50"
+                  : "bg-white text-[#4a5a7a] border border-[#e2e8f4] hover:border-[#c9a84c]"
+                  }`}
               >
                 Lab vs Mined Diamonds
               </button>
               <button
                 onClick={() => setActiveTab("certification")}
-                className={`px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${
-                  activeTab === "certification"
-                    ? "bg-[#0d1f3c] text-white shadow-sm ring-2 ring-[#c9a84c]/50"
-                    : "bg-white text-[#4a5a7a] border border-[#e2e8f4] hover:border-[#c9a84c]"
-                }`}
+                className={`px-5 py-2.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all cursor-pointer ${activeTab === "certification"
+                  ? "bg-[#0d1f3c] text-white shadow-sm ring-2 ring-[#c9a84c]/50"
+                  : "bg-white text-[#4a5a7a] border border-[#e2e8f4] hover:border-[#c9a84c]"
+                  }`}
               >
-                IGI & GIA Certification
+                IGI & SGL Certification
               </button>
             </div>
           </div>

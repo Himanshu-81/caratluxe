@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import SectionHeader from "../components/ui/SectionHeader";
 import AnnouncementBar from "../components/layout/AnnouncementBar";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
@@ -64,22 +65,13 @@ export default function OrdersPage() {
 
         {/* ─── Header ─── */}
         <section className="bg-gradient-to-b from-[#f5f8ff] via-[#ffffff] to-[#ffffff] py-14 border-b border-[#e8edf7]">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <div className="h-px w-6 bg-[#c9a84c]" />
-              <span className="text-[10px] font-extrabold tracking-[0.35em] text-[#c9a84c] uppercase">
-                Real-Time Atelier Tracking
-              </span>
-              <div className="h-px w-6 bg-[#c9a84c]" />
-            </div>
-
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[#0d1f3c] leading-tight tracking-tight">
-              Track Your <span className="gold-shimmer">Precious Order</span>
-            </h1>
-            <p className="mt-4 text-[#526382] text-sm leading-relaxed max-w-lg mx-auto">
-              Follow every step of your jewellery’s journey, from precision laser
-              inscription in our atelier to insured delivery at your doorstep.
-            </p>
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <SectionHeader
+              eyebrow="Real-Time Atelier Tracking"
+              title="Track Your"
+              titleHighlight="Precious Order"
+              subtitle="Follow every step of your jewellery’s journey, from precision laser inscription in our atelier to insured delivery at your doorstep."
+            />
 
             {/* Tracking Form */}
             <form onSubmit={handleTrack} className="mt-8 max-w-lg mx-auto flex flex-col sm:flex-row gap-2.5">
@@ -92,7 +84,7 @@ export default function OrdersPage() {
               />
               <button
                 type="submit"
-                className="btn-navy text-white text-xs font-bold tracking-wider uppercase px-6 py-3 rounded-xl hover:bg-[#c9a84c] hover:text-[#0d1f3c] transition-colors cursor-pointer shrink-0"
+                className="btn-navy text-white text-xs font-bold tracking-wider px-6 py-3 rounded-xl hover:bg-[#c9a84c] hover:text-[#0d1f3c] transition-colors cursor-pointer shrink-0"
               >
                 Track Order
               </button>
@@ -157,21 +149,19 @@ export default function OrdersPage() {
                   {trackedOrder.timeline.map((step, idx) => (
                     <div key={idx} className="relative flex items-start gap-4 pl-8">
                       <div
-                        className={`absolute left-1.5 top-0.5 w-4.5 h-4.5 rounded-full flex items-center justify-center text-[10px] ${
-                          step.current
-                            ? "bg-[#c9a84c] text-[#0d1f3c] ring-4 ring-[#c9a84c]/20 font-bold"
-                            : step.done
+                        className={`absolute left-1.5 top-0.5 w-4.5 h-4.5 rounded-full flex items-center justify-center text-[10px] ${step.current
+                          ? "bg-[#c9a84c] text-[#0d1f3c] ring-4 ring-[#c9a84c]/20 font-bold"
+                          : step.done
                             ? "bg-[#0d1f3c] text-white"
                             : "bg-[#e2e8f4] text-transparent"
-                        }`}
+                          }`}
                       >
                         {step.done && "✓"}
                       </div>
                       <div>
                         <p
-                          className={`text-xs font-bold ${
-                            step.current ? "text-[#c9a84c]" : step.done ? "text-[#0d1f3c]" : "text-[#8a9ab8]"
-                          }`}
+                          className={`text-xs font-bold ${step.current ? "text-[#c9a84c]" : step.done ? "text-[#0d1f3c]" : "text-[#8a9ab8]"
+                            }`}
                         >
                           {step.title}
                         </p>
@@ -199,7 +189,7 @@ export default function OrdersPage() {
                 <button
                   onClick={() => {
                     setOrderQuery("CL-8924-MUM");
-                    handleTrack({ preventDefault: () => {} });
+                    handleTrack({ preventDefault: () => { } });
                   }}
                   className="text-xs font-bold text-[#c9a84c] hover:underline"
                 >
@@ -208,27 +198,6 @@ export default function OrdersPage() {
               </div>
             </div>
           )}
-        </section>
-
-        {/* ─── Assistance Strip ─── */}
-        <section className="bg-[#f7f9fd] py-12 border-t border-[#e8edf7]">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h4 className="font-serif text-lg font-bold text-[#0d1f3c] mb-1">
-              Need Assistance with Resizing, Returns, or Address Change?
-            </h4>
-            <p className="text-xs text-[#526382] mb-4">
-              Our concierge team can modify ring sizes or shipping details prior to courier pickup.
-            </p>
-            <div className="flex justify-center gap-4 text-xs font-bold">
-              <Link href="/contact" className="text-[#c9a84c] hover:underline">
-                Contact Concierge →
-              </Link>
-              <span className="text-[#cbd5e1]">·</span>
-              <a href="tel:+9118002668899" className="text-[#0d1f3c] hover:underline">
-                Call 1800-266-8899
-              </a>
-            </div>
-          </div>
         </section>
       </main>
 

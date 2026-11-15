@@ -208,7 +208,7 @@ export default function AllCategoriesSection() {
                     style={{ borderTop: "1px solid rgba(201,168,76,0.1)" }}
                 >
                     <div className="flex flex-wrap justify-center sm:justify-start gap-5">
-                        {["Conflict-Free", "GIA Certified", "Lifetime Warranty", "30-Day Returns"].map((t) => (
+                        {["Conflict-Free", "SGL Certified", "Lifetime Warranty", "30-Day Returns"].map((t) => (
                             <span key={t} className="text-white/55 text-[11px] flex items-center gap-1.5">
                                 <span style={{ color: "#c9a84c" }}>✦</span> {t}
                             </span>

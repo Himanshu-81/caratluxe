@@ -32,7 +32,7 @@ const reasons = [
 const comparisonData = [
   { label: "Origin", lab: "Advanced Lab Crafting", natural: "Earth Mined" },
   { label: "Hardness & Mohs Scale", lab: "10 (Maximum Hardness)", natural: "10 (Maximum Hardness)" },
-  { label: "Certification", lab: "IGI / GIA Certified", natural: "IGI / GIA Certified" },
+  { label: "Certification", lab: "IGI / SGL Certified", natural: "IGI / SGL Certified" },
   { label: "Price / Value", lab: "Up to 60% Less", natural: "Extensive Premium" },
   { label: "Conflict Free", lab: "100% Guaranteed", natural: "Variable / Unknown" },
   { label: "Environmental Impact", lab: "Minimal Footprint", natural: "Substantial Mining" },

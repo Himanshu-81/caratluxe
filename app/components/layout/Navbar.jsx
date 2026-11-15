@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import {
   IoSearchOutline,
   IoPersonOutline,
@@ -411,12 +411,11 @@ function MobileMenu({ open, onClose, onOpenLogin }) {
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#e8edf7] bg-[#031d42]">
           <Image
-            src="/images/logo.jpg"
+            src="/images/logo-1.jpg"
             alt="CaratLuxe"
             width={120}
             height={48}
-            style={{ width: "auto", height: "auto" }}
-            className="h-10 w-auto object-contain"
+            className="h-10 w-auto"
           />
           <button
             onClick={onClose}
@@ -543,7 +542,34 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(2);
   const closeTimer = useRef(null);
+
+  useEffect(() => {
+    const updateCount = () => {
+      try {
+        const saved = localStorage.getItem("caratluxe_cart");
+        if (saved) {
+          const items = JSON.parse(saved);
+          if (Array.isArray(items)) {
+            const count = items.reduce((acc, item) => acc + (item.quantity || 1), 0);
+            setCartCount(count);
+            return;
+          }
+        }
+        setCartCount(2);
+      } catch (e) {
+        setCartCount(2);
+      }
+    };
+    updateCount();
+    window.addEventListener("storage", updateCount);
+    window.addEventListener("cart-updated", updateCount);
+    return () => {
+      window.removeEventListener("storage", updateCount);
+      window.removeEventListener("cart-updated", updateCount);
+    };
+  }, []);
 
   const openMega = useCallback((key) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -581,7 +607,7 @@ export default function Navbar() {
       `}</style>
 
       <header
-        className="sticky top-0 z-50 bg-white border-b border-[#e2e8f4]/80 shadow-[0_2px_20px_rgba(13,31,60,0.06)]"
+        className="sticky top-0 z-50 bg-[#0d1f3c] border-b border-[#1a2e5a] shadow-[0_4px_25px_rgba(3,29,66,0.25)]"
         onMouseLeave={scheduledClose}
         onMouseEnter={cancelClose}
       >
@@ -591,7 +617,7 @@ export default function Navbar() {
 
             {/* Hamburger (mobile) */}
             <button
-              className="md:hidden text-[#0d1f3c] p-2 -ml-2 rounded-lg hover:bg-[#f4f7ff] transition-colors shrink-0"
+              className="md:hidden text-white/90 hover:text-white p-2 -ml-2 rounded-lg hover:bg-white/10 transition-colors shrink-0"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
             >
@@ -601,12 +627,11 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center shrink-0 group">
               <Image
-                src="/images/logo.jpg"
+                src="/images/logo-1.jpg"
                 alt="CaratLuxe Lab Diamonds"
-                priority
                 width={120}
                 height={65}
-                className="h-16 w-auto object-contain group-hover:scale-[1.03] transition-transform duration-500"
+                className="h-16 w-auto group-hover:scale-[1.03] transition-transform duration-500"
               />
             </Link>
 
@@ -627,12 +652,12 @@ export default function Navbar() {
                       className={`inline-flex items-center gap-1.5 px-2.5 lg:px-3.5 py-2 text-[15px] font-medium rounded-sm transition-all duration-150 whitespace-nowrap
                         ${isActive
                           ? "text-[#c9a84c]"
-                          : "text-[#0d1535] hover:text-[#c9a84c]"
+                          : "text-white/90 hover:text-[#c9a84c]"
                         }`}
                     >
                       {cat.label}
                       <IoChevronDown
-                        className={`w-3 h-3 transition-transform duration-200 ${isActive ? "rotate-180 text-[#c9a84c]" : "text-[#8a9ab8]"}`}
+                        className={`w-3 h-3 transition-transform duration-200 ${isActive ? "rotate-180 text-[#c9a84c]" : "text-white/70"}`}
                       />
                     </Link>
                     {/* Gold underline indicator */}
@@ -645,14 +670,14 @@ export default function Navbar() {
               })}
 
               {/* Divider */}
-              <span className="hidden lg:block w-px h-5 bg-[#dde3f0] mx-2" />
+              <span className="hidden lg:block w-px h-5 bg-white/20 mx-2" />
 
               {/* Simple links */}
               {simpleLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="px-2.5 lg:px-3.5 py-2 text-[15px] font-medium  hover:text-[#c9a84c] transition-colors whitespace-nowrap"
+                  className="px-2.5 lg:px-3.5 py-2 text-[15px] font-medium text-white/90 hover:text-[#c9a84c] transition-colors whitespace-nowrap"
                 >
                   {link.label}
                 </Link>
@@ -664,7 +689,7 @@ export default function Navbar() {
               {/* Search */}
               <button
                 onClick={() => setSearchOpen((v) => !v)}
-                className="w-9 h-9 rounded-full flex items-center justify-center text-[#4a5a7a] hover:text-[#0d1f3c] hover:bg-[#f4f7ff] transition-all"
+                className="w-9 h-9 rounded-full flex items-center justify-center text-white/90 hover:text-[#c9a84c] hover:bg-white/10 transition-all cursor-pointer"
                 aria-label="Search"
               >
                 <IoSearchOutline className="w-[19px] h-[19px]" />
@@ -674,7 +699,7 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setLoginOpen(true)}
-                className="w-9 h-9 rounded-full flex items-center justify-center text-[#4a5a7a] hover:text-[#0d1f3c] hover:bg-[#f4f7ff] transition-all cursor-pointer"
+                className="w-9 h-9 rounded-full flex items-center justify-center text-white/90 hover:text-[#c9a84c] hover:bg-white/10 transition-all cursor-pointer"
                 aria-label="Login or Account"
               >
                 <IoPersonOutline className="w-[19px] h-[19px]" />
@@ -683,7 +708,7 @@ export default function Navbar() {
               {/* Wishlist */}
               <Link
                 href="/wishlist"
-                className="w-9 h-9 rounded-full flex items-center justify-center text-[#4a5a7a] hover:text-[#0d1f3c] hover:bg-[#f4f7ff] transition-all"
+                className="w-9 h-9 rounded-full flex items-center justify-center text-white/90 hover:text-[#c9a84c] hover:bg-white/10 transition-all cursor-pointer"
                 aria-label="Wishlist"
               >
                 <IoHeartOutline className="w-[19px] h-[19px]" />
@@ -692,12 +717,12 @@ export default function Navbar() {
               {/* Cart */}
               <Link
                 href="/cart"
-                className="w-9 h-9 rounded-full flex items-center justify-center text-[#4a5a7a] hover:text-[#0d1f3c] hover:bg-[#f4f7ff] transition-all relative"
+                className="w-9 h-9 rounded-full flex items-center justify-center text-white/90 hover:text-[#c9a84c] hover:bg-white/10 transition-all relative cursor-pointer"
                 aria-label="Cart"
               >
                 <IoBagHandleOutline className="w-[19px] h-[19px]" />
-                <span className="absolute top-1 right-1 bg-[#c9a84c] text-[#0d1535] text-[9px] font-extrabold rounded-full w-4 h-4 flex items-center justify-center ring-2 ring-white">
-                  0
+                <span className="absolute top-1 right-1 bg-[#c9a84c] text-[#0d1535] text-[9px] font-extrabold rounded-full w-4 h-4 flex items-center justify-center ring-2 ring-[#0d1f3c]">
+                  {cartCount}
                 </span>
               </Link>
             </div>

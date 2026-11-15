@@ -1,5 +1,6 @@
 import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
+import WhatsAppButton from "./components/ui/WhatsAppButton";
 
 const josefin = Josefin_Sans({
   variable: "--font-josefin",
@@ -11,7 +12,7 @@ const josefin = Josefin_Sans({
 export const metadata = {
   title: "CaratLuxe — Conscious Lab Grown Diamond Jewellery",
   description:
-    "Discover certified lab-grown diamond jewellery. IGI & GIA certified solitaires, rings, earrings, and necklaces handcrafted with precision. Ethically made, brilliantly priced.",
+    "Discover certified lab-grown diamond jewellery. IGI & SGL certified solitaires, rings, earrings, and necklaces handcrafted with precision. Ethically made, brilliantly priced.",
 };
 
 export default function RootLayout({ children }) {
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${josefin.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-white text-[#0d1535]">
         {children}
+        <WhatsAppButton />
       </body>
     </html>
   );
