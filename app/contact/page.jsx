@@ -73,7 +73,7 @@ export default function ContactPage() {
 
                 <div className="space-y-4 text-xs">
                   <a
-                    href="tel:+918001234567"
+                    href="tel:+919899766468"
                     className="flex items-center gap-3.5 p-4 rounded-2xl bg-white border border-[#e2e8f4] hover:border-[#c9a84c] transition-all group"
                   >
                     <div className="w-10 h-10 rounded-xl bg-[#0d1f3c] text-[#c9a84c] flex items-center justify-center shrink-0">
@@ -81,16 +81,16 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="text-[10px] text-[#8a9ab8] font-bold uppercase tracking-wider">
-                        Toll-Free Atelier Line
+                        Direct Atelier Line
                       </p>
                       <p className="font-bold text-[#0d1f3c] group-hover:text-[#c9a84c] text-sm">
-                        +91 1800 266 8899
+                        +91 98997 66468
                       </p>
                     </div>
                   </a>
 
                   <a
-                    href="https://wa.me/919820000000"
+                    href="https://wa.me/919899766468"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3.5 p-4 rounded-2xl bg-white border border-[#e2e8f4] hover:border-[#25D366] transition-all group"
@@ -103,13 +103,13 @@ export default function ContactPage() {
                         Instant WhatsApp Specialist
                       </p>
                       <p className="font-bold text-[#0d1f3c] group-hover:text-[#25D366] text-sm">
-                        +91 98200 44888
+                        +91 98997 66468
                       </p>
                     </div>
                   </a>
 
                   <a
-                    href="mailto:concierge@caratluxe.com"
+                    href="mailto:unitedcorporates@yahoo.com"
                     className="flex items-center gap-3.5 p-4 rounded-2xl bg-white border border-[#e2e8f4] hover:border-[#c9a84c] transition-all group"
                   >
                     <div className="w-10 h-10 rounded-xl bg-[#0d1f3c] text-[#c9a84c] flex items-center justify-center shrink-0">
@@ -120,7 +120,7 @@ export default function ContactPage() {
                         Client Inquiries
                       </p>
                       <p className="font-bold text-[#0d1f3c] group-hover:text-[#c9a84c] text-sm">
-                        concierge@caratluxe.com
+                        unitedcorporates@yahoo.com
                       </p>
                     </div>
                   </a>
@@ -130,33 +130,34 @@ export default function ContactPage() {
               {/* Private Salons */}
               <div className="pt-4 border-t border-[#e8edf7]">
                 <h4 className="font-serif text-lg font-bold text-[#0d1f3c] mb-4">
-                  Private Atelier Lounges
+                  Flagship Atelier & Lounge
                 </h4>
                 <div className="space-y-4 text-xs">
-                  <div className="p-4 bg-[#f8fafd] rounded-2xl border border-[#e2e8f4]">
-                    <p className="font-bold text-[#0d1f3c] text-sm mb-1">
-                      Mumbai Flagship Atelier
-                    </p>
-                    <p className="text-[#526382] leading-relaxed">
-                      Suite 402, Signature Towers, Bandra Kurla Complex (BKC),
-                      Mumbai, Maharashtra 400051
-                    </p>
-                    <p className="text-[11px] text-[#c9a84c] font-semibold mt-2">
-                      ✦ By Appointment Only · Complimentary Valet
-                    </p>
-                  </div>
+                  <div className="p-5 bg-[#f8fafd] rounded-2xl border border-[#e2e8f4] space-y-3">
+                    <div className="flex items-start gap-3 text-xs">
+                      <IoLocationOutline className="w-5 h-5 text-[#c9a84c] shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-bold text-[#0d1f3c] text-sm mb-1">
+                          CaratLuxe Flagship Atelier & Salon
+                        </p>
+                        <p className="text-[#526382] leading-relaxed">
+                          G-23/1, Rajouri Garden, New Delhi - 110027
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 text-xs pt-2 border-t border-[#e2e8f4]">
+                      <IoCallOutline className="w-4 h-4 text-[#c9a84c] shrink-0" />
+                      <a href="tel:+919899766468" className="text-[#0d1f3c] font-semibold hover:text-[#c9a84c]">
+                        +91 98997 66468
+                      </a>
+                    </div>
+                    <div className="flex items-center gap-3 text-xs">
+                      <IoMailOutline className="w-4 h-4 text-[#c9a84c] shrink-0" />
+                      <a href="mailto:unitedcorporates@yahoo.com" className="text-[#0d1f3c] font-semibold hover:text-[#c9a84c]">
+                        unitedcorporates@yahoo.com
+                      </a>
+                    </div>
 
-                  <div className="p-4 bg-[#f8fafd] rounded-2xl border border-[#e2e8f4]">
-                    <p className="font-bold text-[#0d1f3c] text-sm mb-1">
-                      New Delhi Viewing Salon
-                    </p>
-                    <p className="text-[#526382] leading-relaxed">
-                      Level 2, DLF Emporio Pavilion, Vasant Kunj,
-                      New Delhi 110070
-                    </p>
-                    <p className="text-[11px] text-[#c9a84c] font-semibold mt-2">
-                      ✦ By Appointment Only · Private Gem Room
-                    </p>
                   </div>
                 </div>
               </div>
@@ -248,8 +249,7 @@ export default function ContactPage() {
                     >
                       <option value="solitaire-consultation">Solitaire Engagement Ring Consultation</option>
                       <option value="video-concierge">Virtual Gemologist Live Video Call</option>
-                      <option value="in-person-mumbai">In-Person Viewing (Mumbai Flagship)</option>
-                      <option value="in-person-delhi">In-Person Viewing (New Delhi Salon)</option>
+                      <option value="in-person-delhi">In-Person Viewing (Rajouri Garden, New Delhi)</option>
                       <option value="bespoke-custom">Custom Bespoke Design Commission</option>
                       <option value="after-sales">Resizing & After-Sales Service</option>
                     </select>

@@ -26,6 +26,7 @@
   --color-gold-light: var(--gold-light);
   --color-gold-dark: var(--gold-dark);
   --font-sans: var(--font-josefin), "Josefin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: var(--font-josefin), "Josefin Sans", sans-serif;
 }
 
 * {
@@ -44,7 +45,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ── Heading typography with Josefin Sans ── */
+/* ── Typography with Josefin Sans ── */
 h1, h2, h3, h4, h5, h6, .font-serif, .font-sans {
   font-family: var(--font-josefin), "Josefin Sans", sans-serif !important;
 }

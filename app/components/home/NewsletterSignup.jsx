@@ -30,9 +30,7 @@ export default function NewsletterSignup() {
           <div className="h-px w-8 bg-[#c9a84c]" />
         </div>
 
-        <h2 className="font-serif text-3xl sm:text-4xl text-white mb-4">
-          Receive <span className="gold-shimmer font-bold">₹2,500 Off</span> Your First Order
-        </h2>
+
 
         <p className="text-white/75 text-sm sm:text-base leading-relaxed mb-8 max-w-lg mx-auto">
           Subscribe for early VIP access to limited drops, curated diamond guides, and private seasonal previews.
@@ -66,12 +64,7 @@ export default function NewsletterSignup() {
           No spam, ever. Unsubscribe at any time with one click.
         </p>
 
-        {/* Benefits Strip */}
-        <div className="flex flex-wrap justify-center gap-6 mt-10 pt-8 border-t border-white/10 text-white/70 text-xs tracking-wider">
-          <span className="flex items-center gap-1.5"><span className="text-[#c9a84c]">✦</span> Private Previews</span>
-          <span className="flex items-center gap-1.5"><span className="text-[#c9a84c]">◈</span> Member-Only Pricing</span>
-          <span className="flex items-center gap-1.5"><span className="text-[#c9a84c]">◇</span> Complimentary Cleaning</span>
-        </div>
+
       </div>
     </section>
   );

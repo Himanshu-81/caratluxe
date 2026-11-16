@@ -411,11 +411,11 @@ function MobileMenu({ open, onClose, onOpenLogin }) {
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#e8edf7] bg-[#031d42]">
           <Image
-            src="/images/logo-1.jpg"
-            alt="CaratLuxe"
-            width={120}
-            height={48}
-            className="h-10 w-auto"
+            src="/images/logo.jpg"
+            alt="CaratLuxe Lab Diamonds"
+            width={140}
+            height={70}
+            className="h-16 w-auto object-contain group-hover:scale-[1.03] transition-transform duration-500"
           />
           <button
             onClick={onClose}
@@ -524,10 +524,18 @@ function MobileMenu({ open, onClose, onOpenLogin }) {
         </nav>
 
         {/* Footer strip */}
-        <div className="px-5 py-4 bg-[#f4f7ff] border-t border-[#e8edf7]">
-          <p className="text-xs text-[#8a9ab8] text-center">
-            ✦ Certified Lab-Grown Diamonds ✦
-          </p>
+        <div className="px-5 py-4 bg-[#f4f7ff] border-t border-[#e8edf7] space-y-1.5 text-xs text-[#526382]">
+          <p className="font-bold text-[#0d1f3c]">CaratLuxe Flagship Atelier</p>
+          <p className="text-[11px] leading-relaxed">G-23/1, Rajouri Garden, New Delhi - 110027</p>
+          <div className="flex items-center gap-3 pt-1 text-[11px]">
+            <a href="tel:+919899766468" className="text-[#0d1f3c] font-bold hover:text-[#c9a84c]">
+              +91 98997 66468
+            </a>
+            <span>·</span>
+            <a href="mailto:unitedcorporates@yahoo.com" className="text-[#0d1f3c] font-bold hover:text-[#c9a84c]">
+              Email
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -627,11 +635,11 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center shrink-0 group">
               <Image
-                src="/images/logo-1.jpg"
+                src="/images/logo.jpg"
                 alt="CaratLuxe Lab Diamonds"
-                width={120}
-                height={65}
-                className="h-16 w-auto group-hover:scale-[1.03] transition-transform duration-500"
+                width={140}
+                height={70}
+                className="h-16 w-auto object-contain group-hover:scale-[1.03] transition-transform duration-500"
               />
             </Link>
 

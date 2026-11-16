@@ -84,7 +84,7 @@ export default function OrdersPage() {
               />
               <button
                 type="submit"
-                className="btn-navy text-white text-xs font-bold tracking-wider px-6 py-3 rounded-xl hover:bg-[#c9a84c] hover:text-[#0d1f3c] transition-colors cursor-pointer shrink-0"
+                className="bg-[#0d1f3c] hover:bg-[#c9a84c] text-white hover:text-[#0d1f3c] text-xs font-bold tracking-wider px-6 py-3 rounded-xl transition-all duration-200 cursor-pointer shrink-0 shadow-xs"
               >
                 Track Order
               </button>

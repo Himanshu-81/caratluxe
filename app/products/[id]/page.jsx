@@ -17,6 +17,7 @@ import {
   IoBagCheckOutline,
   IoAdd,
   IoRemove,
+  IoChevronDown,
 } from "react-icons/io5";
 
 /* ─── Related Products ("You May Also Like") ─── */
@@ -273,6 +274,399 @@ export default function ProductDetailPage({ params }) {
           </div>
         </div>
 
+        {/* ─── Main Product Showcase & Customizer Area ─── */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            {/* ─── LEFT COLUMN: Media Gallery (Sticky till Add to Cart) ─── */}
+            <div className="lg:col-span-5 flex flex-col gap-4 lg:sticky lg:top-24 self-start">
+              {/* Main Photo Container */}
+              <div className="relative aspect-[4/4] sm:aspect-[5/4] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#f4f7ff] border border-[#e2e8f4] shadow-xs group">
+
+
+                {/* Wishlist & Share Buttons */}
+                <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+                  <button
+                    onClick={() => setIsWishlisted(!isWishlisted)}
+                    aria-label="Wishlist"
+                    className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center shadow-xs hover:scale-105 transition-all text-[#4a5a7a] cursor-pointer"
+                  >
+                    {isWishlisted ? (
+                      <IoHeart className="w-5 h-5 text-red-500" />
+                    ) : (
+                      <IoHeartOutline className="w-5 h-5 hover:text-[#c9a84c]" />
+                    )}
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (navigator.share) {
+                        navigator.share({ title: product.name, url: window.location.href });
+                      } else {
+                        navigator.clipboard.writeText(window.location.href);
+                        alert("Link copied to clipboard!");
+                      }
+                    }}
+                    aria-label="Share"
+                    className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center shadow-xs hover:scale-105 transition-all text-[#4a5a7a] hover:text-[#c9a84c] cursor-pointer"
+                  >
+                    <IoShareSocialOutline className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Main Product Image */}
+                <Image
+                  src={product.images[selectedImage]?.url || product.images[0]?.url}
+                  alt={`${product.name} angle ${selectedImage + 1}`}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 58vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+              </div>
+
+              {/* Thumbnails Row */}
+              <div className="grid grid-cols-5 gap-3">
+                {product.images.map((img, idx) => {
+                  const isSelected = selectedImage === idx;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => setSelectedImage(idx)}
+                      onMouseEnter={() => setSelectedImage(idx)}
+                      className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${isSelected
+                        ? "border-[#c9a84c] ring-2 ring-[#c9a84c]/20 scale-102 shadow-xs"
+                        : "border-[#e2e8f4] opacity-75 hover:opacity-100 hover:border-[#c9a84c]/50"
+                        }`}
+                    >
+                      <Image
+                        src={img.url}
+                        alt={img.label}
+                        fill
+                        sizes="120px"
+                        className="object-cover"
+                      />
+                      <span className="absolute bottom-1 left-1 right-1 text-[9px] font-medium text-center text-white bg-black/60 rounded py-0.5 truncate px-1">
+                        {img.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* ─── RIGHT COLUMN: Customizer & Details ─── */}
+            <div className="lg:col-span-7 flex flex-col">
+              {/* Collection Eyebrow & SKU */}
+              <div className="flex items-center justify-between text-xs text-[#8a9ab8] pb-1">
+                <span className="text-xs font-semibold tracking-wider text-[#c9a84c]">
+                  {product.collection}
+                </span>
+                <span className="text-[11px] tracking-wider font-mono">
+                  {product.sku}
+                </span>
+              </div>
+
+              {/* Product Title */}
+              <h1 className="font-serif text-2xl sm:text-3xl lg:text-3xl font-bold text-[#0d1f3c] mt-1 mb-2 leading-tight">
+                {product.name}
+              </h1>
+
+              {/* Status Row */}
+              <div className="flex items-center justify-between pb-4 border-b border-[#eef2f8] text-xs">
+                <span className="text-[#c9a84c] font-semibold flex items-center gap-1.5">
+                  <IoCheckmarkCircle className="w-4 h-4 text-emerald-600" />
+                  In Stock · Ready to Dispatch Nationwide
+                </span>
+              </div>
+
+              {/* Price Row */}
+              <div className="py-4 border-b border-[#eef2f8]">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-2xl sm:text-3xl font-bold text-[#0d1f3c]">
+                    ₹{dynamicPrice.toLocaleString("en-IN")}
+                  </span>
+                  <span className="text-sm sm:text-base text-[#8a9ab8] line-through">
+                    ₹{dynamicMrp.toLocaleString("en-IN")}
+                  </span>
+                  <span className="text-xs font-extrabold text-[#9a2e2e] bg-[#fdf2f2] px-2 py-0.5 rounded-full">
+                    {product.discount}
+                  </span>
+                </div>
+                <p className="text-[11px] text-[#6e7d9b] mt-1">
+                  Inclusive of all taxes · Free insured express shipping across India
+                </p>
+              </div>
+
+              {/* ─── CUSTOMIZER 1: Metal Colour & Tone ─── */}
+              <div className="py-4 border-b border-[#eef2f8]">
+                <div className="flex items-center justify-between text-xs mb-2.5">
+                  <span className="font-semibold text-xs text-[#0d1f3c]">
+                    Metal Colour:
+                  </span>
+                  <span className="font-semibold text-[#c9a84c]">
+                    {selectedMetal.name}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2">
+                  {product.metals.map((metal) => {
+                    const isSelected = selectedMetal.id === metal.id;
+                    return (
+                      <button
+                        key={metal.id}
+                        type="button"
+                        onClick={() => setSelectedMetal(metal)}
+                        className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all cursor-pointer ${isSelected
+                          ? "border-[#c9a84c] bg-[#fdf8ed] ring-2 ring-[#c9a84c]/20 shadow-xs"
+                          : "border-[#e2e8f4] bg-white hover:border-[#c9a84c]/50"
+                          }`}
+                      >
+                        <span
+                          className="w-3.5 h-3.5 rounded-full border border-black/20 shrink-0"
+                          style={{ backgroundColor: metal.color }}
+                        />
+                        <span className="text-xs font-medium text-[#0d1f3c]">
+                          {metal.name}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* ─── CUSTOMIZER 2: Gold & Metal Purity ─── */}
+              {product.purities && (
+                <div className="py-4 border-b border-[#eef2f8]">
+                  <div className="flex items-center justify-between text-xs mb-2.5">
+                    <span className="font-semibold text-xs text-[#0d1f3c]">
+                      Gold Purity:
+                    </span>
+                    <span className="font-semibold text-[#c9a84c]">
+                      {selectedPurity.name} ({selectedPurity.fineness})
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2.5">
+                    {product.purities.map((purity) => {
+                      const isSelected = selectedPurity.id === purity.id;
+                      return (
+                        <button
+                          key={purity.id}
+                          type="button"
+                          onClick={() => setSelectedPurity(purity)}
+                          className={`p-3 rounded-xl border text-left flex flex-col justify-between transition-all cursor-pointer relative ${isSelected
+                            ? "border-[#c9a84c] bg-[#fdf8ed] ring-2 ring-[#c9a84c]/20 shadow-xs"
+                            : "border-[#e2e8f4] bg-white hover:border-[#c9a84c]/50"
+                            }`}
+                        >
+                          {purity.isPopular && (
+                            <span className="absolute -top-2 right-2 text-[9px] font-bold bg-[#c9a84c] text-[#0d1f3c] px-2 py-0.5 rounded-full shadow-xs">
+                              Popular
+                            </span>
+                          )}
+                          <div className="flex items-center justify-between w-full">
+                            <span className="text-xs font-bold text-[#0d1f3c]">
+                              {purity.name}
+                            </span>
+                            <span className="text-[10px] text-[#8a9ab8] font-mono">
+                              {purity.fineness}
+                            </span>
+                          </div>
+                          <span className="text-[10px] text-[#6e7d9b] mt-0.5">
+                            {purity.desc}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* ─── CUSTOMIZER 3: Diamond Weight ─── */}
+              <div className="py-4 border-b border-[#eef2f8]">
+                <div className="flex items-center justify-between text-xs mb-2.5">
+                  <span className="font-semibold text-xs text-[#0d1f3c]">
+                    Diamond Weight:
+                  </span>
+                  <span className="font-semibold text-[#c9a84c]">
+                    {selectedCarat.weight} · {selectedCarat.clarity}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2">
+                  {product.carats.map((c) => {
+                    const isSelected = selectedCarat.weight === c.weight;
+                    const thisCaratPrice = Math.round(c.price * selectedPurity.priceMultiplier);
+                    return (
+                      <button
+                        key={c.weight}
+                        type="button"
+                        onClick={() => setSelectedCarat(c)}
+                        className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${isSelected
+                          ? "border-[#c9a84c] bg-[#fdf8ed] ring-2 ring-[#c9a84c]/20 shadow-xs"
+                          : "border-[#e2e8f4] bg-white hover:border-[#c9a84c]/50"
+                          }`}
+                      >
+                        <span className="block text-xs font-bold text-[#0d1f3c]">
+                          {c.weight}
+                        </span>
+                        <span className="block text-[11px] font-semibold text-[#c9a84c] mt-0.5">
+                          ₹{thisCaratPrice.toLocaleString("en-IN")}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* ─── Size Selection & Delivery Location (Side by Side) ─── */}
+              <div className="py-4 border-b border-[#eef2f8]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
+                  {/* Left Column: Size Selection Dropdown */}
+                  <div>
+                    <div className="flex items-center justify-between text-xs mb-2">
+                      <label htmlFor="ring-size-dropdown" className="font-semibold text-xs text-[#0d1f3c]">
+                        Ring Size:
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => setSizeModalOpen(true)}
+                        className="text-[11px] font-bold text-[#c9a84c] hover:underline flex items-center gap-1 cursor-pointer"
+                      >
+                        <IoInformationCircleOutline className="w-3.5 h-3.5" />
+                        Size Guide
+                      </button>
+                    </div>
+
+                    <div className="relative">
+                      <select
+                        id="ring-size-dropdown"
+                        value={selectedSize}
+                        onChange={(e) => setSelectedSize(Number(e.target.value) || e.target.value)}
+                        className="w-full appearance-none text-xs font-semibold px-3.5 py-2.5 rounded-xl border border-[#e2e8f4] bg-white text-[#0d1f3c] focus:outline-none focus:border-[#c9a84c] focus:ring-1 focus:ring-[#c9a84c]/30 cursor-pointer shadow-xs pr-8 transition-colors"
+                      >
+                        {product.ringSizes.map((size) => (
+                          <option key={size} value={size}>
+                            Size {size} (Indian Standard)
+                          </option>
+                        ))}
+                      </select>
+                      <IoChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8a9ab8] pointer-events-none" />
+                    </div>
+
+                    <p className="text-[10px] text-[#8a9ab8] mt-1.5">
+                      Need custom size? Mention in order notes. Free 30-day resizing.
+                    </p>
+                  </div>
+
+                  {/* Right Column: Check Delivery Location */}
+                  <div>
+                    <span className="font-semibold text-xs text-[#0d1f3c] block mb-2">
+                      Check Delivery:
+                    </span>
+                    <form onSubmit={checkPincode} className="flex gap-2">
+                      <input
+                        type="text"
+                        maxLength={6}
+                        placeholder="Enter 6-digit Pincode"
+                        value={pincode}
+                        onChange={(e) => {
+                          setPincode(e.target.value);
+                          setPincodeStatus(null);
+                        }}
+                        className="flex-1 min-w-0 text-xs px-3.5 py-2.5 rounded-xl border border-[#e2e8f4] focus:outline-none focus:border-[#c9a84c] shadow-xs"
+                      />
+                      <button
+                        type="submit"
+                        className="bg-[#0d1f3c] hover:bg-[#c9a84c] text-white hover:text-[#0d1f3c] text-xs font-bold px-4 py-2.5 rounded-xl transition-all duration-200 cursor-pointer shadow-xs shrink-0"
+                      >
+                        Check
+                      </button>
+                    </form>
+
+                    {pincodeStatus === "valid" && (
+                      <p className="text-[10px] text-emerald-700 font-semibold mt-1.5 flex items-center gap-1">
+                        <IoCheckmarkCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        Delivery available by Wednesday · Express Air Insured
+                      </p>
+                    )}
+                    {pincodeStatus === "invalid" && (
+                      <p className="text-[10px] text-red-600 font-semibold mt-1.5">
+                        Please enter a valid 6-digit Indian pincode.
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* ─── Quantity Selector ─── */}
+              <div className="py-4 border-b border-[#eef2f8] flex items-center justify-between">
+                <div>
+                  <span className="font-semibold text-xs text-[#0d1f3c] block">
+                    Quantity
+                  </span>
+                  <span className="text-[11px] text-[#6e7d9b]">
+                    Select number of pieces
+                  </span>
+                </div>
+                <div className="inline-flex items-center border border-[#d8e2ef] rounded-xl bg-[#f8fafd] p-1 shadow-xs">
+                  <button
+                    type="button"
+                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                    disabled={quantity <= 1}
+                    aria-label="Decrease quantity"
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-[#0d1f3c] hover:bg-white hover:shadow-xs disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+                  >
+                    <IoRemove className="w-3.5 h-3.5" />
+                  </button>
+                  <span className="w-9 text-center text-xs font-bold text-[#0d1f3c] select-none">
+                    {quantity}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setQuantity((q) => Math.min(10, q + 1))}
+                    disabled={quantity >= 10}
+                    aria-label="Increase quantity"
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-[#0d1f3c] hover:bg-white hover:shadow-xs disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+                  >
+                    <IoAdd className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* ─── Action Buttons (Add to Bag / Buy Now) ─── */}
+              <div className="pt-6 flex flex-col gap-3">
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    className="w-full btn-navy text-white text-xs sm:text-sm font-semibold py-3.5 sm:py-4 px-2 sm:px-4 rounded-xl shadow-md hover:bg-[#031d42] hover:scale-[1.01] transition-all flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer text-center"
+                  >
+                    <IoBagCheckOutline className="w-4 h-4 text-[#c9a84c] shrink-0" />
+                    <span>Add {quantity > 1 ? `(${quantity}) ` : ""}to Cart</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => alert("Proceeding to Express Checkout...")}
+                    className="w-full btn-gold text-[#0d1f3c] text-xs sm:text-sm font-bold py-3.5 sm:py-4 px-2 sm:px-4 rounded-xl shadow-lg hover:scale-[1.01] transition-all flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer text-center"
+                  >
+                    Instant Buy Now
+                  </button>
+                </div>
+
+                {/* Toast Notification */}
+                {addedToCartToast && (
+                  <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold rounded-xl flex items-center justify-between gap-2 animate-fadeIn">
+                    <span>✓ Added {quantity} {quantity === 1 ? "item" : "items"} to your luxury cart!</span>
+                    <Link href="/cart" className="text-[#0d1f3c] underline font-bold hover:text-[#c9a84c] transition-colors">
+                      View Cart →
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* ─── PRODUCT DESCRIPTION & DETAILED SPECIFICATIONS (MATCHING REFERENCE) ─── */}
         <section className="bg-white py-12 sm:py-16 border-t border-[#e8edf7]">

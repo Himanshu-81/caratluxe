@@ -6,7 +6,7 @@ export default function WhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false);
 
   // WhatsApp concierge direct link
-  const phoneNumber = "919820044888";
+  const phoneNumber = "919899766468";
   const defaultMessage = encodeURIComponent(
     "Hello CaratLuxe Concierge, I would like to know more about your certified lab-grown diamond jewellery."
   );

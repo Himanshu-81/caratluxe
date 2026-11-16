@@ -102,12 +102,12 @@ export default function ConsultationPage() {
                 <p className="text-xs font-bold text-[#8a9ab8] uppercase tracking-wider mb-1">Need Urgent Advice?</p>
                 <p className="text-sm font-bold text-[#0d1f3c]">Direct WhatsApp Concierge</p>
                 <a
-                  href="https://wa.me/919876543210"
+                  href="https://wa.me/919899766468"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-3 inline-block bg-[#25d366] text-white text-xs font-bold px-5 py-2.5 rounded-full hover:bg-[#20ba59] transition-colors"
                 >
-                  Contact us Now Now
+                  WhatsApp: +91 98997 66468
                 </a>
               </div>
             </div>

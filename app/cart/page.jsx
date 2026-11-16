@@ -229,29 +229,7 @@ export default function CartPage() {
                   </div>
                 ))}
 
-                {/* Complimentary Services Box */}
-                <div className="p-5 bg-[#f8fafd] rounded-2xl border border-[#e2e8f4] flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <span className="text-[#c9a84c] text-xl font-bold">✦</span>
-                    <div>
-                      <h4 className="text-xs font-bold text-[#0d1f3c]">
-                        Complimentary Velvet Gift Packaging & Seal
-                      </h4>
-                      <p className="text-[11px] text-[#6e7d9b]">
-                        Includes luxury keepsake case, cleaning cloth & handwritten card
-                      </p>
-                    </div>
-                  </div>
-                  <label className="flex items-center gap-1.5 text-xs text-[#0d1f3c] font-bold cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={giftBox}
-                      onChange={() => setGiftBox(!giftBox)}
-                      className="accent-[#0d1f3c]"
-                    />
-                    <span>Included</span>
-                  </label>
-                </div>
+
               </div>
 
               {/* Right Column: Order Summary */}
@@ -271,7 +249,7 @@ export default function CartPage() {
                   />
                   <button
                     type="submit"
-                    className="btn-navy text-white font-bold px-4 py-2.5 rounded-xl hover:bg-[#c9a84c] hover:text-[#0d1f3c] transition-colors cursor-pointer"
+                    className="bg-[#0d1f3c] hover:bg-[#c9a84c] text-white hover:text-[#0d1f3c] font-bold px-4 py-2.5 rounded-xl transition-all duration-200 cursor-pointer shadow-xs"
                   >
                     Apply
                   </button>
