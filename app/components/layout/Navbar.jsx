@@ -621,7 +621,7 @@ export default function Navbar() {
       >
         {/* ── Top bar ── */}
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
-          <div className="flex items-center justify-between h-20 md:h-18 gap-4">
+          <div className="flex items-center justify-between h-16 sm:h-20 md:h-18 gap-2 sm:gap-4">
 
             {/* Hamburger (mobile) */}
             <button
@@ -639,7 +639,7 @@ export default function Navbar() {
                 alt="CaratLuxe Lab Diamonds"
                 width={140}
                 height={70}
-                className="h-16 w-auto object-contain group-hover:scale-[1.03] transition-transform duration-500"
+                className="h-12 sm:h-16 w-auto object-contain group-hover:scale-[1.03] transition-transform duration-500"
               />
             </Link>
 
@@ -693,43 +693,43 @@ export default function Navbar() {
             </nav>
 
             {/* Right action icons */}
-            <div className="flex items-center gap-1 shrink-0">
+            <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
               {/* Search */}
               <button
                 onClick={() => setSearchOpen((v) => !v)}
-                className="w-9 h-9 rounded-full flex items-center justify-center text-white/90 hover:text-[#c9a84c] hover:bg-white/10 transition-all cursor-pointer"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-white/90 hover:text-[#c9a84c] hover:bg-white/10 transition-all cursor-pointer"
                 aria-label="Search"
               >
-                <IoSearchOutline className="w-[19px] h-[19px]" />
+                <IoSearchOutline className="w-[18px] h-[18px] sm:w-[19px] sm:h-[19px]" />
               </button>
 
               {/* Account / Login Modal Trigger */}
               <button
                 type="button"
                 onClick={() => setLoginOpen(true)}
-                className="w-9 h-9 rounded-full flex items-center justify-center text-white/90 hover:text-[#c9a84c] hover:bg-white/10 transition-all cursor-pointer"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-white/90 hover:text-[#c9a84c] hover:bg-white/10 transition-all cursor-pointer"
                 aria-label="Login or Account"
               >
-                <IoPersonOutline className="w-[19px] h-[19px]" />
+                <IoPersonOutline className="w-[18px] h-[18px] sm:w-[19px] sm:h-[19px]" />
               </button>
 
               {/* Wishlist */}
               <Link
                 href="/wishlist"
-                className="w-9 h-9 rounded-full flex items-center justify-center text-white/90 hover:text-[#c9a84c] hover:bg-white/10 transition-all cursor-pointer"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-white/90 hover:text-[#c9a84c] hover:bg-white/10 transition-all cursor-pointer"
                 aria-label="Wishlist"
               >
-                <IoHeartOutline className="w-[19px] h-[19px]" />
+                <IoHeartOutline className="w-[18px] h-[18px] sm:w-[19px] sm:h-[19px]" />
               </Link>
 
               {/* Cart */}
               <Link
                 href="/cart"
-                className="w-9 h-9 rounded-full flex items-center justify-center text-white/90 hover:text-[#c9a84c] hover:bg-white/10 transition-all relative cursor-pointer"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-white/90 hover:text-[#c9a84c] hover:bg-white/10 transition-all relative cursor-pointer"
                 aria-label="Cart"
               >
-                <IoBagHandleOutline className="w-[19px] h-[19px]" />
-                <span className="absolute top-1 right-1 bg-[#c9a84c] text-[#0d1535] text-[9px] font-extrabold rounded-full w-4 h-4 flex items-center justify-center ring-2 ring-[#0d1f3c]">
+                <IoBagHandleOutline className="w-[18px] h-[18px] sm:w-[19px] sm:h-[19px]" />
+                <span className="absolute top-0.5 right-0.5 bg-[#c9a84c] text-[#0d1535] text-[9px] font-extrabold rounded-full w-4 h-4 flex items-center justify-center ring-2 ring-[#0d1f3c]">
                   {cartCount}
                 </span>
               </Link>

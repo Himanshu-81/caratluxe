@@ -41,8 +41,7 @@ export default function GenderDiamondShowcase() {
           {genders.map((g) => (
             <div
               key={g.id}
-              className="card-hover group relative rounded-3xl overflow-hidden border border-[#e2e8f4] bg-white flex flex-col justify-end shadow-[0_4px_25px_rgba(13,31,60,0.06)] hover:shadow-[0_15px_40px_rgba(13,31,60,0.12)] transition-all"
-              style={{ minHeight: "440px" }}
+              className="card-hover group relative rounded-3xl overflow-hidden border border-[#e2e8f4] bg-white flex flex-col justify-end shadow-[0_4px_25px_rgba(13,31,60,0.06)] hover:shadow-[0_15px_40px_rgba(13,31,60,0.12)] transition-all min-h-[380px] sm:min-h-[440px]"
             >
               {/* Background Image with Rich Navy & Soft Tint Overlay */}
               <div className="absolute inset-0">
@@ -57,24 +56,24 @@ export default function GenderDiamondShowcase() {
               </div>
 
               {/* Foreground Card Content */}
-              <div className="relative z-10 p-8 sm:p-10 text-white">
-                <span className="inline-block bg-[#c9a84c] text-[#031d42] text-[10px] font-extrabold tracking-[0.25em]  px-4 py-1.5 rounded-full mb-3.5 shadow-md">
+              <div className="relative z-10 p-6 sm:p-10 text-white">
+                <span className="inline-block bg-[#c9a84c] text-[#031d42] text-[10px] font-extrabold tracking-[0.25em] px-4 py-1.5 rounded-full mb-3.5 shadow-md">
                   {g.tag}
                 </span>
 
-                <h3 className="text-3xl sm:text-4xl font-bold mb-3 text-white tracking-tight">
+                <h3 className="text-2xl sm:text-4xl font-bold mb-3 text-white tracking-tight">
                   {g.label}
                 </h3>
-                <p className="text-white/80 text-sm leading-relaxed mb-6 max-w-md font-normal">
+                <p className="text-white/80 text-xs sm:text-sm leading-relaxed mb-6 max-w-md font-normal">
                   {g.description}
                 </p>
 
                 {/* Sub-item Tags */}
-                <div className="flex flex-wrap gap-2 mb-8">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-6 sm:mb-8">
                   {g.items.map((item) => (
                     <span
                       key={item}
-                      className="bg-white/10 backdrop-blur-md border border-white/25 text-white text-[11px] font-medium tracking-wide px-3.5 py-1 rounded-full"
+                      className="bg-white/10 backdrop-blur-md border border-white/25 text-white text-[10px] sm:text-[11px] font-medium tracking-wide px-3 py-1 rounded-full"
                     >
                       {item}
                     </span>

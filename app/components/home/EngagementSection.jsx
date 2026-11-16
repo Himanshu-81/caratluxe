@@ -27,19 +27,19 @@ export default function EngagementSection() {
               </span>
             </div>
 
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl text-white font-semibold leading-[1.12] mb-6 tracking-tight">
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl text-white font-semibold leading-[1.12] mb-5 sm:mb-6 tracking-tight">
               Make Your Forever <br />
               <span className="gold-shimmer font-bold">Unforgettable</span>
             </h2>
 
-            <p className="text-white/75 text-base sm:text-lg leading-relaxed mb-8 max-w-xl">
+            <p className="text-white/75 text-sm sm:text-lg leading-relaxed mb-6 sm:mb-8 max-w-xl">
               From hand-selecting the cut, color, and carat to customized custom settings, design a dream engagement ring with our master gemologists.
             </p>
 
-            <div className="flex flex-wrap gap-4 mb-12">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12">
               <Link
                 href="/engagement"
-                className="btn-gold text-[#031d42] font-extrabold text-xs tracking-widest  px-8 py-4 rounded-full inline-flex items-center gap-2 shadow-xl hover:scale-105 transition-transform"
+                className="btn-gold text-[#031d42] font-extrabold text-xs tracking-widest px-8 py-4 rounded-full inline-flex items-center justify-center gap-2 shadow-xl hover:scale-105 transition-transform text-center"
               >
                 Design Your Ring
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,25 +48,25 @@ export default function EngagementSection() {
               </Link>
               <Link
                 href="/consultation"
-                className="border border-[#c9a84c]/50 hover:border-[#c9a84c] text-[#e8c97a] hover:text-white text-xs font-bold tracking-widest  px-8 py-4 rounded-full transition-all bg-white/5 backdrop-blur-sm"
+                className="border border-[#c9a84c]/50 hover:border-[#c9a84c] text-[#e8c97a] hover:text-white text-xs font-bold tracking-widest px-8 py-4 rounded-full transition-all bg-white/5 backdrop-blur-sm text-center inline-flex items-center justify-center"
               >
                 Book Gemologist Call
               </Link>
             </div>
 
             {/* Metrics */}
-            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/10">
+            <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-6 sm:pt-8 border-t border-white/10">
               <div>
-                <p className="gold-shimmer text-3xl sm:text-4xl font-extrabold">10k+</p>
-                <p className="text-white/60 text-xs tracking-wider  mt-1">Happy Couples</p>
+                <p className="gold-shimmer text-2xl sm:text-4xl font-extrabold">10k+</p>
+                <p className="text-white/60 text-[10px] sm:text-xs tracking-wider mt-1">Happy Couples</p>
               </div>
               <div>
-                <p className="gold-shimmer text-3xl sm:text-4xl font-extrabold">4.9★</p>
-                <p className="text-white/60 text-xs tracking-wider  mt-1">Average Rating</p>
+                <p className="gold-shimmer text-2xl sm:text-4xl font-extrabold">4.9★</p>
+                <p className="text-white/60 text-[10px] sm:text-xs tracking-wider mt-1">Average Rating</p>
               </div>
               <div>
-                <p className="gold-shimmer text-3xl sm:text-4xl font-extrabold">100%</p>
-                <p className="text-white/60 text-xs tracking-wider  mt-1">Certified Diamonds</p>
+                <p className="gold-shimmer text-2xl sm:text-4xl font-extrabold">100%</p>
+                <p className="text-white/60 text-[10px] sm:text-xs tracking-wider mt-1">Certified Diamonds</p>
               </div>
             </div>
           </div>
@@ -83,10 +83,10 @@ export default function EngagementSection() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#031d42]/90 via-[#031d42]/30 to-transparent" />
 
-              <div className="absolute bottom-6 left-6 right-6 p-5 rounded-2xl bg-[#031d42]/80 backdrop-blur-md border border-white/20 text-white shadow-lg">
-                <span className="text-[#e8c97a] text-[10px] tracking-widest  font-bold">Custom Atelier</span>
-                <p className="text-base font-bold text-white mt-0.5">Bespoke Diamond Solitaire</p>
-                <p className="text-[11px] text-white/70 mt-1 leading-relaxed">
+              <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 p-4 sm:p-5 rounded-2xl bg-[#031d42]/85 backdrop-blur-md border border-white/20 text-white shadow-lg">
+                <span className="text-[#e8c97a] text-[10px] tracking-widest font-bold">Custom Atelier</span>
+                <p className="text-sm sm:text-base font-bold text-white mt-0.5">Bespoke Diamond Solitaire</p>
+                <p className="text-[10px] sm:text-[11px] text-white/70 mt-1 leading-relaxed">
                   3D Render & Preview before casting in 18K Hallmarked Gold or Platinum.
                 </p>
               </div>

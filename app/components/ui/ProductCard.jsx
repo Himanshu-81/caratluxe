@@ -43,7 +43,7 @@ export default function ProductCard({
         {/* Wishlist Button */}
         <button
           type="button"
-          className={`absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center transition-all shadow-sm cursor-pointer ${isWishlisted ? "opacity-100 text-red-500" : "opacity-0 group-hover:opacity-100 text-[#4a5a7a] hover:text-[#c9a84c]"
+          className={`absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center transition-all shadow-sm cursor-pointer ${isWishlisted ? "opacity-100 text-red-500" : "opacity-90 sm:opacity-0 sm:group-hover:opacity-100 text-[#4a5a7a] hover:text-[#c9a84c]"
             }`}
           aria-label="Add to Wishlist"
           onClick={(e) => {
@@ -53,9 +53,9 @@ export default function ProductCard({
           }}
         >
           {isWishlisted ? (
-            <IoHeart className="w-4 h-4 text-red-500" />
+            <IoHeart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-500" />
           ) : (
-            <IoHeartOutline className="w-4 h-4" />
+            <IoHeartOutline className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           )}
         </button>
 
@@ -86,7 +86,7 @@ export default function ProductCard({
 
       {/* Interactive Bottom Thumbnails Row (hover to switch main image) */}
       {imageList.length > 1 && (
-        <div className="px-3 pt-3 flex items-center gap-2">
+        <div className="px-2.5 sm:px-3 pt-2.5 sm:pt-3 flex items-center gap-1.5 sm:gap-2 overflow-x-auto scrollbar-hide">
           {imageList.map((thumbUrl, idx) => {
             const isSelected = activeImgIndex === idx;
             return (
@@ -95,7 +95,7 @@ export default function ProductCard({
                 type="button"
                 onMouseEnter={() => setActiveImgIndex(idx)}
                 onClick={() => setActiveImgIndex(idx)}
-                className={`relative w-10 h-10 sm:w-11 sm:h-11 rounded-lg overflow-hidden border-2 transition-all cursor-pointer shrink-0 ${isSelected
+                className={`relative w-8 h-8 sm:w-11 sm:h-11 rounded-md sm:rounded-lg overflow-hidden border-2 transition-all cursor-pointer shrink-0 ${isSelected
                   ? "border-[#c9a84c] ring-2 ring-[#c9a84c]/20 scale-105 shadow-xs"
                   : "border-[#e2e8f4] hover:border-[#c9a84c]/60 opacity-70 hover:opacity-100"
                   }`}
@@ -115,9 +115,9 @@ export default function ProductCard({
       )}
 
       {/* Info Card Content */}
-      <div className="p-4 pt-3 flex-1 flex flex-col justify-between">
+      <div className="p-3 sm:p-4 pt-2.5 sm:pt-3 flex-1 flex flex-col justify-between">
         <div>
-          <p className="text-[#8a9ab8] text-[10px] tracking-widest  font-semibold mb-1">
+          <p className="text-[#8a9ab8] text-[9px] sm:text-[10px] tracking-widest font-semibold mb-1">
             {category}
           </p>
 
@@ -128,19 +128,19 @@ export default function ProductCard({
           </Link>
         </div>
 
-        <div className="flex items-center justify-between gap-2 mt-1 pt-2 border-t border-gray-100">
-          <div className="flex items-center gap-2">
-            <span className="text-[#031d42] font-bold text-sm sm:text-base">
+        <div className="flex flex-wrap items-baseline justify-between gap-1 sm:gap-2 mt-1.5 pt-2 border-t border-gray-100">
+          <div className="flex items-baseline gap-1.5 sm:gap-2">
+            <span className="text-[#031d42] font-bold text-xs sm:text-base">
               {typeof price === "number" ? `₹${price.toLocaleString("en-IN")}` : price}
             </span>
             {originalPrice && (
-              <span className="text-[#8a9ab8] text-xs line-through">
+              <span className="text-[#8a9ab8] text-[10px] sm:text-xs line-through">
                 {typeof originalPrice === "number" ? `₹${originalPrice.toLocaleString("en-IN")}` : originalPrice}
               </span>
             )}
           </div>
           {discount && (
-            <span className="text-[10px] font-bold text-[#9a2e2e] bg-[#fdf2f2] px-1.5 py-0.5 rounded">
+            <span className="text-[9px] sm:text-[10px] font-bold text-[#9a2e2e] bg-[#fdf2f2] px-1 sm:px-1.5 py-0.5 rounded shrink-0">
               {discount}
             </span>
           )}

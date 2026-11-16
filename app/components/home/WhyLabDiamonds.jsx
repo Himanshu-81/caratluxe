@@ -90,8 +90,8 @@ export default function WhyLabDiamonds() {
               </span>
             </div>
 
-            <div className="divide-y divide-[#e2e8f4]">
-              <div className="grid grid-cols-3 px-6 py-3.5 bg-white text-[11px] font-bold tracking-wider  text-[#8a9ab8]">
+            <div className="divide-y divide-[#e2e8f4] overflow-x-auto">
+              <div className="grid grid-cols-3 px-3.5 sm:px-6 py-3 sm:py-3.5 bg-white text-[10px] sm:text-[11px] font-bold tracking-wider text-[#8a9ab8]">
                 <span>Attribute</span>
                 <span className="text-[#0d1f3c]">Lab Grown</span>
                 <span>Natural Mined</span>
@@ -99,7 +99,7 @@ export default function WhyLabDiamonds() {
               {comparisonData.map((row) => (
                 <div
                   key={row.label}
-                  className="grid grid-cols-3 px-6 py-3.5 text-xs bg-transparent hover:bg-white transition-colors"
+                  className="grid grid-cols-3 px-3.5 sm:px-6 py-2.5 sm:py-3.5 text-[11px] sm:text-xs bg-transparent hover:bg-white transition-colors"
                 >
                   <span className="font-medium text-[#0d1535]">{row.label}</span>
                   <span className="font-semibold text-[#0d1f3c] flex items-center gap-1">

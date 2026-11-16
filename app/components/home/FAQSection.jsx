@@ -79,8 +79,8 @@ export default function FAQSection() {
                 </button>
 
                 {isOpen && (
-                  <div className="mt-3.5 pr-10">
-                    <p className="text-sm text-[#4a5a7a] leading-relaxed">
+                  <div className="mt-3.5 pr-2 sm:pr-10">
+                    <p className="text-xs sm:text-sm text-[#4a5a7a] leading-relaxed">
                       {faq.answer}
                     </p>
                   </div>
@@ -91,18 +91,18 @@ export default function FAQSection() {
         </div>
 
         {/* Bottom CTA for consultation */}
-        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-[#f4f7ff] border border-[#e2e8f4] flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+        <div className="mt-8 sm:mt-12 p-5 sm:p-8 rounded-2xl bg-[#f4f7ff] border border-[#e2e8f4] flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 text-center sm:text-left">
           <div>
-            <h4 className="text-lg font-bold text-[#0d1535]">Have more questions?</h4>
+            <h4 className="text-base sm:text-lg font-bold text-[#0d1535]">Have more questions?</h4>
             <p className="text-xs sm:text-sm text-[#4a5a7a] mt-1">
               Speak directly with our in-house certified diamond specialists.
             </p>
           </div>
           <a
             href="/consultation"
-            className="btn-navy text-white text-xs font-bold tracking-widest  px-6 py-3.5 rounded-full inline-block shadow-sm shrink-0"
+            className="btn-navy text-white text-xs font-bold tracking-widest px-6 py-3.5 rounded-full inline-block shadow-sm shrink-0"
           >
-            Contact us Now →
+            Contact Concierge →
           </a>
         </div>
       </div>

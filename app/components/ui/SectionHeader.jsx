@@ -16,12 +16,12 @@ export default function SectionHeader({
           <div className="h-px w-8 bg-[#c9a84c]" />
         </div>
       )}
-      <h2 className={`text-3xl md:text-4xl lg:text-5xl leading-tight font-semibold ${dark ? "text-white" : "text-[#0d1535]"}`}>
+      <h2 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight font-semibold ${dark ? "text-white" : "text-[#0d1535]"}`}>
         {title}{" "}
         {titleHighlight && <span className="gold-shimmer">{titleHighlight}</span>}
       </h2>
       {subtitle && (
-        <p className={`mt-2 text-sm md:text-base leading-relaxed max-w-xl ${centered ? "mx-auto" : ""} ${dark ? "text-white/65" : "text-[#4a5a7a]"}`}>
+        <p className={`mt-2 text-xs sm:text-sm md:text-base leading-relaxed max-w-xl ${centered ? "mx-auto" : ""} ${dark ? "text-white/65" : "text-[#4a5a7a]"}`}>
           {subtitle}
         </p>
       )}

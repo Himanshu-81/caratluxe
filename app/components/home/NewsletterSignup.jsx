@@ -30,7 +30,9 @@ export default function NewsletterSignup() {
           <div className="h-px w-8 bg-[#c9a84c]" />
         </div>
 
-
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">
+          Join the <span className="gold-shimmer">CaratLuxe Atelier</span>
+        </h2>
 
         <p className="text-white/75 text-sm sm:text-base leading-relaxed mb-8 max-w-lg mx-auto">
           Subscribe for early VIP access to limited drops, curated diamond guides, and private seasonal previews.

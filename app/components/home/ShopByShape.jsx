@@ -117,12 +117,12 @@ export default function ShopByShape() {
           subtitle="Explore master-cut certified silhouettes designed to amplify brilliance and personal distinction."
         />
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4 mt-10">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 sm:gap-4 mt-8 sm:mt-10">
           {diamondShapes.map((shape) => (
             <Link
               key={shape.name}
               href={`/shape/${shape.name.toLowerCase()}`}
-              className="card-hover group flex flex-col items-center justify-center p-5 rounded-2xl border border-[#e2e8f4] bg-[#f4f7ff] hover:bg-white hover:border-[#c9a84c] transition-all text-center"
+              className="card-hover group flex flex-col items-center justify-center p-3.5 sm:p-5 rounded-2xl border border-[#e2e8f4] bg-[#f4f7ff] hover:bg-white hover:border-[#c9a84c] transition-all text-center"
             >
               <div className="w-14 h-14 rounded-full bg-white group-hover:bg-[#fdf6e3] border border-[#e2e8f4] group-hover:border-[#c9a84c] flex items-center justify-center text-[#031d42] group-hover:text-[#c9a84c] transition-colors mb-3 shadow-xs">
                 {shape.svg}

@@ -45,8 +45,7 @@ export default function CollectionsBanner() {
           {collections.map((col) => (
             <div
               key={col.id}
-              className="card-hover group relative rounded-3xl overflow-hidden bg-white border border-[#e2e8f4] flex flex-col justify-between shadow-[0_4px_25px_rgba(13,31,60,0.06)] hover:shadow-[0_15px_40px_rgba(13,31,60,0.12)] transition-all"
-              style={{ minHeight: "460px" }}
+              className="card-hover group relative rounded-3xl overflow-hidden bg-white border border-[#e2e8f4] flex flex-col justify-between shadow-[0_4px_25px_rgba(13,31,60,0.06)] hover:shadow-[0_15px_40px_rgba(13,31,60,0.12)] transition-all min-h-[380px] sm:min-h-[460px]"
             >
               {/* Background Image Container with Premium Gradient */}
               <div className="absolute inset-0">

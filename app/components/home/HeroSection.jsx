@@ -71,9 +71,9 @@ function SlideContent({ banner, isPriority = false }) {
 
       {/* Slide Content */}
       <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center">
-        <div className="max-w-xl text-white py-12">
+        <div className="max-w-xl text-white py-8 sm:py-12">
           {/* Eyebrow */}
-          <div className="flex items-center gap-3 mb-4 sm:mb-6">
+          <div className="flex items-center gap-3 mb-3 sm:mb-6">
             <div className="h-px w-8 bg-[#c9a84c]" />
             <span className="text-[#e8c97a] text-[10px] sm:text-xs tracking-[0.28em] font-bold">
               {banner.eyebrow}
@@ -81,7 +81,7 @@ function SlideContent({ banner, isPriority = false }) {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl text-white font-semibold leading-[1.1] mb-5 tracking-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl text-white font-semibold leading-[1.12] mb-4 sm:mb-5 tracking-tight">
             {banner.titlePrimary}{" "}
             <span className="gold-shimmer font-bold block sm:inline">
               {banner.titleHighlight}
@@ -90,15 +90,15 @@ function SlideContent({ banner, isPriority = false }) {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-white/80 text-sm sm:text-base leading-relaxed mb-8 max-w-lg">
+          <p className="text-white/80 text-xs sm:text-base leading-relaxed mb-6 sm:mb-8 max-w-lg">
             {banner.description}
           </p>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
             <Link
               href={banner.primaryCta.href}
-              className="btn-gold text-[#0d1f3c] font-bold text-xs tracking-widest px-7 py-3.5 sm:px-8 sm:py-4 rounded-full inline-flex items-center gap-2 shadow-lg hover:scale-105 transition-transform"
+              className="btn-gold text-[#0d1f3c] font-bold text-xs tracking-widest px-7 py-3.5 sm:px-8 sm:py-4 rounded-full inline-flex items-center justify-center gap-2 shadow-lg hover:scale-105 transition-transform text-center"
             >
               {banner.primaryCta.label}
               <svg
@@ -118,18 +118,18 @@ function SlideContent({ banner, isPriority = false }) {
 
             <Link
               href={banner.secondaryCta.href}
-              className="border border-white/40 hover:border-[#c9a84c] text-white hover:text-[#e8c97a] text-xs font-semibold tracking-widest px-6 py-3.5 sm:px-7 sm:py-4 rounded-full transition-all bg-white/5 backdrop-blur-sm"
+              className="border border-white/40 hover:border-[#c9a84c] text-white hover:text-[#e8c97a] text-xs font-semibold tracking-widest px-6 py-3.5 sm:px-7 sm:py-4 rounded-full transition-all bg-white/5 backdrop-blur-sm text-center inline-flex items-center justify-center"
             >
               {banner.secondaryCta.label}
             </Link>
           </div>
 
           {/* Trust Badges Bar */}
-          <div className="flex flex-wrap gap-4 sm:gap-6 mt-10 pt-6 border-t border-white/15">
+          <div className="flex flex-wrap gap-3 sm:gap-6 mt-8 sm:mt-10 pt-4 sm:pt-6 border-t border-white/15">
             {banner.badges.map((b) => (
               <div key={b.label} className="flex items-center gap-1.5 text-xs text-white/80">
                 <span className="text-[#c9a84c] font-bold">{b.icon}</span>
-                <span className="text-[11px] tracking-wider font-medium">
+                <span className="text-[10px] sm:text-[11px] tracking-wider font-medium">
                   {b.label}
                 </span>
               </div>
