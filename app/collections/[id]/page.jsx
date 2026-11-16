@@ -1,5 +1,3 @@
-"use client";
-import { use } from "react";
 import ProductsPage from "../../products/page";
 
 const collectionMap = {
@@ -10,9 +8,19 @@ const collectionMap = {
   "modern-heritage": "Mangalsutra",
 };
 
-export default function CollectionDetailPage({ params }) {
-  const resolved = params && typeof params.then === "function" ? use(params) : (params || { id: "eternal" });
-  const colId = resolved.id || "eternal";
+export function generateStaticParams() {
+  return [
+    { id: "eternal" },
+    { id: "celestial" },
+    { id: "aurora" },
+    { id: "royal-tennis" },
+    { id: "modern-heritage" },
+  ];
+}
+
+export default async function CollectionDetailPage({ params }) {
+  const resolved = await params;
+  const colId = resolved?.id || "eternal";
   const mappedCategory = collectionMap[colId] || "All Jewellery";
 
   return <ProductsPage initialCategory={mappedCategory} />;

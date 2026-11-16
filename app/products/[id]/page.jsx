@@ -1,5 +1,5 @@
 "use client";
-import { useState, use } from "react";
+import { useState, use, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import AnnouncementBar from "../../components/layout/AnnouncementBar";
@@ -143,7 +143,7 @@ const productCatalogue = {
 
 import { allProducts } from "../../data/productsData";
 
-export default function ProductDetailPage({ params }) {
+function ProductDetailContent({ params }) {
   const unwrappedParams = params && typeof params.then === "function" ? use(params) : (params || { id: "default" });
   const productId = unwrappedParams.id || "default";
 
@@ -1026,5 +1026,13 @@ export default function ProductDetailPage({ params }) {
         </div>
       )}
     </>
+  );
+}
+
+export default function ProductDetailPage(props) {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+      <ProductDetailContent {...props} />
+    </Suspense>
   );
 }
