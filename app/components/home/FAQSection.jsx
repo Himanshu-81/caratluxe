@@ -7,7 +7,7 @@ const faqs = [
   {
     question: "What is a lab-grown diamond, and is it a real diamond?",
     answer:
-      "Yes, absolutely. Lab-grown diamonds are 100% real diamonds. They possess the exact same chemical, physical, and optical composition (10 on the Mohs hardness scale) as earth-mined diamonds. Every CaratLuxe diamond comes independently verified with laser-inscribed certification from IGI or GIA.",
+      "Yes, absolutely. Lab-grown diamonds are 100% real diamonds. They possess the exact same chemical, physical, and optical composition (10 on the Mohs hardness scale) as earth-mined diamonds. Every CaratLuxe diamond comes independently verified with laser-inscribed certification from IGI or SGL.",
   },
   {
     question: "How do lab diamonds differ from moissanite or cubic zirconia?",
@@ -17,7 +17,7 @@ const faqs = [
   {
     question: "Are your diamonds certified by recognized gemological institutes?",
     answer:
-      "Yes. Every CaratLuxe lab diamond is accompanied by an authentic digital and physical grading report from international laboratories including IGI (International Gemological Institute) or GIA. The report documents the 4Cs: Cut, Color, Clarity, and Carat weight.",
+      "Yes. Every CaratLuxe lab diamond is accompanied by an authentic digital and physical grading report from international laboratories including IGI (International Gemological Institute) or SGL. The report documents the 4Cs: Cut, Color, Clarity, and Carat weight.",
   },
   {
     question: "What is your 100% Lifetime Upgrade & Buyback policy?",

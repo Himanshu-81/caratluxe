@@ -252,7 +252,7 @@ export default function EducationPage() {
                   Global Gold Standard
                 </span>
                 <h3 className="font-serif text-3xl font-bold text-[#0d1f3c] mt-1 mb-3">
-                  IGI & GIA Laser Inscription
+                  IGI & SGL Laser Inscription
                 </h3>
                 <p className="text-xs sm:text-sm text-[#526382] leading-relaxed">
                   Every CaratLuxe solitaire is graded under strict laboratory protocols.
@@ -273,7 +273,7 @@ export default function EducationPage() {
                   <span className="text-[#c9a84c] text-3xl font-bold mb-2 block">2</span>
                   <h4 className="font-bold text-[#0d1f3c] text-sm mb-1">Online Dossier</h4>
                   <p className="text-xs text-[#6e7d9b]">
-                    Instantly verifiable on official IGI.org or GIA.edu portals.
+                    Instantly verifiable on official IGI.org or SGL.edu portals.
                   </p>
                 </div>
                 <div className="bg-[#f7f9fd] p-6 rounded-2xl border border-[#e2e8f4] text-center">

@@ -846,7 +846,7 @@ function ProductDetailContent({ params }) {
                     </div>
                     <div className="bg-white p-3 rounded-xl border border-[#e8edf7] text-center">
                       <span className="font-serif font-extrabold text-base text-[#0d1f3c] tracking-wider block">
-                        GIA
+                        SGL
                       </span>
                       <span className="text-[10px] text-[#8a9ab8] block">Laser Inscribed</span>
                     </div>
@@ -932,7 +932,7 @@ function ProductDetailContent({ params }) {
               <span className="text-xs font-bold">
                 100% Certified Diamonds
               </span>
-              <span className="text-[10px] text-white/60">GIA & IGI Dossier Included</span>
+              <span className="text-[10px] text-white/60">SGL & IGI Dossier Included</span>
             </div>
             <div className="flex flex-col items-center">
               <span className="text-[#c9a84c] text-xl font-bold mb-1">◈</span>
@@ -972,7 +972,7 @@ function ProductDetailContent({ params }) {
               <IoClose className="w-5 h-5" />
             </button>
             <h3 className="font-serif text-xl font-bold text-[#0d1f3c] mb-2">
-              Atelier Ring Size Guide
+              Ring Size Guide
             </h3>
             <p className="text-xs text-[#526382] mb-4">
               Indian standard ring sizing (inner diameter in millimetres):
@@ -1012,16 +1012,25 @@ function ProductDetailContent({ params }) {
             </div>
 
             <p className="text-[11px] text-[#6e7d9b] leading-relaxed mb-4">
-              ✦ Remember: If the size isn't 100% perfect upon receipt, we provide
-              complimentary insured door-to-door resizing within 30 days.
+              ✦ Remember: If the size isn't 100% perfect, we provide
+              free door-to-door resizing within 30 days.
             </p>
 
-            <button
-              onClick={() => setSizeModalOpen(false)}
-              className="w-full btn-navy text-white text-xs font-bold py-3 rounded-xl"
-            >
-              Close Guide
-            </button>
+            <div className="space-y-2">
+              <button
+                onClick={() => setSizeModalOpen(false)}
+                className="w-full btn-navy text-white text-xs font-bold py-3 rounded-xl cursor-pointer"
+              >
+                Close Guide
+              </button>
+              <Link
+                href="/ring-size-guide"
+                onClick={() => setSizeModalOpen(false)}
+                className="block text-center text-xs font-semibold text-[#c9a84c] hover:underline pt-1"
+              >
+                View Full Measuring Guide & Chart &rarr;
+              </Link>
+            </div>
           </div>
         </div>
       )}

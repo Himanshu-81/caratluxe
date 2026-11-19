@@ -224,7 +224,7 @@ function ProductsContent({ initialCategory }) {
               eyebrow="Signature Atelier"
               title={selectedCategory === "All Jewellery" ? "Certified Diamond" : selectedCategory}
               titleHighlight={selectedCategory === "All Jewellery" ? "Jewellery" : "Collection"}
-              subtitle={`Explore certified lab-grown diamond ${selectedCategory.toLowerCase()} handcrafted in 18K solid gold & 950 platinum with GIA & IGI certifications.`}
+              subtitle={`Explore certified lab-grown diamond ${selectedCategory.toLowerCase()} handcrafted in 18K solid gold & 950 platinum with SGL & IGI certifications.`}
             />
           </div>
         </section>

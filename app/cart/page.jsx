@@ -125,7 +125,7 @@ export default function CartPage() {
             Your Luxury Shopping Tote
           </h1>
           <p className="text-xs text-[#526382] mb-8">
-            Every creation is insured during transit and accompanied by its official IGI / GIA dossier.
+            Every creation is insured during transit and accompanied by its official IGI / SGL dossier.
           </p>
 
           {cartItems.length === 0 ? (

@@ -43,7 +43,7 @@ const banners = [
     primaryCta: { label: "Learn 4Cs", href: "/education" },
     secondaryCta: { label: "View Bestsellers", href: "/shop" },
     badges: [
-      { icon: "✦", label: "GIA Inscription" },
+      { icon: "✦", label: "SGL Inscription" },
       { icon: "◈", label: "Renewable Energy" },
       { icon: "◇", label: "100% Value Credit" },
       { icon: "✧", label: "Direct Atelier" },

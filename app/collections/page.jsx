@@ -104,9 +104,8 @@ export default function CollectionsPage() {
             {collections.map((col, idx) => (
               <div
                 key={col.id}
-                className={`card-hover group relative rounded-3xl overflow-hidden bg-white border border-[#e2e8f4] flex flex-col justify-between shadow-xs ${
-                  idx === 0 ? "md:col-span-2 min-h-[480px]" : "min-h-[460px]"
-                }`}
+                className={`card-hover group relative rounded-3xl overflow-hidden bg-white border border-[#e2e8f4] flex flex-col justify-between shadow-xs ${idx === 0 ? "md:col-span-2 min-h-[480px]" : "min-h-[460px]"
+                  }`}
               >
                 {/* Background Image */}
                 <div className="absolute inset-0">
@@ -164,7 +163,7 @@ export default function CollectionsPage() {
               <span className="text-[#c9a84c] text-2xl font-bold mb-3 block">✦</span>
               <h4 className="font-serif text-lg font-bold mb-2">100% Conflict-Free Diamond Fire</h4>
               <p className="text-xs text-white/70 leading-relaxed">
-                Created through plasma deposition reactors using renewable energy, certified by IGI and GIA dossiers.
+                Created through plasma deposition reactors using renewable energy, certified by IGI and SGL dossiers.
               </p>
             </div>
             <div className="p-6">

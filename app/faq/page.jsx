@@ -29,7 +29,7 @@ const faqSections = [
     items: [
       {
         q: "What certification accompanies CaratLuxe jewellery?",
-        a: "All our solitaires above 0.50 CT are independently graded and certified by leading gemological institutes such as IGI (International Gemological Institute) or GIA. Each certificate includes complete 4Cs verification.",
+        a: "All our solitaires above 0.50 CT are independently graded and certified by leading gemological institutes such as IGI (International Gemological Institute) or SGL. Each certificate includes complete 4Cs verification.",
       },
       {
         q: "Is there a laser inscription on the diamond?",

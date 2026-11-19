@@ -121,7 +121,7 @@ export default function WhyLabDiamonds() {
                 />
               </div>
               <div>
-                <p className="text-xs font-bold text-[#0d1535]">IGI & GIA Graded Inscription</p>
+                <p className="text-xs font-bold text-[#0d1535]">IGI & SGL Graded Inscription</p>
                 <p className="text-[11px] text-[#4a5a7a] mt-0.5">Every diamond includes laser inscription on the girdle for security.</p>
               </div>
             </div>

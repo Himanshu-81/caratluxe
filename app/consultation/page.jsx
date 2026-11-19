@@ -61,7 +61,7 @@ export default function ConsultationPage() {
                   What to Expect
                 </h3>
                 <p className="text-white/70 text-sm mb-6 leading-relaxed">
-                  Every 30-minute consultation is complimentary, private, and conducted by certified IGI & GIA diamond specialists.
+                  Every 30-minute consultation is complimentary, private, and conducted by certified IGI & SGL diamond specialists.
                 </p>
 
                 <div className="space-y-4">

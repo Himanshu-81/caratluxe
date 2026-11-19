@@ -20,10 +20,10 @@ const footerNavigation = {
     { label: "Diamond Care", href: "/education" },
   ],
   CustomerCare: [
-    { label: "Contact Concierge", href: "/contact" },
+    { label: "Contact Us", href: "/contact" },
     { label: "Track Your Order", href: "/orders" },
     { label: "30-Day Returns", href: "/faq" },
-    { label: "Ring Size Guide", href: "/products/default" },
+    { label: "Ring Size Guide", href: "/ring-size-guide" },
     { label: "Frequently Asked Questions", href: "/faq" },
   ],
 };
@@ -159,11 +159,11 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 5: Flagship Atelier & Contact (3 cols) */}
+          {/* Col 5: Visit Us & Contact (3 cols) */}
           <div className="sm:col-span-2 lg:col-span-3">
             <h4 className="text-[#e8c97a] text-xs tracking-[0.22em] font-bold mb-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#c9a84c]" />
-              Flagship Atelier
+              Visit Us
             </h4>
             <div className="space-y-3 text-xs text-white/80">
               <div className="flex items-start gap-2.5">
@@ -189,7 +189,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-[#25D366] text-white/90 font-semibold transition-colors"
                 >
-                  WhatsApp Concierge
+                  WhatsApp Us
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
